@@ -30,8 +30,7 @@ public class Vraag {
 		this.onderwerp = onderwerp;
 	}
 
-	@Override
-	public String toString() {
+	public String toString(int vraag_id) {
 		String vraag = "Vraag " + this.vraag_id + ": " + this.vraag + "\n Onderwerp: " + this.onderwerp + ".";
 		return vraag;
 	}
