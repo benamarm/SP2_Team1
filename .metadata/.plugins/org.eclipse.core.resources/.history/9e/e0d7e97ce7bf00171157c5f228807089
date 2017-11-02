@@ -1,0 +1,16 @@
+package logic;
+
+import java.util.Date;
+
+public class Event 
+{
+private Opleiding opleiding;
+private Adres adres;
+private Date startDatum;
+private Date eindDatum;
+private Personeel aanmaker;
+private int minAantal = 1;
+private int maxAantal = 9999;
+
+
+}
