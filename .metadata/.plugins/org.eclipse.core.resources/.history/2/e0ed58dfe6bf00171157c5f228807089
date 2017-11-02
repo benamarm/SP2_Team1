@@ -1,0 +1,9 @@
+package logic;
+
+import.java.Date;
+
+public class Event 
+{
+Opleiding opleiding;
+
+}
