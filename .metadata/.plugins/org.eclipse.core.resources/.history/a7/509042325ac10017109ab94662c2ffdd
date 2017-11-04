@@ -12,8 +12,9 @@ public class Personeel {
 	private String titel;
 	private String prefix;
 	private Date gebdate;
-	/* Ik gebruik hier geen ArrayList van adressen omdat we het adres krijgen van de ERP 
-	   en daar lijkt elk personeelslid maar 1 adres te kunnen hebben */
+	/*Ik gebruik hier geen ArrayList van adressen omdat we het adres krijgen van de ERP 
+	 * en daar lijkt elk personeelslid maar 1 adres te kunnen hebben
+	 */
 	private Adres adres;
 	private int telefoon;
 	private String photopath;
