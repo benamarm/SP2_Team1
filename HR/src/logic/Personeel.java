@@ -1,11 +1,11 @@
 package logic;
+
 import java.util.ArrayList;
 import java.sql.Date;
 
 public class Personeel {
 	private int pers_id;
 	private String loginEmail;
-	//private Departement dept;
 	private ArrayList<Vaardigheid> vaardigheden;
 	private String vnaam;
 	private String naam;
@@ -16,10 +16,9 @@ public class Personeel {
 	private int telefoon;
 	private String photopath;
 	private String notes;
-	
+
 	public Personeel(int pers_id, String loginEmail, String vnaam, String naam, String titel, String prefix,
 			Date gebdate, Adres adres, int telefoon) {
-		super();
 		this.pers_id = pers_id;
 		this.loginEmail = loginEmail;
 		this.vnaam = vnaam;
@@ -137,9 +136,6 @@ public class Personeel {
 				+ "]";
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -153,9 +149,6 @@ public class Personeel {
 		return result;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -191,10 +184,5 @@ public class Personeel {
 			return false;
 		return true;
 	}
-	
-	
-	
-	
-	
-	
+
 }

@@ -1,16 +1,15 @@
 package logic;
 
 public class Adres {
-	
+
 	protected String straat;
 	protected int huisnummer;
 	protected int busnummer;
 	protected String postcode;
 	protected String woonplaats;
 	protected String land;
-	
-	Adres(String straat, int huisnummer, int busnummer, String postcode, String woonplaats, String land)
-	{
+
+	Adres(String straat, int huisnummer, int busnummer, String postcode, String woonplaats, String land) {
 		this.straat = straat;
 		this.huisnummer = huisnummer;
 		this.busnummer = busnummer;
@@ -66,11 +65,11 @@ public class Adres {
 	public void setLand(String land) {
 		this.land = land;
 	}
-	
-	public String toString()
-	{
-		String gegevens = "Deze persoon heeft als adres: " + this.straat + " " + this.huisnummer + "busnummer: " + this.busnummer + "\n" + this.postcode + " " + this.woonplaats + "\n" + this.land;
-		System.out.println(gegevens);
+
+	@Override
+	public String toString() {
+		String gegevens = straat + " " + huisnummer + " " + busnummer + "\n" + postcode + " " + woonplaats + "\n"
+				+ land;
 		return gegevens;
 	}
 

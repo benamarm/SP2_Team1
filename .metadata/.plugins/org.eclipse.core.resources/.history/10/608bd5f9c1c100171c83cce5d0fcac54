@@ -1,0 +1,8 @@
+package logic;
+
+public class Survey {
+
+	private int survey_id;
+	private int opleiding_id;
+	private ArrayList<Vraag> vragen;
+}

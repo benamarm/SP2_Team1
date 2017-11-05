@@ -1,0 +1,71 @@
+package logic;
+
+public class Vraag {
+	private int vraag_id;
+	private String vraag;
+	private String onderwerp;
+	
+	public Vraag(int vraag_id, String vraag, String onderwerp) {
+		this.vraag_id = vraag_id;
+		this.vraag = vraag;
+		this.onderwerp = onderwerp;
+	}
+	
+	public int getVraag_id() {
+		return vraag_id;
+	}
+	public void setVraag_id(int vraag_id) {
+		this.vraag_id = vraag_id;
+	}
+	public String getVraag() {
+		return vraag;
+	}
+	public void setVraag(String vraag) {
+		this.vraag = vraag;
+	}
+	public String getOnderwerp() {
+		return onderwerp;
+	}
+	public void setOnderwerp(String onderwerp) {
+		this.onderwerp = onderwerp;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((onderwerp == null) ? 0 : onderwerp.hashCode());
+		result = prime * result + ((vraag == null) ? 0 : vraag.hashCode());
+		result = prime * result + vraag_id;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Vraag other = (Vraag) obj;
+		if (onderwerp == null) {
+			if (other.onderwerp != null)
+				return false;
+		} else if (!onderwerp.equals(other.onderwerp))
+			return false;
+		if (vraag == null) {
+			if (other.vraag != null)
+				return false;
+		} else if (!vraag.equals(other.vraag))
+			return false;
+		if (vraag_id != other.vraag_id)
+			return false;
+		return true;
+	}
+
+	public String toString() {
+		return vraag = "Vraag " + vraag_id + ": " + vraag + "\n Onderwerp: " + onderwerp;
+	}	
+	
+}

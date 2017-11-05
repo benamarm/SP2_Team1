@@ -1,0 +1,6 @@
+package logic;
+
+public class Opleiding {
+
+	private int opleiding_id;
+}
