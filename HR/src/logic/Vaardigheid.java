@@ -1,7 +1,5 @@
 package logic;
 
-import java.util.ArrayList;
-import java.sql.Date;
 
 public class Vaardigheid {
 	private int vaard_id;
