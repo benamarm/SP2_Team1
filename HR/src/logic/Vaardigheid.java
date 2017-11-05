@@ -1,15 +1,12 @@
 package logic;
 
-import java.util.ArrayList;
-import java.sql.Date;
 
 public class Vaardigheid {
 	private int vaard_id;
 	private String vaardnaam;
 	private String beschrijving;
 	private Boolean certificaat = false;
-	
-	
+
 	public Vaardigheid(int vaard_id, String vaardnaam, String beschrijving) {
 		super();
 		this.vaard_id = vaard_id;
@@ -49,9 +46,6 @@ public class Vaardigheid {
 		this.certificaat = certificaat;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -62,9 +56,6 @@ public class Vaardigheid {
 		return result;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -88,8 +79,5 @@ public class Vaardigheid {
 			return false;
 		return true;
 	}
-	
-	
-	
-	
+
 }

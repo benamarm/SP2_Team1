@@ -1,11 +1,11 @@
 package logic;
+
 import java.util.ArrayList;
 import java.sql.Date;
 
 public class Personeel {
 	private int pers_id;
 	private String loginEmail;
-	//private Departement dept;
 	private ArrayList<Vaardigheid> vaardigheden;
 	private String vnaam;
 	private String naam;
@@ -17,8 +17,8 @@ public class Personeel {
 	private Adres adres;
 	private int telefoon;
 	private String photopath;
-	private String notes;
-	
+    private String notes;
+
 	public Personeel(int pers_id, String loginEmail, String vnaam, String naam, String titel, String prefix,
 			Date gebdate, Adres adres, int telefoon) {
 		super();
@@ -32,6 +32,60 @@ public class Personeel {
 		this.gebdate = gebdate;
 		this.adres = adres;
 		this.telefoon = telefoon;
+	}
+	
+	public Boolean addVaardigheid(Vaardigheid vaard) {
+		//checken op null-value parameter
+		if(vaard != null) {
+			//itereren door de vaardigheden
+			for(Vaardigheid v: vaardigheden) {
+				//Voor elke vaardigheid nagaan of die gelijk is aan de parameter
+				if (vaard.equals(v) || vaard.hashCode() == v.hashCode()) {
+					//zoja, return false want vaardigheid bestaat al;
+					return false;
+				}
+			}
+			//Alles lijkt oké te zijn, we kunnen die nu toevoegen en tre returnen.
+			vaardigheden.add(vaard);
+			return true;
+		}
+		//tot hier zou deze functie normaal gezien nooit komen
+		//Maar we ometen een return value garanderen
+		return false;
+	}
+
+	public Boolean removeVaardigheid(Vaardigheid vaard) {
+		//checken op null-value parameter
+		if(vaard != null) {
+			//itereren door de vaardigheden
+			for(int i=0; i< vaardigheden.size();i++) {
+				//Voor elke vaardigheid nagaan of die gelijk is aan de parameter
+				if (vaardigheden.get(i).equals(vaard) || vaardigheden.get(i).hashCode() == vaard.hashCode()) {
+					//zoja, delete deze uit de lijst en return true
+					vaardigheden.remove(i);
+					return false;
+				}
+			}
+		}
+		//Geen vaardigheid die overeenkomt met de parameter gevonden, return false
+		return false;
+	}
+
+	public Boolean certify(Vaardigheid vaard) {
+		//checken op null-value parameter
+				if(vaard != null) {
+					//itereren door de vaardigheden
+					for(Vaardigheid v: vaardigheden) {
+						//Voor elke vaardigheid nagaan of die gelijk is aan de parameter
+						if (vaard.equals(v) || vaard.hashCode() == v.hashCode()) {
+							//zoja, certifieer en return true;
+							vaard.setCertificaat(true);
+							return false;
+						}
+					}
+				}
+		//Vaardigheid niet gevonden, return false
+		return false;
 	}
 
 	public int getPers_id() {
@@ -52,10 +106,6 @@ public class Personeel {
 
 	public ArrayList<Vaardigheid> getVaardigheden() {
 		return vaardigheden;
-	}
-
-	public void addVaardigheid(Vaardigheid v) {
-		vaardigheden.add(v);
 	}
 	
 	public void setVaardigheden(ArrayList<Vaardigheid> vaardigheden) {
@@ -144,9 +194,6 @@ public class Personeel {
 				+ "]";
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -160,9 +207,6 @@ public class Personeel {
 		return result;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -198,10 +242,5 @@ public class Personeel {
 			return false;
 		return true;
 	}
-	
-	
-	
-	
-	
-	
+
 }
