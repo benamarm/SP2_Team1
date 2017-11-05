@@ -1,0 +1,12 @@
+package logic;
+
+public class Boek {
+
+	private int boek_id;
+	private String titel;
+	private String beschrijving;
+	private String auteur;
+	private String isbn;
+	private String taal;
+	private String uitgeverij;
+}
