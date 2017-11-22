@@ -15,7 +15,7 @@
 
         <!-- Database connection settings -->
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="connection.url">jdbc:mysql://dt5.ehb.be:3306/SP2Team01</property>
+        <property name="connection.url">jdbc:mysql://dt5.ehb.be:3306/SP2Team01?useSSL=false</property>
         <property name="connection.username">SP2Team01</property>
         <property name="connection.password">upzldA</property>
 
@@ -33,9 +33,9 @@
 
         <!-- Drop and re-create the database schema on startup -->
         <property name="hbm2ddl.auto">update</property>
-
-        <!-- Names the annotated entity class -->
-        <mapping class="PACKAGENAME.CLASSNAME"/>
+        
+        <!-- Needed in order to use getCurrentSession instead of openSession -->
+        <property name="hibernate.current_session_context_class">thread</property>
 
     </session-factory>
 

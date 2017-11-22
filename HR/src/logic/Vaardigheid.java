@@ -1,85 +1,76 @@
 package logic;
 
-import java.util.ArrayList;
-import java.sql.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
+import javax.persistence.CascadeType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-public class Vaardigheid {
-	private int vaard_id;
-	private String vaardnaam;
-	private String beschrijving;
-	private Boolean certificaat = false;
+@Entity
+@Table(name = "vaardigheden", catalog = "SP2Team01")
+public class Vaardigheid implements java.io.Serializable {
 
-	public Vaardigheid(int vaard_id, String vaardnaam, String beschrijving) {
-		super();
-		this.vaard_id = vaard_id;
-		this.vaardnaam = vaardnaam;
-		this.beschrijving = beschrijving;
+	private static final long serialVersionUID = 3287611026780952906L;
+	private Integer vaardigheidId;
+	private Event event;
+	private Personeel personeel;
+	private boolean checked;
+	private byte[] certificaat;
+
+	public Vaardigheid() {
 	}
 
-	public int getVaard_id() {
-		return vaard_id;
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "vaardigheid_id", unique = true, nullable = false)
+	public Integer getVaardigheidId() {
+		return this.vaardigheidId;
 	}
 
-	public void setVaard_id(int vaard_id) {
-		this.vaard_id = vaard_id;
+	public void setVaardigheidId(Integer vaardigheidId) {
+		this.vaardigheidId = vaardigheidId;
 	}
 
-	public String getVaardnaam() {
-		return vaardnaam;
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "event_id", nullable = false)
+	public Event getEvent() {
+		return this.event;
 	}
 
-	public void setVaardnaam(String vaardnaam) {
-		this.vaardnaam = vaardnaam;
+	public void setEvent(Event event) {
+		this.event = event;
 	}
 
-	public String getBeschrijving() {
-		return beschrijving;
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "pers_id", nullable = false)
+	public Personeel getPersoneel() {
+		return this.personeel;
 	}
 
-	public void setBeschrijving(String beschrijving) {
-		this.beschrijving = beschrijving;
+	public void setPersoneel(Personeel personeel) {
+		this.personeel = personeel;
 	}
 
-	public Boolean getCertificaat() {
-		return certificaat;
+	@Column(name = "checked", nullable = false)
+	public boolean isChecked() {
+		return this.checked;
 	}
 
-	public void setCertificaat(Boolean certificaat) {
+	public void setChecked(boolean checked) {
+		this.checked = checked;
+	}
+
+	@Column(name = "certificaat")
+	public byte[] getCertificaat() {
+		return this.certificaat;
+	}
+
+	public void setCertificaat(byte[] certificaat) {
 		this.certificaat = certificaat;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((beschrijving == null) ? 0 : beschrijving.hashCode());
-		result = prime * result + vaard_id;
-		result = prime * result + ((vaardnaam == null) ? 0 : vaardnaam.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (!(obj instanceof Vaardigheid))
-			return false;
-		Vaardigheid other = (Vaardigheid) obj;
-		if (beschrijving == null) {
-			if (other.beschrijving != null)
-				return false;
-		} else if (!beschrijving.equals(other.beschrijving))
-			return false;
-		if (vaard_id != other.vaard_id)
-			return false;
-		if (vaardnaam == null) {
-			if (other.vaardnaam != null)
-				return false;
-		} else if (!vaardnaam.equals(other.vaardnaam))
-			return false;
-		return true;
 	}
 
 }

@@ -7,17 +7,17 @@ import javafx.scene.text.Text;
 public class MainAppController {
 
 	@FXML
-	private Text tUsername;
+	private Text tName;
 	@FXML
 	private Text tLogout;
-	
+
 	@FXML
 	private void logOut() throws Exception {
 		Main.setRoot(FXMLLoader.load(getClass().getResource("Login.fxml")));
 	}
-	
-	public void setUsername(String s) {
-		tUsername.setText(s);
+
+	public void setName(String name) {
+		tName.setText(name);
 	}
-	
+
 }

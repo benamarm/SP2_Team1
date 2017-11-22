@@ -15,7 +15,7 @@
       </Label>
       <TextFlow layoutX="516.0" layoutY="38.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="27.0" prefWidth="253.0" textAlignment="RIGHT">
          <children>
-            <Text fx:id="tUsername" strokeType="OUTSIDE" strokeWidth="0.0">
+            <Text fx:id="tName" strokeType="OUTSIDE" strokeWidth="0.0">
                <font>
                   <Font size="14.0" />
                </font>

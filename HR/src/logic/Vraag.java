@@ -1,77 +1,65 @@
 package logic;
 
-public class Vraag {
-	private int vraag_id;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
+import javax.persistence.CascadeType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "vragen", catalog = "SP2Team01")
+public class Vraag implements java.io.Serializable {
+
+	private static final long serialVersionUID = 1448250560970047486L;
+	private Integer vraagId;
+	private Opleiding opleiding;
 	private String vraag;
-	private String onderwerp;
+	private int inx;
 
-	public Vraag(int vraag_id, String vraag, String onderwerp) {
-		this.vraag_id = vraag_id;
-		this.vraag = vraag;
-		this.onderwerp = onderwerp;
+	public Vraag() {
 	}
 
-	public int getVraag_id() {
-		return vraag_id;
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "vraag_id", unique = true, nullable = false)
+	public Integer getVraagId() {
+		return this.vraagId;
 	}
 
-	public void setVraag_id(int vraag_id) {
-		this.vraag_id = vraag_id;
+	public void setVraagId(Integer vraagId) {
+		this.vraagId = vraagId;
 	}
 
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "opleiding_id", nullable = false)
+	public Opleiding getOpleiding() {
+		return this.opleiding;
+	}
+
+	public void setOpleiding(Opleiding opleiding) {
+		this.opleiding = opleiding;
+	}
+
+	@Column(name = "vraag", nullable = false, length = 200)
 	public String getVraag() {
-		return vraag;
+		return this.vraag;
 	}
 
 	public void setVraag(String vraag) {
 		this.vraag = vraag;
 	}
 
-	public String getOnderwerp() {
-		return onderwerp;
+	@Column(name = "inx", nullable = false)
+	public int getInx() {
+		return this.inx;
 	}
 
-	public void setOnderwerp(String onderwerp) {
-		this.onderwerp = onderwerp;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((onderwerp == null) ? 0 : onderwerp.hashCode());
-		result = prime * result + ((vraag == null) ? 0 : vraag.hashCode());
-		result = prime * result + vraag_id;
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Vraag other = (Vraag) obj;
-		if (onderwerp == null) {
-			if (other.onderwerp != null)
-				return false;
-		} else if (!onderwerp.equals(other.onderwerp))
-			return false;
-		if (vraag == null) {
-			if (other.vraag != null)
-				return false;
-		} else if (!vraag.equals(other.vraag))
-			return false;
-		if (vraag_id != other.vraag_id)
-			return false;
-		return true;
-	}
-
-	@Override
-	public String toString() {
-		return vraag = "Vraag " + vraag_id + ": " + vraag + "\n Onderwerp: " + onderwerp;
+	public void setInx(int inx) {
+		this.inx = inx;
 	}
 
 }
