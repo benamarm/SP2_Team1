@@ -1,76 +1,71 @@
 package logic;
 
-public class Adres {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-	protected String straat;
-	protected int huisnummer;
-	protected int busnummer;
-	protected String postcode;
-	protected String woonplaats;
-	protected String land;
+@Entity
+@Table(name = "adressen", catalog = "SP2Team01")
+public class Adres implements java.io.Serializable {
 
-	Adres(String straat, int huisnummer, int busnummer, String postcode, String woonplaats, String land) {
-		this.straat = straat;
-		this.huisnummer = huisnummer;
-		this.busnummer = busnummer;
-		this.postcode = postcode;
-		this.woonplaats = woonplaats;
-		this.land = land;
+	private static final long serialVersionUID = 5715835891205576913L;
+	private Integer adresId;
+	private String straat;
+	private int nummer;
+	private int postcode;
+	private String land;
+
+	public Adres() {
 	}
 
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "adres_id", unique = true, nullable = false)
+	public Integer getAdresId() {
+		return this.adresId;
+	}
+
+	public void setAdresId(Integer adresId) {
+		this.adresId = adresId;
+	}
+
+	@Column(name = "straat", nullable = false, length = 30)
 	public String getStraat() {
-		return straat;
+		return this.straat;
 	}
 
 	public void setStraat(String straat) {
 		this.straat = straat;
 	}
 
-	public int getHuisnummer() {
-		return huisnummer;
+	@Column(name = "nummer", nullable = false)
+	public int getNummer() {
+		return this.nummer;
 	}
 
-	public void setHuisnummer(int huisnummer) {
-		this.huisnummer = huisnummer;
+	public void setNummer(int nummer) {
+		this.nummer = nummer;
 	}
 
-	public int getBusnummer() {
-		return busnummer;
+	@Column(name = "postcode", nullable = false)
+	public int getPostcode() {
+		return this.postcode;
 	}
 
-	public void setBusnummer(int busnummer) {
-		this.busnummer = busnummer;
-	}
-
-	public String getPostcode() {
-		return postcode;
-	}
-
-	public void setPostcode(String postcode) {
+	public void setPostcode(int postcode) {
 		this.postcode = postcode;
 	}
 
-	public String getWoonplaats() {
-		return woonplaats;
-	}
-
-	public void setWoonplaats(String woonplaats) {
-		this.woonplaats = woonplaats;
-	}
-
+	@Column(name = "land", nullable = false, length = 30)
 	public String getLand() {
-		return land;
+		return this.land;
 	}
 
 	public void setLand(String land) {
 		this.land = land;
-	}
-
-	@Override
-	public String toString() {
-		String gegevens = straat + " " + huisnummer + " " + busnummer + "\n" + postcode + " " + woonplaats + "\n"
-				+ land;
-		return gegevens;
 	}
 
 }

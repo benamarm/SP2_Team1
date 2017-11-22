@@ -1,98 +1,89 @@
 package logic;
 
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
-public class Opleiding {
+@Entity
+@Table(name = "opleidingen", catalog = "SP2Team01")
+public class Opleiding implements java.io.Serializable {
 
-	private int opleiding_id;
-	private String titel;
+	private static final long serialVersionUID = -8328719132114270840L;
+	private Integer opleidingId;
+	private String naam;
 	private String beschrijving;
-	private String naam_trainer;
-	private ArrayList<Boek> cursussen = new ArrayList<Boek>();
-	private Survey survey;
+	private Set<Boek> boeken = new HashSet<Boek>(0);
+	private Set<Vraag> vragen = new HashSet<Vraag>(0);
+	private Set<Event> events = new HashSet<Event>(0);
 
-	public Opleiding(int opleiding_id, String titel, String beschrijving, String naam_trainer, Survey survey) {
-		super();
-		this.opleiding_id = opleiding_id;
-		this.titel = titel;
-		this.beschrijving = beschrijving;
-		this.naam_trainer = naam_trainer;
-		this.survey = survey;
+	public Opleiding() {
 	}
 
-	public int getOpleiding_id() {
-		return opleiding_id;
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "opleiding_id", unique = true, nullable = false)
+	public Integer getOpleidingId() {
+		return this.opleidingId;
 	}
 
-	public void setOpleiding_id(int opleiding_id) {
-		this.opleiding_id = opleiding_id;
+	public void setOpleidingId(Integer opleidingId) {
+		this.opleidingId = opleidingId;
 	}
 
-	public String getTitel() {
-		return titel;
+	@Column(name = "naam", nullable = false, length = 65535)
+	public String getNaam() {
+		return this.naam;
 	}
 
-	public void setTitel(String titel) {
-		this.titel = titel;
+	public void setNaam(String naam) {
+		this.naam = naam;
 	}
 
+	@Column(name = "beschrijving", nullable = false, length = 65535)
 	public String getBeschrijving() {
-		return beschrijving;
+		return this.beschrijving;
 	}
 
 	public void setBeschrijving(String beschrijving) {
 		this.beschrijving = beschrijving;
 	}
 
-	public String getNaam_trainer() {
-		return naam_trainer;
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "opleiding_boek", catalog = "SP2Team01", joinColumns = @JoinColumn(name = "opleiding_id", nullable = false, updatable = false), inverseJoinColumns = @JoinColumn(name = "boek_id", nullable = false, updatable = false))
+	public Set<Boek> getBoeken() {
+		return this.boeken;
 	}
 
-	public void setNaam_trainer(String naam_trainer) {
-		this.naam_trainer = naam_trainer;
+	public void setBoeken(Set<Boek> boeken) {
+		this.boeken = boeken;
 	}
 
-	public ArrayList<Boek> getCursussen() {
-		return cursussen;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "opleiding")
+	public Set<Vraag> getVragen() {
+		return this.vragen;
 	}
 
-	public void setCursussen(ArrayList<Boek> cursussen) {
-		this.cursussen = cursussen;
+	public void setVragen(Set<Vraag> vragen) {
+		this.vragen = vragen;
 	}
 
-	public Survey getSurvey() {
-		return survey;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "opleiding")
+	public Set<Event> getEvents() {
+		return this.events;
 	}
 
-	public void setSurvey(Survey survey) {
-		this.survey = survey;
-	}
-
-	public void addBoek(Boek b) {
-
-		if (b != null) {
-
-			// Return indien boek al bestaat
-			for (Boek boek : cursussen) {
-				if (boek.equals(b))
-					return;
-			}
-			cursussen.add(b);
-		}
-	}
-
-	public boolean deleteBoek(int index) {
-		if (index >= 0 && index < cursussen.size()) {
-			cursussen.remove(index);
-			return true;
-		}
-		return false;
-	}
-
-	@Override
-	public String toString() {
-		return "Opleiding [opleiding_id=" + opleiding_id + ", titel=" + titel + ", beschrijving=" + beschrijving
-				+ ", naam_trainer=" + naam_trainer + ", cursussen=" + cursussen + ", survey=" + survey + "]";
+	public void setEvents(Set<Event> events) {
+		this.events = events;
 	}
 
 }

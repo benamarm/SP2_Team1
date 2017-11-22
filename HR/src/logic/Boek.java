@@ -1,143 +1,105 @@
 package logic;
 
-public class Boek {
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import static javax.persistence.GenerationType.IDENTITY;
+import javax.persistence.Table;
 
-	private int boek_id;
+@Entity
+@Table(name = "boeken", catalog = "SP2Team01")
+public class Boek implements java.io.Serializable {
+
+	private static final long serialVersionUID = -2568800152414086025L;
+	private Integer boekId;
 	private String titel;
 	private String beschrijving;
 	private String auteur;
 	private String isbn;
 	private String taal;
 	private String uitgeverij;
+	private Set<Opleiding> opleidingen = new HashSet<Opleiding>(0);
 
-	public Boek(int boek_id, String titel, String beschrijving, String auteur, String isbn, String taal,
-			String uitgeverij) {
-		this.boek_id = boek_id;
-		this.titel = titel;
-		this.beschrijving = beschrijving;
-		this.auteur = auteur;
-		this.isbn = isbn;
-		this.taal = taal;
-		this.uitgeverij = uitgeverij;
+	public Boek() {
 	}
 
-	public int getBoek_id() {
-		return boek_id;
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "boek_id", unique = true, nullable = false)
+	public Integer getBoekId() {
+		return this.boekId;
 	}
 
-	public void setBoek_id(int boek_id) {
-		this.boek_id = boek_id;
+	public void setBoekId(Integer boekId) {
+		this.boekId = boekId;
 	}
 
+	@Column(name = "titel", nullable = false, length = 30)
 	public String getTitel() {
-		return titel;
+		return this.titel;
 	}
 
 	public void setTitel(String titel) {
 		this.titel = titel;
 	}
 
+	@Column(name = "beschrijving", nullable = false, length = 100)
 	public String getBeschrijving() {
-		return beschrijving;
+		return this.beschrijving;
 	}
 
 	public void setBeschrijving(String beschrijving) {
 		this.beschrijving = beschrijving;
 	}
 
+	@Column(name = "auteur", length = 50)
 	public String getAuteur() {
-		return auteur;
+		return this.auteur;
 	}
 
 	public void setAuteur(String auteur) {
 		this.auteur = auteur;
 	}
 
+	@Column(name = "ISBN", length = 30)
 	public String getIsbn() {
-		return isbn;
+		return this.isbn;
 	}
 
 	public void setIsbn(String isbn) {
 		this.isbn = isbn;
 	}
 
+	@Column(name = "taal", length = 30)
 	public String getTaal() {
-		return taal;
+		return this.taal;
 	}
 
 	public void setTaal(String taal) {
 		this.taal = taal;
 	}
 
+	@Column(name = "uitgeverij", length = 30)
 	public String getUitgeverij() {
-		return uitgeverij;
+		return this.uitgeverij;
 	}
 
 	public void setUitgeverij(String uitgeverij) {
 		this.uitgeverij = uitgeverij;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((auteur == null) ? 0 : auteur.hashCode());
-		result = prime * result + ((beschrijving == null) ? 0 : beschrijving.hashCode());
-		result = prime * result + boek_id;
-		result = prime * result + ((isbn == null) ? 0 : isbn.hashCode());
-		result = prime * result + ((taal == null) ? 0 : taal.hashCode());
-		result = prime * result + ((titel == null) ? 0 : titel.hashCode());
-		result = prime * result + ((uitgeverij == null) ? 0 : uitgeverij.hashCode());
-		return result;
+	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "boeken")
+	public Set<Opleiding> getOpleidingen() {
+		return this.opleidingen;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Boek other = (Boek) obj;
-		if (auteur == null) {
-			if (other.auteur != null)
-				return false;
-		} else if (!auteur.equals(other.auteur))
-			return false;
-		if (beschrijving == null) {
-			if (other.beschrijving != null)
-				return false;
-		} else if (!beschrijving.equals(other.beschrijving))
-			return false;
-		if (boek_id != other.boek_id)
-			return false;
-		if (isbn == null) {
-			if (other.isbn != null)
-				return false;
-		} else if (!isbn.equals(other.isbn))
-			return false;
-		if (taal == null) {
-			if (other.taal != null)
-				return false;
-		} else if (!taal.equals(other.taal))
-			return false;
-		if (titel == null) {
-			if (other.titel != null)
-				return false;
-		} else if (!titel.equals(other.titel))
-			return false;
-		if (uitgeverij == null) {
-			if (other.uitgeverij != null)
-				return false;
-		} else if (!uitgeverij.equals(other.uitgeverij))
-			return false;
-		return true;
+	public void setOpleidingen(Set<Opleiding> opleidingen) {
+		this.opleidingen = opleidingen;
 	}
 
-	@Override
-	public String toString() {
-		return "Boek [boek_id=" + boek_id + ", titel=" + titel + ", beschrijving=" + beschrijving + ", auteur=" + auteur
-				+ ", isbn=" + isbn + ", taal=" + taal + ", uitgeverij=" + uitgeverij + "]";
-	}
 }
