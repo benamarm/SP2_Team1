@@ -24,35 +24,27 @@ public class LogDAO {
 	*  aan de methode of het een login is of niet zodat hij dat doorgeeft aan de database*/
 	
 	
-	public static boolean authenticate(Boolean isLogin) {
+	public static void authenticate(Boolean isLogin) {
 		
 		Session session = Main.factory.getCurrentSession();
 		session.beginTransaction();
 		
 		Log log = new Log();
-		log.setBeschrijving("Logged " + (isLogin? "in: ": "out: ") +Main.sessionUser.getNaam()+" "+Main.sessionUser.getAchternaam());
+		log.setBeschrijving("Logged " + (isLogin? "in.": "out."));
 		log.setType("AUTH");
 		log.setUser(Main.sessionUser);
 		
-		try {
-			session.save(log);
-			session.getTransaction().commit();
-		} catch(Exception e) {
-			e.printStackTrace();
-			return false;
-		}
-		return true;
+		session.save(log);
+		session.getTransaction().commit();
 	}
-
 }
-
 
 
 // met de volgende code heb ik logAuthenticationEvent() getest en goedgekeurd.
 // er zijn nog imports die moeten verwijderd worden indien deze code niet meer nodig is om te testen
 
 /*
-public static boolean authenticate(User sessionUser, Boolean isLogin) {
+public static void authenticate(User sessionUser, Boolean isLogin) {
 
 		SessionFactory factory;
 		factory = new Configuration().configure().addAnnotatedClass(Adres.class).addAnnotatedClass(Boek.class)
@@ -62,22 +54,16 @@ public static boolean authenticate(User sessionUser, Boolean isLogin) {
 		
 		Session session = factory.getCurrentSession();
 		session.beginTransaction();
-
+		
 		Log log = new Log();
-		log.setBeschrijving("Logged " + (isLogin? "in: ": "out: ") +sessionUser.getNaam()+" "+sessionUser.getAchternaam());
+		log.setBeschrijving("Logged " + (isLogin? "in.": "out."));
 		log.setType("AUTH");
 		log.setUser(sessionUser);
 		
-		try {
-			session.save(log);
-			session.getTransaction().commit();
-		} catch(Exception e) {
-			e.printStackTrace();
-			return false;
-		}
-		return true;
+		session.save(log);
+		session.getTransaction().commit();
 	}
-	
+
 	
 	
 	public static void main(String[] args) {
@@ -88,6 +74,7 @@ public static boolean authenticate(User sessionUser, Boolean isLogin) {
 		u.setNaam("Mohammed");
 		u.setPositie("ADMIN");
 		
-		if(authenticate(u, false)) System.out.println("Logged in.\n");
+		authenticate(u, false);
+		System.out.println("Logged in.\n");
 		
-	}*/
+	}}*/
