@@ -1,6 +1,8 @@
 package database;
 
 import java.util.List;
+
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import exceptions.UserBestaatReedsException;
@@ -9,7 +11,7 @@ import logic.User;
 
 public class UserDAO {
 
-	public static boolean add(User u) throws UserBestaatReedsException {
+	public static boolean save(User u) throws UserBestaatReedsException {
 
 		boolean added = false;
 
@@ -28,8 +30,9 @@ public class UserDAO {
 				"INSERT INTO applogin(loginemail, naam, achternaam, positie, password) VALUES(:l, :n, :a, :po, :pa)");
 		q.setParameter("l", u.getLoginemail()).setParameter("n", u.getNaam()).setParameter("a", u.getAchternaam())
 				.setParameter("po", u.getPositie()).setParameter("pa", User.generatePassword());
-		q.executeUpdate();
-		added = true;
+		if(q.executeUpdate() == 1) {
+			added = true;
+		}		
 
 		// Als laatste moet je committen, ook al voer je geen CREATE/INSERT/UPDATE/DELETE uit
 		session.getTransaction().commit();
@@ -38,18 +41,23 @@ public class UserDAO {
 	}
 
 	public static boolean update(User u) {
-		boolean updated = false;
-
+		
 		Session session = Main.factory.getCurrentSession();
 		session.beginTransaction();
-
-		session.update(u); // session.update(Object) is een speciale Hibernate methode
-							// Het doet een UPDATE op de tabel gemapt door de klasse, het moet wel een bestaande rij zijn
-							// Je hebt ook INSERT met session.save(Object), DELETE session.delete(Object) en MERGE met session.saveOrUpdate(Object)
-
-		session.getTransaction().commit();
-		updated = true;
-		return updated;
+		
+		try {
+			
+			session.update(u);	// session.update(Object) is een speciale Hibernate methode
+								// Het doet een UPDATE op de tabel gemapt door de klasse, het moet wel een bestaande rij zijn
+								// Je hebt ook INSERT met session.save(Object), DELETE session.delete(Object) en MERGE met session.saveOrUpdate(Object)
+			session.getTransaction().commit();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+		return true;
 	}
 
 	// Deze methode checkt of er een User bestaat met de ingegeven credentials en stuurt de User terug (null indien niet gevonden)

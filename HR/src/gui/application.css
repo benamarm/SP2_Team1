@@ -1,0 +1,62 @@
+
+#tLogout, .button {
+	-fx-cursor: hand;
+}
+
+.button {
+	-fx-font-size: 14;
+	-fx-font-weight: bold;
+	-fx-background-radius: 30;
+	-fx-background-insets: 0;
+}
+
+.menubtn {
+	-fx-background-color: linear-gradient(#c6d9eb, #7aa7d1);
+}
+
+.menubtn:hover {
+	-fx-background-color: #c6d9eb;
+}
+
+.otherbtn {
+	-fx-background-color: linear-gradient(#b4cde4, #8eb4d7);
+}
+
+.otherbtn:hover {
+	-fx-background-color: #b4cde4;
+}
+
+.column-header {
+		-fx-background-color: #356897;
+		-fx-border-color: black;
+}
+
+.column-header .label {
+	-fx-text-fill: white;
+}
+
+.centerlabel {
+	-fx-alignment: center;
+}
+
+/* 
+95% 		 #ecf2f8
+90% 		 #d9e6f2
+85% 		 #c6d9eb  main light
+80% 		 #b4cde4
+75% 		 #a1c0de
+70% 		 #8eb4d7
+65% 		 #7ba7d1
+60% 		 #689bca
+55% 		 #558ec3
+50% 		 #4282bd
+45% 		 #3c75aa
+40% 		 #356897  main dark
+35% 		 #2e5b84
+30% 		 #284e71
+25% 		 #21415f
+20% 		 #1b344b
+15% 		 #142739
+10% 		 #0d1a26
+5% 		     #070d13
+*/

@@ -7,39 +7,39 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.LoginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #c6d9eb;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.LoginController">
    <children>
-      <Label fx:id="lPrompt" alignment="CENTER" contentDisplay="CENTER" layoutX="188.0" layoutY="123.0" prefHeight="40.0" prefWidth="424.0" textAlignment="CENTER" textFill="RED">
+      <Label fx:id="lPrompt" alignment="CENTER" contentDisplay="CENTER" layoutX="188.0" layoutY="126.0" prefHeight="40.0" prefWidth="424.0" textAlignment="CENTER" textFill="RED">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="362.0" layoutY="188.0" text="E-mailadres:">
+      <Label layoutX="362.0" layoutY="191.0" text="E-mailadres:">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="tEmail" layoutX="296.0" layoutY="208.0" prefHeight="30.0" prefWidth="208.0">
+      <TextField fx:id="tEmail" layoutX="296.0" layoutY="211.0" prefHeight="30.0" prefWidth="208.0">
          <font>
             <Font size="14.0" />
          </font>
       </TextField>
-      <Label layoutX="359.0" layoutY="254.0" text="Wachtwoord:">
+      <Label layoutX="359.0" layoutY="257.0" text="Wachtwoord:">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <PasswordField fx:id="pPassword" layoutX="296.0" layoutY="274.0" prefHeight="30.0" prefWidth="208.0">
+      <PasswordField fx:id="pPassword" layoutX="296.0" layoutY="277.0" prefHeight="30.0" prefWidth="208.0">
          <font>
             <Font size="14.0" />
          </font>
       </PasswordField>
-      <Button fx:id="bLogin" layoutX="363.0" layoutY="325.0" mnemonicParsing="false" onAction="#verifyCredentials" style="-fx-cursor: hand;" text="Inloggen">
+      <Button fx:id="bLogin" defaultButton="true" layoutX="361.0" layoutY="336.0" mnemonicParsing="false" onAction="#verifyCredentials" style="-fx-cursor: hand;" styleClass="otherbtn" text="Inloggen">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Label fx:id="lForgotPassword" layoutX="328.0" layoutY="385.0" onMouseReleased="#handleButtonForgotPassword" style="-fx-cursor: hand;" text="Wachtwoord vergeten?" underline="true">
+      <Label fx:id="lForgotPassword" layoutX="323.0" layoutY="389.0" onMouseReleased="#handleButtonForgotPassword" style="-fx-cursor: hand; -fx-font-weight: bold;" text="Wachtwoord vergeten?" underline="true">
          <font>
             <Font size="14.0" />
          </font>
