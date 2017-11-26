@@ -4,11 +4,10 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 import gui.Main;
-import logic.User;
 
-public class LogDAO {	
+public class LogDAO {
 	
-	public static boolean loggedIn(User u) {
+	public static boolean loggedIn() {
 
 		boolean EventHasBeenLogged = false;
 		Session session = Main.factory.getCurrentSession();
@@ -17,10 +16,10 @@ public class LogDAO {
 		Query q = session.createNativeQuery(
 				"INSERT INTO logs(log_id, loginemail, tijdstip, type, beschrijving) VALUES(:id, :email, :when, :type, :besch)");
 		q.setParameter("id", "NULL")
-		 .setParameter("email", u.getLoginemail())
+		 .setParameter("email", Main.sessionUser.getLoginemail())
 		 .setParameter("when", "CURRENT_TIMESTAMP")
 		 .setParameter("type", "AUTH")
-		 .setParameter("besch", "Logged in: "+u.getNaam()+" "+u.getAchternaam());
+		 .setParameter("besch", "Logged in: "+Main.sessionUser.getNaam()+" "+Main.sessionUser.getAchternaam());
 		EventHasBeenLogged = true;
 		
 		session.getTransaction().commit();
@@ -29,7 +28,7 @@ public class LogDAO {
 	}
 	
 	
-	public static boolean loggedOut(User u) {
+	public static boolean loggedOut() {
 
 		boolean EventHasBeenLogged = false;
 		Session session = Main.factory.getCurrentSession();
@@ -38,10 +37,10 @@ public class LogDAO {
 		Query q = session.createNativeQuery(
 				"INSERT INTO logs(log_id, loginemail, tijdstip, type, beschrijving) VALUES(:id, :email, :when, :type, :besch)");
 		q.setParameter("id", "NULL")
-		 .setParameter("email", u.getLoginemail())
+		 .setParameter("email", Main.sessionUser.getLoginemail())
 		 .setParameter("when", "CURRENT_TIMESTAMP")
 		 .setParameter("type", "AUTH")
-		 .setParameter("besch", "Logged OUT: "+u.getNaam()+" "+u.getAchternaam());
+		 .setParameter("besch", "Logged OUT: "+Main.sessionUser.getNaam()+" "+Main.sessionUser.getAchternaam());
 		EventHasBeenLogged = true;
 
 		session.getTransaction().commit();
