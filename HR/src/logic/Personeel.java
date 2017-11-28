@@ -17,7 +17,7 @@ public class Personeel implements java.io.Serializable {
 	private static final long serialVersionUID = 4691520798882102440L;
 	private String persId;
 	@Transient
-	private String voornaam;
+	private String naam;
 	@Transient
 	private String achternaam;
 	private Set<Vaardigheid> vaardigheden = new HashSet<Vaardigheid>(0);
@@ -36,12 +36,12 @@ public class Personeel implements java.io.Serializable {
 	}
 
 	@Transient
-	public String getVoornaam() {
-		return voornaam;
+	public String getnaam() {
+		return naam;
 	}
 
-	public void setVoornaam(String voornaam) {
-		this.voornaam = voornaam;
+	public void setnaam(String naam) {
+		this.naam = naam;
 	}
 
 	@Transient
