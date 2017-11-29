@@ -8,9 +8,9 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #356897;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainAppController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1000.0" style="-fx-background-color: #356897;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainAppController">
    <children>
-      <TextFlow layoutX="519.0" layoutY="21.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="27.0" prefWidth="253.0" textAlignment="RIGHT">
+      <TextFlow layoutX="699.0" layoutY="23.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="27.0" prefWidth="253.0" textAlignment="RIGHT">
          <children>
             <Text fx:id="tName" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;">
                <font>
@@ -32,32 +32,32 @@
             </Text>
          </children>
       </TextFlow>
-      <Pane fx:id="mainPane" layoutX="121.0" layoutY="122.0" prefHeight="478.0" prefWidth="800.0" style="-fx-background-color: #c6d9eb;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="122.0" />
-      <Button fx:id="bUsers" layoutX="25.0" layoutY="20.0" mnemonicParsing="false" prefWidth="100.0" styleClass="menubtn" text="Users" visible="false">
+      <Pane fx:id="mainPane" layoutX="121.0" layoutY="183.0" prefHeight="630.0" prefWidth="1000.0" style="-fx-background-color: #c6d9eb;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="122.0" />
+      <Button fx:id="bUsers" layoutX="48.6" layoutY="21.0" mnemonicParsing="false" prefWidth="110.0" styleClass="menubtn" text="Users">
          <font>
             <Font size="14.0" />
          </font></Button>
-      <Button fx:id="bAanvragen" layoutX="25.0" layoutY="70.0" mnemonicParsing="false" onAction="#handleButtonAanvragen" prefWidth="100.0" styleClass="menubtn" text="Aanvragen">
+      <Button fx:id="bAanvragen" layoutX="48.6" layoutY="70.0" mnemonicParsing="false" onAction="#handleButtonAanvragen" prefWidth="110.0" styleClass="menubtn" text="Aanvragen">
          <font>
             <Font size="14.0" />
          </font></Button>
-      <Button fx:id="bBoeken" layoutX="155.0" layoutY="70.0" mnemonicParsing="false" prefWidth="100.0" styleClass="menubtn" text="Boeken">
+      <Button fx:id="bBoeken" layoutX="207.2" layoutY="70.0" mnemonicParsing="false" prefWidth="110.0" styleClass="menubtn" text="Boeken">
          <font>
             <Font size="14.0" />
          </font></Button>
-      <Button fx:id="bOpleidingen" layoutX="285.0" layoutY="70.0" mnemonicParsing="false" prefWidth="101.0" styleClass="menubtn" text="Opleidingen">
+      <Button fx:id="bOpleidingen" layoutX="365.8" layoutY="70.0" mnemonicParsing="false" prefWidth="110.0" styleClass="menubtn" text="Opleidingen">
          <font>
             <Font size="14.0" />
          </font></Button>
-      <Button fx:id="bPersoneel" layoutX="415.0" layoutY="70.0" mnemonicParsing="false" prefWidth="100.0" styleClass="menubtn" text="Personeel">
+      <Button fx:id="bPersoneel" layoutX="524.4" layoutY="70.0" mnemonicParsing="false" prefWidth="110.0" styleClass="menubtn" text="Personeel">
          <font>
             <Font size="14.0" />
          </font></Button>
-      <Button fx:id="bEvents" layoutX="545.0" layoutY="70.0" mnemonicParsing="false" prefWidth="100.0" styleClass="menubtn" text="Events">
+      <Button fx:id="bEvents" layoutX="683.0" layoutY="70.0" mnemonicParsing="false" prefWidth="110.0" styleClass="menubtn" text="Events">
          <font>
             <Font size="14.0" />
          </font></Button>
-      <Button fx:id="bSurveys" layoutX="675.0" layoutY="70.0" mnemonicParsing="false" prefWidth="100.0" styleClass="menubtn" text="Surveys">
+      <Button fx:id="bSurveys" layoutX="841.6" layoutY="70.0" mnemonicParsing="false" prefWidth="110.0" styleClass="menubtn" text="Surveys">
          <font>
             <Font size="14.0" />
          </font></Button>

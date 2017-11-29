@@ -54,6 +54,7 @@ public class LoginController {
 		popup.setTitle("Wachtwoord vergeten");
 		popup.initModality(Modality.APPLICATION_MODAL);
 		popup.setResizable(false);
+		popup.centerOnScreen();
 		popup.setScene(scene);
 		popup.show();
 	}

@@ -55,7 +55,7 @@ public class MainAppController {
 
 	@FXML
 	public void initialize() {
-		tName.setText(Main.sessionUser.getNaam() + " " + Main.sessionUser.getAchternaam());
+		tName.setText(Main.sessionUser.getVolleNaam());
 		if (Main.sessionUser.getPositie().equals("ADMIN"))
 			bUsers.setVisible(true);
 		handleButtonAanvragen();
