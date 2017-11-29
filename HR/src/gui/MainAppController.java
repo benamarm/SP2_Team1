@@ -2,6 +2,7 @@ package gui;
 
 import java.io.IOException;
 
+import database.LogDAO;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -36,6 +37,7 @@ public class MainAppController {
 	private void logOut() {
 		try {
 			Main.setRoot(FXMLLoader.load(getClass().getResource("Login.fxml")));
+			LogDAO.authenticate(false);
 			Main.sessionUser = null;
 		} catch (IOException e) {
 			e.printStackTrace();

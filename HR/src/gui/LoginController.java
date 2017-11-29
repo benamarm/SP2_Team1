@@ -1,5 +1,6 @@
 package gui;
 
+import database.LogDAO;
 import database.UserDAO;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -38,6 +39,7 @@ public class LoginController {
 			User u = UserDAO.connect(tEmail.getText(), pPassword.getText());
 			if (u != null) {
 				Main.sessionUser = u;
+				LogDAO.authenticate(true);
 				Main.setRoot(FXMLLoader.load(getClass().getResource("MainApp.fxml")));
 			} else {
 				lPrompt.setText("De ingevoerde gegevens zijn incorrect.");

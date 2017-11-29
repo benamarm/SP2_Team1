@@ -3,6 +3,8 @@ package gui;
 import java.io.IOException;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+
+import database.LogDAO;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -39,9 +41,10 @@ public class Main extends Application {
 				.addAnnotatedClass(Vraag.class).addAnnotatedClass(WebUser.class).buildSessionFactory();
 		launch(args);
 		
-		/*if(sessionUser != null) {
-			LogDAO.loggedOut();
-		}*/
+		if(sessionUser != null) {
+			LogDAO.authenticate(false);;
+		}
+		
 		factory.close();
 	}
 
