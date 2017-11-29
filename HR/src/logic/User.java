@@ -56,7 +56,12 @@ public class User implements java.io.Serializable {
 	public void setPositie(String positie) {
 		this.positie = positie;
 	}
-
+	
+	@Transient
+	public String getVolleNaam() {
+		return naam + " " + achternaam;
+	}
+	
 	@Transient
 	public static String generatePassword() {
 		String password = "";
@@ -65,5 +70,6 @@ public class User implements java.io.Serializable {
 			password += (i % 2 == 0 ? String.valueOf((char) (r.nextInt(26) + 'a')) : (r.nextInt(10)));
 		}
 		return password;
-	}
+	}	
+	
 }

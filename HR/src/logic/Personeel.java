@@ -61,5 +61,10 @@ public class Personeel implements java.io.Serializable {
 	public void setVaardigheden(Set<Vaardigheid> vaardigheden) {
 		this.vaardigheden = vaardigheden;
 	}
+	
+	@Transient
+	public String getVolleNaam() {
+		return voornaam + " " + achternaam;
+	}
 
 }

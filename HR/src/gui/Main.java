@@ -21,6 +21,7 @@ public class Main extends Application {
 		window = primaryStage;
 		Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
 		Scene scene = new Scene(root);
+		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		window.setTitle("HR Applicatie");
 		window.setResizable(false);
 		window.setScene(scene);
@@ -37,7 +38,11 @@ public class Main extends Application {
 				.addAnnotatedClass(Personeel.class).addAnnotatedClass(User.class).addAnnotatedClass(Vaardigheid.class)
 				.addAnnotatedClass(Vraag.class).addAnnotatedClass(WebUser.class).buildSessionFactory();
 		launch(args);
+		
+		/*if(sessionUser != null) {
+			LogDAO.loggedOut();
+		}*/
 		factory.close();
 	}
-	
+
 }

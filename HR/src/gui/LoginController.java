@@ -38,10 +38,7 @@ public class LoginController {
 			User u = UserDAO.connect(tEmail.getText(), pPassword.getText());
 			if (u != null) {
 				Main.sessionUser = u;
-				FXMLLoader f = new FXMLLoader(getClass().getResource("MainApp.fxml"));
-				Main.setRoot(f.load());
-				MainAppController c = f.<MainAppController>getController();
-				c.setName(u.getNaam() + " " + u.getAchternaam());
+				Main.setRoot(FXMLLoader.load(getClass().getResource("MainApp.fxml")));
 			} else {
 				lPrompt.setText("De ingevoerde gegevens zijn incorrect.");
 			}
@@ -53,9 +50,11 @@ public class LoginController {
 		Stage popup = new Stage();
 		Parent root = FXMLLoader.load(getClass().getResource("forgotPassword.fxml"));
 		Scene scene = new Scene(root);
+		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		popup.setTitle("Wachtwoord vergeten");
 		popup.initModality(Modality.APPLICATION_MODAL);
 		popup.setResizable(false);
+		popup.centerOnScreen();
 		popup.setScene(scene);
 		popup.show();
 	}
