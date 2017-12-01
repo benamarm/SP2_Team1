@@ -5,7 +5,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import gui.Main;
-import logic.Personeel;
+import javafx.collections.ObservableList;
 import logic.Vaardigheid;
 
 public class VaardigheidDAO {
@@ -20,7 +20,7 @@ public class VaardigheidDAO {
 		 try {
 			   Query q = session.createQuery("FROM Vaardigheid where checked = 0");
 			    teVerwervenVaardigheden = (List<Vaardigheid>) q.list();
-		session.getTransaction().commit();
+			    session.getTransaction().commit();
 
 			  
 		   } catch(Exception e) {
@@ -30,6 +30,40 @@ public class VaardigheidDAO {
 		
 		return teVerwervenVaardigheden;
 	}
+	
+	public static boolean updateSingle(Vaardigheid v) {
+		Session session = Main.factory.getCurrentSession();
+		session.beginTransaction();
+		
+		try {
+			session.update(v);
+			session.getTransaction().commit();
+			} catch(Exception e) {
+				e.printStackTrace();
+				return false;
+			}
+		return true;
+	}
+	
+	public static boolean updateObservables(ObservableList<Vaardigheid> v) {
+		Session session = Main.factory.getCurrentSession();
+		session.beginTransaction();
+		
+		try {
+			for(Vaardigheid vaard: v) session.update(vaard);
+			session.getTransaction().commit();
+			} catch(Exception e) {
+				e.printStackTrace();
+				return false;
+			}
+		
+		return true;
+	}
+	
+	
+	/*
+	 * 
+	 * */
 	
 
 }
