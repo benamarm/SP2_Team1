@@ -42,7 +42,7 @@ public class Main extends Application {
 		launch(args);
 		
 		if(sessionUser != null) {
-			LogDAO.authenticate(false);;
+			LogDAO.authenticate(false);
 		}
 		
 		factory.close();

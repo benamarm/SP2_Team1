@@ -1,11 +1,6 @@
 package gui;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-
-import org.hibernate.Hibernate;
-import org.hibernate.Session;
-
 import database.VaardigheidDAO;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;

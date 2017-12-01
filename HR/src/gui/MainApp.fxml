@@ -45,7 +45,7 @@
          <font>
             <Font size="14.0" />
          </font></Button>
-      <Button fx:id="bOpleidingen" layoutX="365.8" layoutY="70.0" mnemonicParsing="false" prefWidth="110.0" styleClass="menubtn" text="Opleidingen">
+      <Button fx:id="bOpleidingen" layoutX="365.8" layoutY="70.0" mnemonicParsing="false" onAction="#handleButtonOpleidingen" prefWidth="110.0" styleClass="menubtn" text="Opleidingen">
          <font>
             <Font size="14.0" />
          </font></Button>
