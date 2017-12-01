@@ -30,11 +30,11 @@ package testing;
 public class ClientCredentials {
 
   /** Value of the "API key" shown under "Simple API Access". */
-  static final String API_KEY =
-      "AIzaSyBi-JlrvjqPAAcAHwJ1Xjz12kW_g6PUTSY"
+  public static final String API_KEY =
+      "AIzaSyBl9G3y9xs86tKZ_610SKNNgeXA0xcAH4k"
       + ClientCredentials.class;
 
-  static void errorIfNotSpecified() {
+  public static void errorIfNotSpecified() {
     if (API_KEY.startsWith("Enter ")) {
       System.err.println(API_KEY);
       System.exit(1);
