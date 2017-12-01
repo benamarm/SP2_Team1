@@ -30,24 +30,33 @@ public class VaardigheidDAO {
 		return teVerwervenVaardigheden;
 	}
 	
-	public static boolean update(ObservableList<Vaardigheid> vs) {
-		
+	public static boolean updateSingle(Vaardigheid v) {
 		Session session = Main.factory.getCurrentSession();
 		session.beginTransaction();
 		
 		try {
-			for(Vaardigheid v : vs) {
-				session.update(v);
-			}
+			session.update(v);
 			session.getTransaction().commit();
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-			return false;
-		}
+			} catch(Exception e) {
+				e.printStackTrace();
+				return false;
+			}
+		return true;
+	}
+	
+	public static boolean updateObservables(ObservableList<Vaardigheid> v) {
+		Session session = Main.factory.getCurrentSession();
+		session.beginTransaction();
 		
-		return true;	
+		try {
+			for(Vaardigheid vaard: v) session.update(vaard);
+			session.getTransaction().commit();
+			} catch(Exception e) {
+				e.printStackTrace();
+				return false;
+			}
 		
+		return true;
 	}
 
 }
