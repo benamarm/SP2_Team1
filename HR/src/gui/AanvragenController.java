@@ -1,10 +1,7 @@
 package gui;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-
-import org.hibernate.Hibernate;
-import org.hibernate.Session;
+import database.VaardigheidDAO;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -56,14 +53,21 @@ public class AanvragenController {
 			lCheck.setText("Geen aanvragen geselecteerd.");
 		}
 		else {
+			
 			for(Vaardigheid v : aanvragen.getSelectionModel().getSelectedItems()) {
 				v.setChecked(true);
-				//VaardigheidDAO:update()
+			}
+			
+			if(VaardigheidDAO.update(aanvragen.getSelectionModel().getSelectedItems())) {
+				initialize();
 				lCheck.setStyle("-fx-text-fill: black");
 				lCheck.setText("De aanvragen werden bevestigd.");
+			}
+			else {
 				lCheck.setStyle("-fx-text-fill: red");
 				lCheck.setText("Er is een technische fout opgelopen.");
 			}
+			
 		}
 			
 	}
@@ -106,16 +110,10 @@ public class AanvragenController {
 				return new SimpleStringProperty(sdf.format(data.getValue().getEvent().getEinddatum()));
 			}
 		});
-
-		Session session = Main.factory.getCurrentSession();
-		session.beginTransaction();
-		ArrayList<Vaardigheid> vn = (ArrayList<Vaardigheid>) session.createQuery("FROM Vaardigheid WHERE checked = 0")
-				.getResultList();
-		session.getTransaction().commit();
-
-		ObservableList<Vaardigheid> list = FXCollections.observableArrayList(vn);
-		aanvragen.setItems(list);
+		
 		aanvragen.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		ObservableList<Vaardigheid> list = FXCollections.observableArrayList(VaardigheidDAO.getUnchecked());
+		aanvragen.setItems(list);
 		
 	}
 }

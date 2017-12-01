@@ -11,23 +11,22 @@ import logic.Vaardigheid;
 public class VaardigheidDAO {
 
 	@SuppressWarnings("unchecked")
-	public static List<Vaardigheid>  getUnchecked() {
+	public static List<Vaardigheid> getUnchecked() {
 		List<Vaardigheid> teVerwervenVaardigheden = null;
-		
+
 		Session session = Main.factory.getCurrentSession();
 		session.beginTransaction();
-		
-		 try {
-			   Query q = session.createQuery("FROM Vaardigheid where checked = 0");
-			    teVerwervenVaardigheden = (List<Vaardigheid>) q.list();
-			    session.getTransaction().commit();
 
-			  
-		   } catch(Exception e) {
-			   e.printStackTrace();
-			   return null;
-		   }
-		
+		try {
+			Query q = session.createQuery("FROM Vaardigheid where checked = 0");
+			teVerwervenVaardigheden = (List<Vaardigheid>) q.list();
+			session.getTransaction().commit();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+
 		return teVerwervenVaardigheden;
 	}
 	
@@ -59,11 +58,5 @@ public class VaardigheidDAO {
 		
 		return true;
 	}
-	
-	
-	/*
-	 * 
-	 * */
-	
 
 }

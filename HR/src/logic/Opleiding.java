@@ -29,6 +29,12 @@ public class Opleiding implements java.io.Serializable {
 	public Opleiding() {
 	}
 
+	public Opleiding(Opleiding o) {
+		this.opleidingId = o.getOpleidingId();
+		this.naam = o.getNaam();
+		this.beschrijving = o.getBeschrijving();
+	}
+
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "opleiding_id", unique = true, nullable = false)

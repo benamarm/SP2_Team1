@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="333.0" prefWidth="505.0" style="-fx-background-color: #c6d9eb;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.AddOpleidingController">
+   <children>
+      <Label layoutX="39.0" layoutY="24.0" text="Naam opleiding:" />
+      <TextField fx:id="tOplNaam" layoutX="39.0" layoutY="44.0" prefHeight="30.0" prefWidth="423.0" />
+      <Label layoutX="39.0" layoutY="81.0" text="Beschrijving:" />
+      <TextArea fx:id="tOplBesch" layoutX="39.0" layoutY="101.0" prefHeight="143.0" prefWidth="423.0" promptText="Geef een korte beschrijving van de opleiding." wrapText="true" />
+      <Button fx:id="bToevoegen" layoutX="39.0" layoutY="264.0" mnemonicParsing="false" onAction="#handleToevoegen" styleClass="otherbtn" text="Toevoegen" />
+      <Label fx:id="lOpl" layoutX="154.0" layoutY="269.0" prefHeight="20.0" prefWidth="312.0" textFill="RED" />
+   </children>
+</AnchorPane>
