@@ -39,37 +39,40 @@ public class AanvragenController {
 	Label lCheck;
 	
 	@FXML
+	private void clearLabel() {
+		lCheck.setText("");
+	}
+
+	@FXML
 	private void handleSelecteerAlles() {
-		if(cbSelecteerAlles.isSelected()) 
+		if (cbSelecteerAlles.isSelected())
 			aanvragen.getSelectionModel().selectAll();
 		else
 			aanvragen.getSelectionModel().clearSelection();
 	}
-	
+
 	@FXML
 	private void handleCheck() {
-		if(aanvragen.getSelectionModel().getSelectedItems().size() == 0) {
+		if (aanvragen.getSelectionModel().getSelectedItems().size() == 0) {
 			lCheck.setStyle("-fx-text-fill: red");
 			lCheck.setText("Geen aanvragen geselecteerd.");
-		}
-		else {
-			
-			for(Vaardigheid v : aanvragen.getSelectionModel().getSelectedItems()) {
+		} else {
+
+			for (Vaardigheid v : aanvragen.getSelectionModel().getSelectedItems()) {
 				v.setChecked(true);
 			}
-			
-			if(VaardigheidDAO.update(aanvragen.getSelectionModel().getSelectedItems())) {
+
+			if (VaardigheidDAO.updateObservables(aanvragen.getSelectionModel().getSelectedItems())) {
 				initialize();
 				lCheck.setStyle("-fx-text-fill: black");
 				lCheck.setText("De aanvragen werden bevestigd.");
-			}
-			else {
+			} else {
 				lCheck.setStyle("-fx-text-fill: red");
 				lCheck.setText("Er is een technische fout opgelopen.");
 			}
-			
+
 		}
-			
+
 	}
 
 	@FXML
@@ -110,10 +113,10 @@ public class AanvragenController {
 				return new SimpleStringProperty(sdf.format(data.getValue().getEvent().getEinddatum()));
 			}
 		});
-		
+
 		aanvragen.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		ObservableList<Vaardigheid> list = FXCollections.observableArrayList(VaardigheidDAO.getUnchecked());
 		aanvragen.setItems(list);
-		
+
 	}
 }

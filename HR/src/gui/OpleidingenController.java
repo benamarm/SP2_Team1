@@ -7,6 +7,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -20,6 +21,7 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.Callback;
 import logic.Opleiding;
 
@@ -41,6 +43,11 @@ public class OpleidingenController {
 	Button bBewerken;
 	@FXML
 	Button bBoeken;
+	
+	@FXML
+	private void clearLabel() {
+		lSelectie.setText("");
+	}
 
 	@FXML
 	private void handleToevoegen() throws Exception {
@@ -54,6 +61,11 @@ public class OpleidingenController {
 		popup.setResizable(false);
 		popup.centerOnScreen();
 		popup.setScene(scene);
+		popup.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			public void handle(WindowEvent we) {
+				initialize();
+			}
+		});
 		popup.show();
 	}
 
@@ -61,15 +73,14 @@ public class OpleidingenController {
 	private void handleBewerken() throws Exception {
 
 		if (opleidingen.getSelectionModel().getSelectedItems().size() == 0) {
-			
+
 			lSelectie.setText("Geen opleiding geselecteerd.");
-			
-		} 
-		else {
+
+		} else {
 			lSelectie.setText("");
 			Stage popup = new Stage();
 			FXMLLoader f = new FXMLLoader(getClass().getResource("AddOpleiding.fxml"));
-			Parent root = (Parent)f.load();
+			Parent root = (Parent) f.load();
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			popup.setTitle("Opleiding bewerken");
@@ -77,13 +88,18 @@ public class OpleidingenController {
 			popup.setResizable(false);
 			popup.centerOnScreen();
 			popup.setScene(scene);
-			AddOpleidingController c = (AddOpleidingController)f.getController();
+			popup.setOnCloseRequest(new EventHandler<WindowEvent>() {
+				public void handle(WindowEvent we) {
+					initialize();
+				}
+			});
+			AddOpleidingController c = (AddOpleidingController) f.getController();
 			c.setEditMode(opleidingen.getSelectionModel().getSelectedItem());
 			popup.show();
 		}
 
 	}
-	
+
 	@FXML
 	public void initialize() {
 
@@ -108,14 +124,17 @@ public class OpleidingenController {
 						return new SimpleStringProperty(data.getValue().getBeschrijving());
 					}
 				});
-		
+
 		colNaam.setCellFactory(column -> {
 			return new TableCell<Opleiding, String>() {
 				@Override
 				protected void updateItem(String item, boolean empty) {
 					super.updateItem(item, empty);
 					setText(item);
-					setTooltip(new Tooltip(item));
+					Tooltip t = new Tooltip(item);
+					t.setMaxWidth(300);
+					t.setWrapText(true);
+					setTooltip(t);
 				}
 			};
 		});
@@ -126,7 +145,10 @@ public class OpleidingenController {
 				protected void updateItem(String item, boolean empty) {
 					super.updateItem(item, empty);
 					setText(item);
-					setTooltip(new Tooltip(item));
+					Tooltip t = new Tooltip(item);
+					t.setMaxWidth(300);
+					t.setWrapText(true);
+					setTooltip(t);
 				}
 			};
 		});

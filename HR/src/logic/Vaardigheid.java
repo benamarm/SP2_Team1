@@ -4,7 +4,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
-import javax.persistence.CascadeType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -35,7 +34,7 @@ public class Vaardigheid implements java.io.Serializable {
 		this.vaardigheidId = vaardigheidId;
 	}
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "event_id", nullable = false)
 	public Event getEvent() {
 		return this.event;
@@ -45,7 +44,7 @@ public class Vaardigheid implements java.io.Serializable {
 		this.event = event;
 	}
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "pers_id", nullable = false)
 	public Personeel getPersoneel() {
 		return this.personeel;

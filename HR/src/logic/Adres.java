@@ -1,10 +1,14 @@
 package logic;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -17,6 +21,7 @@ public class Adres implements java.io.Serializable {
 	private int nummer;
 	private int postcode;
 	private String land;
+	private Set<Event> events = new HashSet<Event>(0);
 
 	public Adres() {
 	}
@@ -66,6 +71,15 @@ public class Adres implements java.io.Serializable {
 
 	public void setLand(String land) {
 		this.land = land;
+	}
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "adres")
+	public Set<Event> getEvents() {
+		return this.events;
+	}
+
+	public void setEvents(Set<Event> events) {
+		this.events = events;
 	}
 
 }

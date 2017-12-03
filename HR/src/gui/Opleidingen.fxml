@@ -8,7 +8,7 @@
 
 <AnchorPane prefHeight="630.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.OpleidingenController">
    <children>
-      <TableView fx:id="opleidingen" focusTraversable="false" layoutX="14.0" layoutY="23.0" prefHeight="593.0">
+      <TableView fx:id="opleidingen" focusTraversable="false" layoutX="14.0" layoutY="23.0" onMouseClicked="#clearLabel" prefHeight="593.0">
         <columns>
           <TableColumn fx:id="colId" editable="false" prefWidth="50.0" style="-fx-alignment: CENTER;" text="ID" />
             <TableColumn fx:id="colNaam" editable="false" prefWidth="210.0" text="NAAM" />
@@ -16,9 +16,9 @@
         </columns>
       </TableView>
       <Button fx:id="bToevoegen" layoutX="772.0" layoutY="133.0" mnemonicParsing="false" onAction="#handleToevoegen" styleClass="otherbtn" text="Opleiding toevoegen" />
-      <Button fx:id="bBewerken" layoutX="809.0" layoutY="277.0" mnemonicParsing="false" onAction="#handleBewerken" styleClass="otherbtn" text="Bewerken" />
+      <Button fx:id="bBewerken" layoutX="792.0" layoutY="277.0" mnemonicParsing="false" onAction="#handleBewerken" prefWidth="120.0" styleClass="otherbtn" text="Bewerken" />
       <Label layoutX="759.0" layoutY="211.0" prefHeight="60.0" prefWidth="185.0" text="Of selecteer een opleiding in de tabel en kies een optie." textAlignment="CENTER" wrapText="true" />
-      <Button fx:id="bBoeken" layoutX="798.0" layoutY="322.0" mnemonicParsing="false" styleClass="otherbtn" text="Toon boeken" />
+      <Button fx:id="bBoeken" layoutX="792.0" layoutY="321.0" mnemonicParsing="false" prefWidth="120.0" styleClass="otherbtn" text="Toon boeken" />
       <Label fx:id="lSelectie" layoutX="762.0" layoutY="191.0" prefHeight="20.0" textAlignment="CENTER" textFill="RED" />
    </children>
 </AnchorPane>

@@ -1,6 +1,5 @@
 package logic;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -34,7 +33,7 @@ public class Log implements java.io.Serializable {
 		this.logId = logId;
 	}
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "loginemail")
 	public User getUser() {
 		return this.user;

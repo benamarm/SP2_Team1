@@ -33,7 +33,7 @@
          </children>
       </TextFlow>
       <Pane fx:id="mainPane" layoutX="121.0" layoutY="183.0" prefHeight="630.0" prefWidth="1000.0" style="-fx-background-color: #c6d9eb;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="122.0" />
-      <Button fx:id="bUsers" layoutX="48.6" layoutY="21.0" mnemonicParsing="false" prefWidth="110.0" styleClass="menubtn" text="Users">
+      <Button fx:id="bUsers" layoutX="48.6" layoutY="21.0" mnemonicParsing="false" onAction="#handleButtonUsers" prefWidth="110.0" styleClass="menubtn" text="Users" visible="false">
          <font>
             <Font size="14.0" />
          </font></Button>
