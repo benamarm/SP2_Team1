@@ -31,14 +31,13 @@ public class MainAppController {
 	private Button bSurveys;
 	@FXML
 	private Pane mainPane;
-	
 
 	@FXML
 	private void logOut() {
 		try {
 			LogDAO.authenticate(false);
 			Main.sessionUser = null;
-			Main.setRoot(FXMLLoader.load(getClass().getResource("Login.fxml")));	
+			Main.setRoot(FXMLLoader.load(getClass().getResource("Login.fxml")));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -54,12 +53,22 @@ public class MainAppController {
 		}
 
 	}
-	
+
 	@FXML
 	private void handleButtonOpleidingen() {
 		try {
 			mainPane.getChildren().clear();
 			mainPane.getChildren().add(FXMLLoader.load(getClass().getResource("Opleidingen.fxml")));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@FXML
+	private void handleButtonUsers() {
+		try {
+			mainPane.getChildren().clear();
+			mainPane.getChildren().add(FXMLLoader.load(getClass().getResource("Users.fxml")));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

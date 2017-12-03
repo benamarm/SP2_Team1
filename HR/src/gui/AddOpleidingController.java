@@ -31,14 +31,14 @@ public class AddOpleidingController {
 		} else if (tOplBesch.getText().equals("")) {
 			lOpl.setText("Gelieve het veld \"Beschrijving\" in te vullen.");
 		} else if (edit) {
-			
-			if(tOplNaam.getText().equals(teBewerken.getNaam()) && tOplBesch.getText().equals(teBewerken.getBeschrijving())) {
+
+			if (tOplNaam.getText().equals(teBewerken.getNaam())
+					&& tOplBesch.getText().equals(teBewerken.getBeschrijving())) {
 				lOpl.setText("U heeft niets aangepast.");
-			}
-			else {
+			} else {
 				teBewerken.setNaam(tOplNaam.getText());
 				teBewerken.setBeschrijving(tOplBesch.getText());
-				
+
 				Session session = Main.factory.getCurrentSession();
 				session.beginTransaction();
 
@@ -49,12 +49,12 @@ public class AddOpleidingController {
 				} catch (Exception e) {
 					lOpl.setText("Er is een technische fout opgelopen.");
 				}
-				
+
 				bToevoegen.setDisable(true);
 				lOpl.setStyle("-fx-text-fill: black");
 				lOpl.setText("Opleiding succesvol bewerkt!");
-				
-			}			
+
+			}
 
 		} else {
 
@@ -86,8 +86,6 @@ public class AddOpleidingController {
 		tOplNaam.setText(teBewerken.getNaam());
 		tOplBesch.setText(teBewerken.getBeschrijving());
 		bToevoegen.setText("Bewerken");
-		System.out.println(edit ? "edit" : "not edit");
-		System.out.println(teBewerken.toString());
 	}
 
 }
