@@ -1,6 +1,8 @@
 package logic;
 
 import java.sql.Date;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +11,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -24,6 +27,7 @@ public class Event implements java.io.Serializable {
 	private Date einddatum;
 	private int aantalDeelnames;
 	private int maxDeelnames;
+	private Set<Vaardigheid> vaardigheden = new HashSet<Vaardigheid>(0);
 
 	public Event() {
 	}
@@ -39,7 +43,7 @@ public class Event implements java.io.Serializable {
 		this.eventId = eventId;
 	}
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "adres_id", nullable = false)
 	public Adres getAdres() {
 		return this.adres;
@@ -49,7 +53,7 @@ public class Event implements java.io.Serializable {
 		this.adres = adres;
 	}
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "opleiding_id", nullable = false)
 	public Opleiding getOpleiding() {
 		return this.opleiding;
@@ -102,6 +106,15 @@ public class Event implements java.io.Serializable {
 
 	public void setMaxDeelnames(int maxDeelnames) {
 		this.maxDeelnames = maxDeelnames;
+	}
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "event")
+	public Set<Vaardigheid> getVaardigheden() {
+		return this.vaardigheden;
+	}
+
+	public void setVaardigheden(Set<Vaardigheid> vaardigheden) {
+		this.vaardigheden = vaardigheden;
 	}
 
 }
