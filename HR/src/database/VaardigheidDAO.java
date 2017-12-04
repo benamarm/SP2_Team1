@@ -18,7 +18,7 @@ public class VaardigheidDAO {
 		session.beginTransaction();
 
 		try {
-			Query q = session.createQuery("FROM Vaardigheid where checked = 0");
+			Query q = session.createQuery("FROM Vaardigheid where checked = NULL");
 			teVerwervenVaardigheden = (List<Vaardigheid>) q.list();
 			session.getTransaction().commit();
 

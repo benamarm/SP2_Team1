@@ -17,7 +17,7 @@ public class Vaardigheid implements java.io.Serializable {
 	private Integer vaardigheidId;
 	private Event event;
 	private Personeel personeel;
-	private boolean checked;
+	private Boolean checked;
 	private byte[] certificaat;
 
 	public Vaardigheid() {
@@ -54,12 +54,12 @@ public class Vaardigheid implements java.io.Serializable {
 		this.personeel = personeel;
 	}
 
-	@Column(name = "checked", nullable = false)
-	public boolean isChecked() {
+	@Column(name = "checked")
+	public Boolean isChecked() {
 		return this.checked;
 	}
 
-	public void setChecked(boolean checked) {
+	public void setChecked(Boolean checked) {
 		this.checked = checked;
 	}
 

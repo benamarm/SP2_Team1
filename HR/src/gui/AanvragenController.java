@@ -6,6 +6,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -34,10 +35,12 @@ public class AanvragenController {
 	@FXML
 	CheckBox cbSelecteerAlles;
 	@FXML
-	Button bCheck;
+	Button bGoedkeuren;
+	@FXML
+	Button bAfkeuren;
 	@FXML
 	Label lCheck;
-	
+
 	@FXML
 	private void clearLabel() {
 		lCheck.setText("");
@@ -52,20 +55,25 @@ public class AanvragenController {
 	}
 
 	@FXML
-	private void handleCheck() {
+	private void handleCheck(ActionEvent e) {
 		if (aanvragen.getSelectionModel().getSelectedItems().size() == 0) {
 			lCheck.setStyle("-fx-text-fill: red");
 			lCheck.setText("Geen aanvragen geselecteerd.");
 		} else {
 
-			for (Vaardigheid v : aanvragen.getSelectionModel().getSelectedItems()) {
-				v.setChecked(true);
+			if (e.getTarget() == bGoedkeuren) {
+				for (Vaardigheid v : aanvragen.getSelectionModel().getSelectedItems())
+					v.setChecked(true);
+
+			} else {
+				for (Vaardigheid v : aanvragen.getSelectionModel().getSelectedItems()) 
+					v.setChecked(false);				
 			}
 
 			if (VaardigheidDAO.updateObservables(aanvragen.getSelectionModel().getSelectedItems())) {
 				initialize();
 				lCheck.setStyle("-fx-text-fill: black");
-				lCheck.setText("De aanvragen werden bevestigd.");
+				lCheck.setText("De aanvragen werden " + (e.getTarget() == bGoedkeuren ? "goedgekeurd" : "afgekeurd") + ".");
 			} else {
 				lCheck.setStyle("-fx-text-fill: red");
 				lCheck.setText("Er is een technische fout opgelopen.");
