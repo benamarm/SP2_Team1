@@ -6,16 +6,16 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="300.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.AddAppUserController">
+<AnchorPane prefHeight="300.0" prefWidth="350.0" style="-fx-background-color: #c6d9eb;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.AddAppUserController">
    <children>
-      <Label layoutX="68.0" layoutY="30.0" text="E-mailadres:" />
-      <TextField fx:id="tEmail" layoutX="68.0" layoutY="50.0" prefWidth="200.0" />
-      <Label layoutX="68.0" layoutY="85.0" text="Voornaam:" />
-      <TextField fx:id="tVoornaam" layoutX="68.0" layoutY="105.0" prefWidth="200.0" />
-      <Label layoutX="68.0" layoutY="140.0" text="Achternaam:" />
-      <TextField fx:id="tAchternaam" layoutX="68.0" layoutY="160.0" prefWidth="200.0" />
-      <CheckBox fx:id="cbAdmin" layoutX="69.0" layoutY="199.0" mnemonicParsing="false" text="Admin" />
-      <Button fx:id="bToevoegen" layoutX="175.0" layoutY="204.0" mnemonicParsing="false" onAction="#handleToevoegen" styleClass="otherbtn" text="Toevoegen" />
-      <Label fx:id="lToevoegen" alignment="CENTER" layoutX="42.0" layoutY="253.0" prefHeight="20.0" prefWidth="253.0" textFill="RED" />
+      <Label layoutX="75.0" layoutY="29.0" text="E-mailadres:" />
+      <TextField fx:id="tEmail" layoutX="75.0" layoutY="49.0" prefWidth="200.0" />
+      <Label layoutX="75.0" layoutY="84.0" text="Voornaam:" />
+      <TextField fx:id="tVoornaam" layoutX="75.0" layoutY="104.0" prefWidth="200.0" />
+      <Label layoutX="75.0" layoutY="139.0" text="Achternaam:" />
+      <TextField fx:id="tAchternaam" layoutX="75.0" layoutY="159.0" prefWidth="200.0" />
+      <CheckBox fx:id="cbAdmin" layoutX="76.0" layoutY="198.0" mnemonicParsing="false" text="Admin" />
+      <Button fx:id="bToevoegen" layoutX="182.0" layoutY="203.0" mnemonicParsing="false" onAction="#handleToevoegen" styleClass="otherbtn" text="Toevoegen" />
+      <Label fx:id="lToevoegen" alignment="CENTER" layoutX="49.0" layoutY="252.0" prefHeight="20.0" prefWidth="253.0" textFill="RED" />
    </children>
 </AnchorPane>
