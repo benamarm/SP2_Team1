@@ -50,11 +50,6 @@ public class UsersController {
 	Button abPassword;
 	@FXML
 	Label alSelectie;
-	
-	@FXML
-	private void clearLabel() {
-		alSelectie.setText("");
-	}
 
 	@FXML
 	private void handleAppUser() throws IOException {
@@ -171,8 +166,6 @@ public class UsersController {
 	@FXML
 	private void initAppUsers() {
 
-		// setText "" op label website
-
 		aUsers.setPlaceholder(new Label("Er zijn geen users."));
 
 		acEmail.setCellValueFactory(new Callback<CellDataFeatures<User, String>, ObservableValue<String>>() {
@@ -206,17 +199,28 @@ public class UsersController {
 
 		aUsers.setItems(list);
 	}
-
-	// Website
-
+	
 	@FXML
-	private void initWebsite() {
+	private void clearLabel() {
 		alSelectie.setText("");
+		// setText "" op label website
 	}
 
 	@FXML
 	public void initialize() {
 		initAppUsers();
+		initWebsite();
 	}
+	
+	// Website
+	@FXML
+	Tab website;
+
+	@FXML
+	private void initWebsite() {
+	
+	}
+
+	
 
 }

@@ -53,7 +53,7 @@
          <font>
             <Font size="14.0" />
          </font></Button>
-      <Button fx:id="bEvents" layoutX="683.0" layoutY="70.0" mnemonicParsing="false" prefWidth="110.0" styleClass="menubtn" text="Events">
+      <Button fx:id="bEvents" layoutX="683.0" layoutY="70.0" mnemonicParsing="false" onAction="#handleButtonEvents" prefWidth="110.0" styleClass="menubtn" text="Events">
          <font>
             <Font size="14.0" />
          </font></Button>

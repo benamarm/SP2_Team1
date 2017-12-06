@@ -73,6 +73,16 @@ public class MainAppController {
 			e.printStackTrace();
 		}
 	}
+	
+	@FXML
+	private void handleButtonEvents() {
+		try {
+			mainPane.getChildren().clear();
+			mainPane.getChildren().add(FXMLLoader.load(getClass().getResource("Events.fxml")));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	@FXML
 	public void initialize() {

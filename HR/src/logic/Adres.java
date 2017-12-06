@@ -10,6 +10,7 @@ import java.util.Set;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "adressen", catalog = "SP2Team01")
@@ -80,6 +81,57 @@ public class Adres implements java.io.Serializable {
 
 	public void setEvents(Set<Event> events) {
 		this.events = events;
+	}
+	
+	@Transient
+	@Override
+	public String toString() {
+		return (straat + " " + nummer + ", " + postcode + " " + land);
+	}
+	
+	@Transient
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((adresId == null) ? 0 : adresId.hashCode());
+		result = prime * result + ((land == null) ? 0 : land.hashCode());
+		result = prime * result + nummer;
+		result = prime * result + postcode;
+		result = prime * result + ((straat == null) ? 0 : straat.hashCode());
+		return result;
+	}
+
+	@Transient
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Adres other = (Adres) obj;
+		if (adresId == null) {
+			if (other.adresId != null)
+				return false;
+		} else if (!adresId.equals(other.adresId))
+			return false;
+		if (land == null) {
+			if (other.land != null)
+				return false;
+		} else if (!land.equals(other.land))
+			return false;
+		if (nummer != other.nummer)
+			return false;
+		if (postcode != other.postcode)
+			return false;
+		if (straat == null) {
+			if (other.straat != null)
+				return false;
+		} else if (!straat.equals(other.straat))
+			return false;
+		return true;
 	}
 
 }

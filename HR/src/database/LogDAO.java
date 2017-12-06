@@ -30,7 +30,7 @@ public class LogDAO {
 		session.beginTransaction();
 		
 		Log log = new Log();
-		log.setBeschrijving("Logged " + (isLogin? "in.": "out."));
+		log.setBeschrijving((isLogin? "In" : "Uit") + "gelogd.");
 		log.setType("AUTH");
 		log.setUser(Main.sessionUser);
 		

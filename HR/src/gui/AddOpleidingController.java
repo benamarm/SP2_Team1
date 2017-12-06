@@ -10,8 +10,8 @@ import logic.Opleiding;
 
 public class AddOpleidingController {
 
-	public Boolean edit = false;
-	public Opleiding teBewerken = null;
+	private Boolean edit = false;
+	private Opleiding teBewerken = null;
 
 	@FXML
 	TextField tOplNaam;
