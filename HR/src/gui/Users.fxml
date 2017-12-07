@@ -12,7 +12,7 @@
    <children>
       <TabPane layoutX="14.0" layoutY="14.0" prefHeight="630.0" prefWidth="1000.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
-          <Tab fx:id="applicatie" text="Applicatie">
+          <Tab fx:id="applicatie" closable="false" onSelectionChanged="#clearLabel" text="Applicatie">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="458.0" prefWidth="703.0" style="-fx-background-color: #d9e6f2;">
                      <children>
@@ -24,7 +24,7 @@
                           </columns>
                         </TableView>
                         <Button fx:id="bAddUser" layoutX="704.0" layoutY="147.0" mnemonicParsing="false" onAction="#handleAppUser" styleClass="otherbtn" text="User toevoegen" />
-                        <Label layoutX="642.0" layoutY="226.0" text="Of selecteer een user een kies een optie." />
+                        <Label layoutX="646.0" layoutY="226.0" text="Of selecteer een user en kies een optie." />
                         <Button fx:id="bRemAdmin" layoutX="651.0" layoutY="260.0" mnemonicParsing="false" onAction="#handleRemAdmin" prefWidth="230.0" styleClass="otherbtn" text="Adminrechten afschaffen" />
                         <Button fx:id="bSetAdmin" layoutX="651.0" layoutY="305.0" mnemonicParsing="false" onAction="#handleSetAdmin" prefWidth="230.0" styleClass="otherbtn" text="Promoveren tot admin" />
                         <Button fx:id="abPassword" layoutX="651.0" layoutY="350.0" mnemonicParsing="false" onAction="#handleAppPassword" prefWidth="230.0" styleClass="otherbtn" text="Nieuw wachtwoord genereren" />
@@ -32,7 +32,7 @@
                      </children></AnchorPane>
             </content>
           </Tab>
-          <Tab text="Website">
+          <Tab fx:id="website" closable="false" onSelectionChanged="#clearLabel" text="Website">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #d9e6f2;" />
             </content>

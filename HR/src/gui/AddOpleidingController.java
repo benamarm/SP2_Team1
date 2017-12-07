@@ -10,8 +10,8 @@ import logic.Opleiding;
 
 public class AddOpleidingController {
 
-	public Boolean edit = false;
-	public Opleiding teBewerken = null;
+	private Boolean edit = false;
+	private Opleiding teBewerken = null;
 
 	@FXML
 	TextField tOplNaam;
@@ -24,12 +24,8 @@ public class AddOpleidingController {
 
 	@FXML
 	private void handleToevoegen() {
-		if (tOplNaam.getText().equals("") && tOplBesch.getText().equals("")) {
-			lOpl.setText("Gelieve de velden in te vullen.");
-		} else if (tOplNaam.getText().equals("")) {
-			lOpl.setText("Gelieve het veld \"Naam opleiding\" in te vullen.");
-		} else if (tOplBesch.getText().equals("")) {
-			lOpl.setText("Gelieve het veld \"Beschrijving\" in te vullen.");
+		if (tOplNaam.getText().equals("") || tOplBesch.getText().equals("")) {
+			lOpl.setText("Gelieve alle velden in te vullen.");
 		} else if (edit) {
 
 			if (tOplNaam.getText().equals(teBewerken.getNaam())

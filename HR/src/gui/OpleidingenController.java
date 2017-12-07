@@ -43,7 +43,7 @@ public class OpleidingenController {
 	Button bBewerken;
 	@FXML
 	Button bBoeken;
-	
+
 	@FXML
 	private void clearLabel() {
 		lSelectie.setText("");
@@ -77,7 +77,6 @@ public class OpleidingenController {
 			lSelectie.setText("Geen opleiding geselecteerd.");
 
 		} else {
-			lSelectie.setText("");
 			Stage popup = new Stage();
 			FXMLLoader f = new FXMLLoader(getClass().getResource("AddOpleiding.fxml"));
 			Parent root = (Parent) f.load();
@@ -131,10 +130,12 @@ public class OpleidingenController {
 				protected void updateItem(String item, boolean empty) {
 					super.updateItem(item, empty);
 					setText(item);
-					Tooltip t = new Tooltip(item);
-					t.setMaxWidth(300);
-					t.setWrapText(true);
-					setTooltip(t);
+					if (item != null && !item.equals("")) {
+						Tooltip t = new Tooltip(item);
+						t.setMaxWidth(300);
+						t.setWrapText(true);
+						setTooltip(t);
+					}
 				}
 			};
 		});
@@ -145,10 +146,12 @@ public class OpleidingenController {
 				protected void updateItem(String item, boolean empty) {
 					super.updateItem(item, empty);
 					setText(item);
-					Tooltip t = new Tooltip(item);
-					t.setMaxWidth(300);
-					t.setWrapText(true);
-					setTooltip(t);
+					if (item != null && !item.equals("")) {
+						Tooltip t = new Tooltip(item);
+						t.setMaxWidth(300);
+						t.setWrapText(true);
+						setTooltip(t);
+					}
 				}
 			};
 		});

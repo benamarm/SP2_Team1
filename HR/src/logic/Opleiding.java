@@ -13,6 +13,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "opleidingen", catalog = "SP2Team01")
@@ -91,5 +92,46 @@ public class Opleiding implements java.io.Serializable {
 	public void setEvents(Set<Event> events) {
 		this.events = events;
 	}
+
+	@Transient
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((beschrijving == null) ? 0 : beschrijving.hashCode());
+		result = prime * result + ((naam == null) ? 0 : naam.hashCode());
+		result = prime * result + ((opleidingId == null) ? 0 : opleidingId.hashCode());
+		return result;
+	}
+
+	@Transient
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Opleiding other = (Opleiding) obj;
+		if (beschrijving == null) {
+			if (other.beschrijving != null)
+				return false;
+		} else if (!beschrijving.equals(other.beschrijving))
+			return false;
+		if (naam == null) {
+			if (other.naam != null)
+				return false;
+		} else if (!naam.equals(other.naam))
+			return false;
+		if (opleidingId == null) {
+			if (other.opleidingId != null)
+				return false;
+		} else if (!opleidingId.equals(other.opleidingId))
+			return false;
+		return true;
+	}
+	
+	
 
 }

@@ -1,9 +1,9 @@
 package gui;
 
 import java.io.IOException;
-
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+import email.Email;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -48,11 +48,6 @@ public class UsersController {
 	Button abPassword;
 	@FXML
 	Label alSelectie;
-	
-	@FXML
-	private void clearLabel() {
-		alSelectie.setText("");
-	}
 
 	@FXML
 	private void handleAppUser() throws IOException {
@@ -148,10 +143,13 @@ public class UsersController {
 			Session session = Main.factory.getCurrentSession();
 			session.beginTransaction();
 
+			String password = User.generatePassword();
+
 			Query q = session.createNativeQuery("UPDATE applogin SET password = :p WHERE loginemail = :l");
-			q.setParameter("p", User.generatePassword()).setParameter("l", u.getLoginemail());
+			q.setParameter("p", password).setParameter("l", u.getLoginemail());
 
 			if (q.executeUpdate() == 1) {
+				Email.sendPassword(u.getLoginemail(), password);
 				alSelectie.setStyle("-fx-text-fill: black");
 				alSelectie.setText("Nieuw wachtwoord succesvol gegenereerd!");
 			} else {
@@ -165,8 +163,6 @@ public class UsersController {
 
 	@FXML
 	private void initAppUsers() {
-
-		// setText "" op label website
 
 		aUsers.setPlaceholder(new Label("Er zijn geen users."));
 
@@ -202,16 +198,25 @@ public class UsersController {
 		aUsers.setItems(list);
 	}
 
-	// Website
-
 	@FXML
-	private void initWebsite() {
+	private void clearLabel() {
 		alSelectie.setText("");
+		// setText "" op label website
 	}
 
 	@FXML
 	public void initialize() {
 		initAppUsers();
+		initWebsite();
+	}
+
+	// Website
+	@FXML
+	Tab website;
+
+	@FXML
+	private void initWebsite() {
+
 	}
 
 }

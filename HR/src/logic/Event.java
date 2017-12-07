@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "events", catalog = "SP2Team01")
@@ -27,6 +28,7 @@ public class Event implements java.io.Serializable {
 	private Date einddatum;
 	private int aantalDeelnames;
 	private int maxDeelnames;
+	private Boolean afgelast;
 	private Set<Vaardigheid> vaardigheden = new HashSet<Vaardigheid>(0);
 
 	public Event() {
@@ -108,6 +110,15 @@ public class Event implements java.io.Serializable {
 		this.maxDeelnames = maxDeelnames;
 	}
 	
+	@Column(name = "afgelast")
+	public Boolean isAfgelast() {
+		return this.afgelast;
+	}
+
+	public void setAfgelast(Boolean afgelast) {
+		this.afgelast = afgelast;
+	}
+	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "event")
 	public Set<Vaardigheid> getVaardigheden() {
 		return this.vaardigheden;
@@ -115,6 +126,69 @@ public class Event implements java.io.Serializable {
 
 	public void setVaardigheden(Set<Vaardigheid> vaardigheden) {
 		this.vaardigheden = vaardigheden;
+	}
+
+	@Transient
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + aantalDeelnames;
+		result = prime * result + ((adres == null) ? 0 : adres.hashCode());
+		result = prime * result + ((einddatum == null) ? 0 : einddatum.hashCode());
+		result = prime * result + ((eventId == null) ? 0 : eventId.hashCode());
+		result = prime * result + maxDeelnames;
+		result = prime * result + ((naamTrainer == null) ? 0 : naamTrainer.hashCode());
+		result = prime * result + ((opleiding == null) ? 0 : opleiding.hashCode());
+		result = prime * result + ((startdatum == null) ? 0 : startdatum.hashCode());
+		return result;
+	}
+	
+	@Transient
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Event other = (Event) obj;
+		if (aantalDeelnames != other.aantalDeelnames)
+			return false;
+		if (adres == null) {
+			if (other.adres != null)
+				return false;
+		} else if (!adres.equals(other.adres))
+			return false;
+		if (einddatum == null) {
+			if (other.einddatum != null)
+				return false;
+		} else if (!einddatum.equals(other.einddatum))
+			return false;
+		if (eventId == null) {
+			if (other.eventId != null)
+				return false;
+		} else if (!eventId.equals(other.eventId))
+			return false;
+		if (maxDeelnames != other.maxDeelnames)
+			return false;
+		if (naamTrainer == null) {
+			if (other.naamTrainer != null)
+				return false;
+		} else if (!naamTrainer.equals(other.naamTrainer))
+			return false;
+		if (opleiding == null) {
+			if (other.opleiding != null)
+				return false;
+		} else if (!opleiding.equals(other.opleiding))
+			return false;
+		if (startdatum == null) {
+			if (other.startdatum != null)
+				return false;
+		} else if (!startdatum.equals(other.startdatum))
+			return false;
+		return true;
 	}
 
 }

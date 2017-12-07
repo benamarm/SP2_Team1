@@ -24,11 +24,10 @@ public class Email {
 			message.setFrom(new InternetAddress("noreply.hr.sp2@gmail.com"));
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 			message.setSubject("Nieuw wachtwoord");
-			message.setText("Beste \n\n\nU krijgt deze mail omdat uw wachtwoord is gewijzigd. \nUw nieuwe wachtwoord is: " + password + "\n \n \nGelieve niet te antwoorden op deze mail.");
+			message.setText("Beste\n\nU krijgt deze mail omdat uw wachtwoord is gewijzigd.\nUw nieuwe wachtwoord is: " + password + "\n \nGelieve niet te antwoorden op deze mail.");
 
 			// send the message
 			Transport.send(message);
-			System.out.println("message sent successfully...");
 
 		} catch (MessagingException e) {
 			e.printStackTrace();

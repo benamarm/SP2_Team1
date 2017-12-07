@@ -4,7 +4,7 @@
 }
 
 
-#tLogout, .button {
+#tLogout, #lWijzigWachtwoord, .button {
 	-fx-cursor: hand;
 }
 
