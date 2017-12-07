@@ -49,13 +49,8 @@ public class odata extends Personeel {
 		
 		
 	}
-	public static String getCountry(Client client,int id) {
-		client=ClientBuilder.newClient();
-		WebTarget target = client.target("http://services.odata.org/V4/Northwind/Northwind.svc/Employees("+id+")/Country?$format=application/json;odata.metadata=none");
-		String s=target.request(MediaType.APPLICATION_JSON).get(String.class);
-		//System.out.println(s);
-		return s;
-	}
+	
+	
 	public static String getTitle(Client client,int id) {
 		client=ClientBuilder.newClient();
 		WebTarget target = client.target("http://services.odata.org/V4/Northwind/Northwind.svc/Employees("+id+")/Title?$format=application/json;odata.metadata=none");
@@ -72,7 +67,7 @@ public class odata extends Personeel {
 		ArrayList<Personeel> pers = new ArrayList<Personeel>();
 		ArrayList<String> avoornaam = new ArrayList<String>();
 		ArrayList<String> aachternaam = new ArrayList<String>();
-		ArrayList<String> aland = new ArrayList<String>();
+	
 		ArrayList<String> atitel = new ArrayList<String>();
 		
 		for(int id=1; id<8; id++) {	
@@ -90,11 +85,8 @@ public class odata extends Personeel {
 		p.setVoornaam(Subvoornaam);
 		avoornaam.add(Subvoornaam);
 	
+		p.setPersId(id);
 		
-		String land =(getCountry(client,id));
-		String subland =land.substring(10,land.length()-2);
-		p.SetLand(subland);
-		aland.add(subland);
 		
 		
 		String titel=(getTitle(client,id));
@@ -124,9 +116,7 @@ public class odata extends Personeel {
 			String Subvoornaam =voornaam.substring(10,voornaam.length()-2);
 			ps.setVoornaam(Subvoornaam);	
 			
-			String land =(getCountry(client,ID));
-			String subland =land.substring(10,land.length()-2);
-			ps.SetLand(subland);
+			
 		 
 			String titel=(getTitle(client,ID));
 			String subtitel=titel.substring(10,titel.length()-2);
@@ -146,12 +136,12 @@ public class odata extends Personeel {
 //				String s=target.request(MediaType.APPLICATION_JSON).get(String.class);
 				ArrayList<Personeel> maina = getAll();
 				
-				for(int id=1; id<maina.size(); id++) {	
+				for(int id=1; id<maina.size()+1; id++) {	
 				
 				
 				System.out.println("----------------");
 				System.out.println("id :"+ id);
-			System.out.println(" land : "+ maina.get(id-1).getLand()) ;
+			
 			System.out.println("voornaam: "+maina.get(id-1).getVoornaam());
 			System.out.println("achternaam: "+maina.get(id-1).getAchternaam());
 			System.out.println("titel:  "+maina.get(id-1).getTitel());
@@ -160,7 +150,7 @@ public class odata extends Personeel {
 				Personeel pmain = getPSingle(ID);
 				System.out.println("*****************");
 				System.out.println("id :"+ ID);
-				System.out.println("land:  "+pmain.getLand()) ;
+				
 				System.out.println("voornaam:  "+pmain.getVoornaam());
 				System.out.println("achternaam:  "+pmain.getAchternaam());
 				System.out.println("titel:  "+pmain.getTitel());
