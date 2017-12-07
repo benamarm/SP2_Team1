@@ -145,67 +145,26 @@ public class odata extends Personeel {
 //				WebTarget target = client.target("http://services.odata.org/V4/Northwind/Northwind.svc/Employees(7)/LastName ; filter=startswith(LastName, 'K')");
 //				String s=target.request(MediaType.APPLICATION_JSON).get(String.class);
 				ArrayList<Personeel> maina = getAll();
-				Personeel pep = new Personeel() ;
-				for(int id=1; id<8; id++) {	
 				
-				pep= maina.get(id-1);
+				for(int id=1; id<maina.size(); id++) {	
+				
+				
 				System.out.println("----------------");
-			System.out.println(pep.getLand()) ;
-			System.out.println(pep.getVoornaam());
-			System.out.println(pep.getAchternaam());
-			System.out.println(pep.getTitel());
+				System.out.println("id :"+ id);
+			System.out.println(" land : "+ maina.get(id-1).getLand()) ;
+			System.out.println("voornaam: "+maina.get(id-1).getVoornaam());
+			System.out.println("achternaam: "+maina.get(id-1).getAchternaam());
+			System.out.println("titel:  "+maina.get(id-1).getTitel());
 				}
-				
-				Personeel pmain = getPSingle(7);
+				int ID =7 ;
+				Personeel pmain = getPSingle(ID);
 				System.out.println("*****************");
-				System.out.println(pmain.getLand()) ;
-				System.out.println(pmain.getVoornaam());
-				System.out.println(pmain.getAchternaam());
-				System.out.println(pmain.getTitel());
+				System.out.println("id :"+ ID);
+				System.out.println("land:  "+pmain.getLand()) ;
+				System.out.println("voornaam:  "+pmain.getVoornaam());
+				System.out.println("achternaam:  "+pmain.getAchternaam());
+				System.out.println("titel:  "+pmain.getTitel());
 				
-//				Personeel p = new Personeel();
-//				String achternaam =(getSingle(client,7));
-//				String Sub = achternaam.substring(10 , achternaam.length()-2);
-//				p.setAchternaam(Sub);
-//				System.out.println(p.getAchternaam());
-//				String voornaam =(getFirstName(client,7));
-//				String Subvoornaam =voornaam.substring(10,voornaam.length()-2);
-//				p.setVoornaam(Subvoornaam);
-//				System.out.println(p.getVoornaam());
-//				String land =(getCountry(client,7));
-//				String subland =land.substring(10,land.length()-2);
-//				p.SetLand(subland);
-//				System.out.println(p.getLand());
-//				String titel=(getTitle(client,7));
-//				String subtitel=titel.substring(10,titel.length()-2);
-//				p.SetTitel(subtitel);
-				
-//				Client client = ClientBuilder.newClient();
-//				 getSingle(client, 7);
-//		    	Personeel p = new Personeel();
-//		    	p.setVoornaam(getSingle(client,7));
-		    	
-		    	
-
-		    	/*String met=getLastName(client,"scottketchum");
-		    	String sub=met.substring(10);
-		    	sub=sub.substring(0, sub.length()-2);
-	    	System.out.println(sub);
-
-	    	String metho=getFirstName(client,"scottketchum");
-		    	String subs=metho.substring(10);
-	    	subs=subs.substring(0, subs.length()-2);
-		    	System.out.println(subs);
-//
-*///		    	String methode=getEmail(client,"scottketchum");
-//		    	String submethode=methode.substring(10);
-//		    	submethode=submethode.substring(0, submethode.length()-2);
-//		    	System.out.println(submethode);
-//
-//		    	String m=getAddress(client,"scottketchum");
-//		    	String s=m.substring(10);
-//		    	s=s.substring(0, s.length()-2);
-//		    	System.out.println(s);
 
 	    
 	   
