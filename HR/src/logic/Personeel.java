@@ -16,10 +16,17 @@ public class Personeel implements java.io.Serializable {
 
 	private static final long serialVersionUID = 4691520798882102440L;
 	private String persId;
-	@Transient
 	private String voornaam;
-	@Transient
 	private String achternaam;
+	private String birthDate;
+	private String role;
+	private String hiredate;
+	private String address;
+	private String city;
+	private String postcode;
+	private String country;
+	private String phoneNumber;
+	
 	private Set<Vaardigheid> vaardigheden = new HashSet<Vaardigheid>(0);
 
 	public Personeel() {
@@ -31,8 +38,8 @@ public class Personeel implements java.io.Serializable {
 		return this.persId;
 	}
 
-	public void setPersId(String persId) {
-		this.persId = persId;
+	public void setPersId(String i) {
+		this.persId = i;
 	}
 
 	@Transient
@@ -62,9 +69,76 @@ public class Personeel implements java.io.Serializable {
 		this.vaardigheden = vaardigheden;
 	}
 	
+	
+	@Transient
+	public String getBirthDate() {
+		return birthDate;
+	}
+
+	public void setBirthDate(String birthDate) {
+		this.birthDate = birthDate;
+	}
+	@Transient
+	public String getRole() {
+		return role;
+	}
+	
+	public void setRole(String role) {
+		this.role = role;
+	}
+	@Transient
+	public String getHiredate() {
+		return hiredate;
+	}
+	
+	public void setHiredate(String hiredate) {
+		this.hiredate = hiredate;
+	}
+	@Transient
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	@Transient
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+	@Transient
+	public String getPostcode() {
+		return postcode;
+	}
+
+	public void setPostcode(String postcode) {
+		this.postcode = postcode;
+	}
+	@Transient
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+	@Transient
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+	
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
 	@Transient
 	public String getVolleNaam() {
 		return voornaam + " " + achternaam;
 	}
 
+	
 }

@@ -6,10 +6,50 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import exceptions.UserBestaatReedsException;
+import exceptions.UserOnbestaandException;
 import gui.Main;
 import logic.User;
+import logic.Vaardigheid;
 
 public class UserDAO {
+	
+	
+	public static List<User> getAllExceptSession(){
+		List<User> users = null;
+		Session session = Main.factory.getCurrentSession();
+		session.beginTransaction();
+
+		try {
+			Query q = session.createQuery("FROM User where checked = 0");
+			users = (List<User>) q.list();
+			session.getTransaction().commit();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		return users;
+	}
+	
+	
+	
+	public static boolean updatePassword(String loginemail, String password) throws UserOnbestaandException{
+				Session session = Main.factory.getCurrentSession();
+				session.beginTransaction();
+				
+				if (session.get(User.class, loginemail) == null) {
+					session.getTransaction().commit();
+					throw new UserOnbestaandException();
+				}
+				
+				Query q = session.createNativeQuery("UPDATE applogin set password = :pass where loginemail = :email");
+				q.setParameter("pass", password).setParameter("email", loginemail);
+				boolean updateSucceeded = true;
+				if(q.executeUpdate() == 0) updateSucceeded = false;
+				session.getTransaction().commit();
+
+				return updateSucceeded;
+	}
 
 	public static boolean save(User u) throws UserBestaatReedsException {
 
@@ -30,7 +70,7 @@ public class UserDAO {
 				"INSERT INTO applogin(loginemail, naam, achternaam, positie, password) VALUES(:l, :n, :a, :po, :pa)");
 		q.setParameter("l", u.getLoginemail()).setParameter("n", u.getNaam()).setParameter("a", u.getAchternaam())
 				.setParameter("po", u.getPositie()).setParameter("pa", User.generatePassword());
-		if(q.executeUpdate() == 1) {
+		if(q.executeUpdate() > 0) {
 			added = true;
 		}		
 

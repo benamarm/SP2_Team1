@@ -58,7 +58,7 @@ public class AanvragenController {
 				v.setChecked(true);
 			}
 			
-			if(VaardigheidDAO.update(aanvragen.getSelectionModel().getSelectedItems())) {
+			if(VaardigheidDAO.updateObservables(aanvragen.getSelectionModel().getSelectedItems())) {
 				initialize();
 				lCheck.setStyle("-fx-text-fill: black");
 				lCheck.setText("De aanvragen werden bevestigd.");

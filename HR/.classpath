@@ -44,5 +44,8 @@
 	<classpathentry kind="lib" path="odata/jsr250-api-1.0.jar"/>
 	<classpathentry kind="lib" path="odata/org.osgi.core-4.2.0.jar"/>
 	<classpathentry kind="lib" path="odata/osgi-resource-locator-1.0.1.jar"/>
+	<classpathentry kind="lib" path="/Users/adolphe/Desktop/OdataJava/json/src/json-20171018-sources.jar"/>
+	<classpathentry kind="lib" path="/Users/adolphe/Desktop/OdataJava/json/json-20171018.jar"/>
+	<classpathentry kind="lib" path="/Users/adolphe/Downloads/okhttp-3.9.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
