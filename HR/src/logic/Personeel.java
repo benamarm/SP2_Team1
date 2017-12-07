@@ -15,11 +15,14 @@ import javax.persistence.Transient;
 public class Personeel implements java.io.Serializable {
 
 	private static final long serialVersionUID = 4691520798882102440L;
-	private String persId;
+	private int persId;
 	@Transient
 	private String voornaam;
 	@Transient
 	private String achternaam;
+	@Transient
+	private String titel;
+
 	private Set<Vaardigheid> vaardigheden = new HashSet<Vaardigheid>(0);
 
 	public Personeel() {
@@ -27,11 +30,11 @@ public class Personeel implements java.io.Serializable {
 
 	@Id
 	@Column(name = "pers_id", unique = true, nullable = false, length = 50)
-	public String getPersId() {
+	public int getPersId() {
 		return this.persId;
 	}
 
-	public void setPersId(String persId) {
+	public void setPersId(int persId) {
 		this.persId = persId;
 	}
 
@@ -43,6 +46,17 @@ public class Personeel implements java.io.Serializable {
 	public void setVoornaam(String voornaam) {
 		this.voornaam = voornaam;
 	}
+
+	@Transient
+	public String getTitel() {
+		return titel;
+	}
+
+	public void SetTitel(String titel) {
+		this.titel = titel;
+	}
+
+	
 
 	@Transient
 	public String getAchternaam() {
@@ -61,10 +75,19 @@ public class Personeel implements java.io.Serializable {
 	public void setVaardigheden(Set<Vaardigheid> vaardigheden) {
 		this.vaardigheden = vaardigheden;
 	}
-	
+
 	@Transient
 	public String getVolleNaam() {
 		return voornaam + " " + achternaam;
+	}
+
+	public Personeel(int id, String sub, String subvoornaam, String subtitel) {
+		// TODO Auto-generated method stub
+		this.persId = id;
+		this.voornaam = sub;
+		this.achternaam = subvoornaam;
+		this.titel = subtitel;
+
 	}
 
 }
