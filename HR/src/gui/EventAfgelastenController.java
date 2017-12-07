@@ -34,8 +34,8 @@ public class EventAfgelastenController {
 
 		bJa.setDisable(true);
 		lCheck.setText("Event succesvol afgelast");
-		
-		//Email sturen
+
+		// Email sturen
 
 	}
 

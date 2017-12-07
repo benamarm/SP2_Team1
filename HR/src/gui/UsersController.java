@@ -1,10 +1,8 @@
 package gui;
 
 import java.io.IOException;
-
 import org.hibernate.Session;
 import org.hibernate.query.Query;
-
 import email.Email;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -144,7 +142,7 @@ public class UsersController {
 
 			Session session = Main.factory.getCurrentSession();
 			session.beginTransaction();
-			
+
 			String password = User.generatePassword();
 
 			Query q = session.createNativeQuery("UPDATE applogin SET password = :p WHERE loginemail = :l");
@@ -199,7 +197,7 @@ public class UsersController {
 
 		aUsers.setItems(list);
 	}
-	
+
 	@FXML
 	private void clearLabel() {
 		alSelectie.setText("");
@@ -211,16 +209,14 @@ public class UsersController {
 		initAppUsers();
 		initWebsite();
 	}
-	
+
 	// Website
 	@FXML
 	Tab website;
 
 	@FXML
 	private void initWebsite() {
-	
-	}
 
-	
+	}
 
 }

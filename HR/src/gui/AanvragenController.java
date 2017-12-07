@@ -66,14 +66,15 @@ public class AanvragenController {
 					v.setChecked(true);
 
 			} else {
-				for (Vaardigheid v : aanvragen.getSelectionModel().getSelectedItems()) 
-					v.setChecked(false);				
+				for (Vaardigheid v : aanvragen.getSelectionModel().getSelectedItems())
+					v.setChecked(false);
 			}
 
 			if (VaardigheidDAO.updateObservables(aanvragen.getSelectionModel().getSelectedItems())) {
 				initialize();
 				lCheck.setStyle("-fx-text-fill: black");
-				lCheck.setText("De aanvragen werden " + (e.getTarget() == bGoedkeuren ? "goedgekeurd" : "afgekeurd") + ".");
+				lCheck.setText(
+						"De aanvragen werden " + (e.getTarget() == bGoedkeuren ? "goedgekeurd" : "afgekeurd") + ".");
 			} else {
 				lCheck.setStyle("-fx-text-fill: red");
 				lCheck.setText("Er is een technische fout opgelopen.");

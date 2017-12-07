@@ -1,14 +1,9 @@
 package gui;
 
 import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.function.UnaryOperator;
-import java.util.regex.Pattern;
-
 import org.hibernate.Session;
 import org.hibernate.query.Query;
-
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -21,10 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
-import javafx.scene.control.TextFormatter.Change;
 import javafx.util.Callback;
-import javafx.util.converter.IntegerStringConverter;
 import logic.Adres;
 import logic.Event;
 import logic.Opleiding;
@@ -121,7 +113,7 @@ public class AddEventController {
 						lCheck.setText("U heeft niets aangepast.");
 						return;
 					}
-					if(nieuw.getMaxDeelnames() < teBewerken.getMaxDeelnames()) {
+					if (nieuw.getMaxDeelnames() < teBewerken.getMaxDeelnames()) {
 						session.getTransaction().rollback();
 						lCheck.setText("Maximum aantal deelnemers mag enkel verhoogd worden.");
 						return;

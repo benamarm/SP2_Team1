@@ -1,7 +1,6 @@
 package gui;
 
 import java.io.IOException;
-
 import database.LogDAO;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -47,12 +46,12 @@ public class MainAppController {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@FXML
 	private void wijzigWachtwoord() {
-		
+
 	}
-	
+
 	@FXML
 	private void handleButtonUsers() {
 		try {
@@ -83,7 +82,7 @@ public class MainAppController {
 			e.printStackTrace();
 		}
 	}
-		
+
 	@FXML
 	private void handleButtonEvents() {
 		try {

@@ -2,10 +2,8 @@ package gui;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-
 import org.hibernate.Session;
 import org.hibernate.query.Query;
-
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -32,7 +30,6 @@ import javafx.stage.WindowEvent;
 import javafx.util.Callback;
 import logic.Event;
 import logic.Opleiding;
-import logic.Vaardigheid;
 
 public class EventsController {
 
@@ -124,7 +121,7 @@ public class EventsController {
 
 	@FXML
 	private void handleAfgelasten() throws IOException {
-			
+
 		if (events.getSelectionModel().getSelectedItems().size() == 0) {
 
 			lSelectie.setText("Geen event geselecteerd.");

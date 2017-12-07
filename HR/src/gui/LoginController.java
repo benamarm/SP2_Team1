@@ -2,7 +2,6 @@ package gui;
 
 import org.hibernate.Session;
 import org.hibernate.query.Query;
-
 import database.LogDAO;
 import database.UserDAO;
 import email.Email;
@@ -30,7 +29,6 @@ public class LoginController {
 	private TextField tEmail;
 	@FXML
 	private PasswordField pPassword;
-
 
 	@FXML
 	private void verifyCredentials() throws Exception {
@@ -73,14 +71,12 @@ public class LoginController {
 	@FXML
 	private Label lForgotPrompt;
 
-	
 	@FXML
 	private void verifyForgotEmail() {
-		
-		if(!tForgotEmail.getText().contains("@")) {
+
+		if (!tForgotEmail.getText().contains("@")) {
 			lForgotPrompt.setText("Gelieve een e-mailadres in te geven.");
-		}
-		else {
+		} else {
 			Session session = Main.factory.getCurrentSession();
 			session.beginTransaction();
 
@@ -110,7 +106,7 @@ public class LoginController {
 			}
 
 			session.getTransaction().commit();
-		}	
+		}
 
 	}
 
