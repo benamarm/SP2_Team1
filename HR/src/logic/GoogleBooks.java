@@ -1,5 +1,5 @@
 package logic;
-import testing.ClientCredentials;
+//import testing.ClientCredentials;
 
 /*
  * Copyright (c) 2011 Google Inc.
@@ -38,7 +38,7 @@ public class GoogleBooks{
 	  private static final NumberFormat CURRENCY_FORMATTER = NumberFormat.getCurrencyInstance();
 	  
 	  public static ArrayList<Boek> executeQuery(JsonFactory jsonFactory, GoogleBooksExecutableQuery query) throws Exception {
-	    ClientCredentials.errorIfNotSpecified();
+	    //ClientCredentials.errorIfNotSpecified();
 		    
 		    // Set up Books client.
 		    final Books books = new Books.Builder(GoogleNetHttpTransport.newTrustedTransport(), jsonFactory, null)
