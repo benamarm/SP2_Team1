@@ -57,7 +57,7 @@ public class EventsController {
 	@FXML
 	Button bBewerken;
 	@FXML
-	Button bAflasten;
+	Button bAfgelasten;
 	@FXML
 	Label lSelectie;
 
@@ -120,7 +120,35 @@ public class EventsController {
 			c.initiate(opleidingen.getValue(), true, events.getSelectionModel().getSelectedItem());
 			popup.show();
 		}
+	}
 
+	@FXML
+	private void handleAfgelasten() throws IOException {
+			
+		if (events.getSelectionModel().getSelectedItems().size() == 0) {
+
+			lSelectie.setText("Geen event geselecteerd.");
+
+		} else {
+			Stage popup = new Stage();
+			FXMLLoader f = new FXMLLoader(getClass().getResource("EventAfgelasten.fxml"));
+			Parent root = (Parent) f.load();
+			Scene scene = new Scene(root);
+			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			popup.setTitle("Event afgelasten");
+			popup.initModality(Modality.APPLICATION_MODAL);
+			popup.setResizable(false);
+			popup.centerOnScreen();
+			popup.setScene(scene);
+			popup.setOnCloseRequest(new EventHandler<WindowEvent>() {
+				public void handle(WindowEvent we) {
+					setEvents();
+				}
+			});
+			EventAfgelastenController c = (EventAfgelastenController) f.getController();
+			c.e = events.getSelectionModel().getSelectedItem();
+			popup.show();
+		}
 	}
 
 	@FXML
@@ -129,7 +157,7 @@ public class EventsController {
 		Session session = Main.factory.getCurrentSession();
 		session.beginTransaction();
 		Query q = session.createQuery("FROM Event WHERE opleiding_id = " + opleidingen.getValue().getOpleidingId()
-				+ " AND einddatum >= CURRENT_DATE() ORDER BY startdatum");
+				+ " AND einddatum >= CURRENT_DATE() AND afgelast = FALSE ORDER BY startdatum");
 		ObservableList<Event> list = FXCollections.observableArrayList(q.list());
 		session.getTransaction().commit();
 
@@ -147,6 +175,21 @@ public class EventsController {
 			public ObservableValue<String> call(CellDataFeatures<Event, String> data) {
 				return new SimpleStringProperty(data.getValue().getNaamTrainer());
 			}
+		});
+		colTrainer.setCellFactory(column -> {
+			return new TableCell<Event, String>() {
+				@Override
+				protected void updateItem(String item, boolean empty) {
+					super.updateItem(item, empty);
+					setText(item);
+					if (item != null && !item.equals("")) {
+						Tooltip t = new Tooltip(item);
+						t.setMaxWidth(350);
+						t.setWrapText(true);
+						setTooltip(t);
+					}
+				}
+			};
 		});
 		colAdres.setCellValueFactory(new Callback<CellDataFeatures<Event, String>, ObservableValue<String>>() {
 			@Override

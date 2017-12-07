@@ -28,7 +28,7 @@
       <Button fx:id="bToevoegen" layoutX="810.0" layoutY="140.0" mnemonicParsing="false" onAction="#handleToevoegen" styleClass="otherbtn" text="Event toevoegen" />
       <Label alignment="CENTER" layoutX="789.0" layoutY="240.0" prefHeight="64.0" prefWidth="172.0" text="Of selecteer een event in de tabel en kies een optie." textAlignment="CENTER" wrapText="true" />
       <Button fx:id="bBewerken" layoutX="825.0" layoutY="304.0" mnemonicParsing="false" onAction="#handleBewerken" prefWidth="100.0" styleClass="otherbtn" text="Bewerken" />
-      <Button fx:id="bAflasten" layoutX="825.0" layoutY="346.0" mnemonicParsing="false" prefWidth="100.0" styleClass="otherbtn" text="Afgelasten" />
+      <Button fx:id="bAfgelasten" layoutX="825.0" layoutY="346.0" mnemonicParsing="false" onAction="#handleAfgelasten" prefWidth="100.0" styleClass="otherbtn" text="Afgelasten" />
       <Label fx:id="lSelectie" alignment="CENTER" layoutX="800.0" layoutY="178.0" prefHeight="71.0" prefWidth="150.0" textAlignment="CENTER" textFill="RED" wrapText="true" />
    </children>
 </AnchorPane>

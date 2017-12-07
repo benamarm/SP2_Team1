@@ -28,6 +28,7 @@ public class Event implements java.io.Serializable {
 	private Date einddatum;
 	private int aantalDeelnames;
 	private int maxDeelnames;
+	private Boolean afgelast;
 	private Set<Vaardigheid> vaardigheden = new HashSet<Vaardigheid>(0);
 
 	public Event() {
@@ -107,6 +108,15 @@ public class Event implements java.io.Serializable {
 
 	public void setMaxDeelnames(int maxDeelnames) {
 		this.maxDeelnames = maxDeelnames;
+	}
+	
+	@Column(name = "afgelast")
+	public Boolean isAfgelast() {
+		return this.afgelast;
+	}
+
+	public void setAfgelast(Boolean afgelast) {
+		this.afgelast = afgelast;
 	}
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "event")
