@@ -22,8 +22,7 @@ public class Personeel implements java.io.Serializable {
 	private String achternaam;
 	@Transient
 	private String titel;
-	@Transient
-	private String land ;
+
 	private Set<Vaardigheid> vaardigheden = new HashSet<Vaardigheid>(0);
 
 	public Personeel() {
@@ -47,23 +46,16 @@ public class Personeel implements java.io.Serializable {
 	public void setVoornaam(String voornaam) {
 		this.voornaam = voornaam;
 	}
-@Transient
-public String getTitel() {
-	return titel;
-}
-	public void SetTitel(String titel) {
-		this.titel= titel;
-	}
+
 	@Transient
-	public String getLand() {
-		return land;
+	public String getTitel() {
+		return titel;
 	}
-	public void SetLand(String land) {
-		this.land= land;
+
+	public void SetTitel(String titel) {
+		this.titel = titel;
 	}
-	
-	
-	
+
 	
 
 	@Transient
@@ -83,21 +75,19 @@ public String getTitel() {
 	public void setVaardigheden(Set<Vaardigheid> vaardigheden) {
 		this.vaardigheden = vaardigheden;
 	}
-	
+
 	@Transient
 	public String getVolleNaam() {
 		return voornaam + " " + achternaam;
 	}
 
-	public Personeel(int id, String sub, String subvoornaam, String subland, String subtitel) {
+	public Personeel(int id, String sub, String subvoornaam, String subtitel) {
 		// TODO Auto-generated method stub
 		this.persId = id;
 		this.voornaam = sub;
 		this.achternaam = subvoornaam;
 		this.titel = subtitel;
-		this.land = subland;
-	}
 
-	
+	}
 
 }
