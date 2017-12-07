@@ -60,15 +60,6 @@ public class AddEventController {
 	@FXML
 	Label lCheck;
 
-	// LocalDate locald = LocalDate.of(1967, 06, 22);
-	// Date date = Date.valueOf(locald); // Magic happens here!
-	// r.setDateOfBirth(date);
-
-	// Er is een technische fout opgelopen.
-	// Ongepaste start-/einddatum.
-	// Event succesvol toegevoegd!
-	// Maximum aantal deelnemers mag enkel verhoogd worden.
-
 	@FXML
 	private void clearBestaandeAdres() {
 		adressen.getSelectionModel().clearSelection();
@@ -126,8 +117,13 @@ public class AddEventController {
 				if (edit) {
 					nieuw.setEventId(teBewerken.getEventId());
 					if (nieuw.equals(teBewerken)) {
-						session.getTransaction().commit();
+						session.getTransaction().rollback();
 						lCheck.setText("U heeft niets aangepast.");
+						return;
+					}
+					if(nieuw.getMaxDeelnames() < teBewerken.getMaxDeelnames()) {
+						session.getTransaction().rollback();
+						lCheck.setText("Maximum aantal deelnemers mag enkel verhoogd worden.");
 						return;
 					}
 					session.update(nieuw);
@@ -142,7 +138,7 @@ public class AddEventController {
 
 			bToevoegen.setDisable(true);
 			lCheck.setStyle("-fx-text-fill: black");
-			lCheck.setText("Opleiding succesvol " + (edit ? "bewerkt." : "toegevoegd."));
+			lCheck.setText("Event succesvol " + (edit ? "bewerkt." : "toegevoegd."));
 			// if edit -> stuur email
 			// Logs
 		}

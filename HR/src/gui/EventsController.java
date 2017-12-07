@@ -77,7 +77,7 @@ public class EventsController {
 			Parent root = (Parent) f.load();
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			popup.setTitle("Opleiding bewerken");
+			popup.setTitle("Event toevoegen");
 			popup.initModality(Modality.APPLICATION_MODAL);
 			popup.setResizable(false);
 			popup.centerOnScreen();
