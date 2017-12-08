@@ -89,10 +89,10 @@ public class AanvragenController {
 
 		aanvragen.setPlaceholder(new Label("Er zijn momenteel geen aanvragen."));
 
-		colId.setCellValueFactory(new Callback<CellDataFeatures<Vaardigheid, String>, ObservableValue<String>>() {
+		colId.setCellValueFactory(new Callback<CellDataFeatures<Vaardigheid, Integer>, ObservableValue<Integer>>() {
 			@Override
-			public ObservableValue<String> call(CellDataFeatures<Vaardigheid, String> data) {
-				return new SimpleStringProperty(data.getValue().getPersoneel().getPersId());
+			public ObservableValue<Integer> call(CellDataFeatures<Vaardigheid, Integer> data) {
+				return new SimpleIntegerProperty(new Integer(data.getValue().getPersoneel().getPersId())).asObject();
 			}
 		});
 		colNaam.setCellValueFactory(new Callback<CellDataFeatures<Vaardigheid, String>, ObservableValue<String>>() {
