@@ -23,7 +23,7 @@ public class AanvragenController {
 	@FXML
 	TableView<Vaardigheid> aanvragen;
 	@FXML
-	TableColumn<Vaardigheid, String> colId;
+	TableColumn<Vaardigheid, Integer> colId;
 	@FXML
 	TableColumn<Vaardigheid, String> colNaam;
 	@FXML
