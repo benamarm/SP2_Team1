@@ -106,6 +106,7 @@ public class AddEventController {
 				nieuw.setNaamTrainer(tTrainer.getText());
 				nieuw.setOpleiding(opleiding);
 				nieuw.setAdres(a);
+				nieuw.setAfgelast(false);
 				if (edit) {
 					nieuw.setEventId(teBewerken.getEventId());
 					if (nieuw.equals(teBewerken)) {
