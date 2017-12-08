@@ -2,6 +2,7 @@ package gui;
 
 import java.text.SimpleDateFormat;
 import database.VaardigheidDAO;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
