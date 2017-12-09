@@ -17,11 +17,11 @@
       </CheckBox>
       <TableView fx:id="aanvragen" focusTraversable="false" layoutX="14.0" layoutY="39.0" onMouseClicked="#clearLabel" prefHeight="577.0" prefWidth="662.0">
         <columns>
-          <TableColumn fx:id="colId" editable="false" prefWidth="70.0" style="-fx-alignment: CENTER;" text="ID" />
-          <TableColumn fx:id="colNaam" editable="false" minWidth="0.0" prefWidth="180.0" text="NAAM" />
-            <TableColumn fx:id="colOpleiding" editable="false" prefWidth="210.0" text="OPLEIDING" />
-            <TableColumn fx:id="colVan" editable="false" minWidth="0.0" prefWidth="100.0" style="-fx-alignment: CENTER;" text="VAN" />
-            <TableColumn fx:id="colTot" editable="false" minWidth="0.0" prefWidth="100.0" style="-fx-alignment: CENTER;" text="TOT" />
+          <TableColumn fx:id="colId" editable="false" prefWidth="70.0" resizable="false" style="-fx-alignment: CENTER;" text="ID" />
+          <TableColumn fx:id="colNaam" editable="false" minWidth="0.0" prefWidth="180.0" resizable="false" text="NAAM" />
+            <TableColumn fx:id="colOpleiding" editable="false" prefWidth="210.0" resizable="false" text="OPLEIDING" />
+            <TableColumn fx:id="colVan" editable="false" minWidth="0.0" prefWidth="100.0" resizable="false" style="-fx-alignment: CENTER;" text="VAN" />
+            <TableColumn fx:id="colTot" editable="false" minWidth="0.0" prefWidth="100.0" resizable="false" style="-fx-alignment: CENTER;" text="TOT" />
         </columns>
       </TableView>
       <Button fx:id="bGoedkeuren" layoutX="778.0" layoutY="224.0" mnemonicParsing="false" onAction="#handleCheck" prefWidth="110.0" styleClass="otherbtn" text="Goedkeuren" />

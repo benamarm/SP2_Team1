@@ -2,12 +2,18 @@ package gui;
 
 import java.io.IOException;
 import database.LogDAO;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class MainAppController {
 
@@ -48,8 +54,17 @@ public class MainAppController {
 	}
 
 	@FXML
-	private void wijzigWachtwoord() {
-
+	private void wijzigWachtwoord() throws IOException {
+		Stage popup = new Stage();
+		Parent root = FXMLLoader.load(getClass().getResource("WijzigWachtwoord.fxml"));
+		Scene scene = new Scene(root);
+		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+		popup.setTitle("Wachtwoord");
+		popup.initModality(Modality.APPLICATION_MODAL);
+		popup.setResizable(false);
+		popup.centerOnScreen();
+		popup.setScene(scene);
+		popup.show();
 	}
 
 	@FXML

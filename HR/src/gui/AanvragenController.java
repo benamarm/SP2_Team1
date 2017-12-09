@@ -1,6 +1,7 @@
 package gui;
 
 import java.text.SimpleDateFormat;
+import database.LogDAO;
 import database.VaardigheidDAO;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -72,6 +73,7 @@ public class AanvragenController {
 			}
 
 			if (VaardigheidDAO.updateObservables(aanvragen.getSelectionModel().getSelectedItems())) {
+				//LogDAO.aanvragenGekeurd(aanvragen.getSelectionModel().getSelectedItems());
 				initialize();
 				lCheck.setStyle("-fx-text-fill: black");
 				lCheck.setText(

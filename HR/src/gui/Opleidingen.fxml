@@ -10,9 +10,9 @@
    <children>
       <TableView fx:id="opleidingen" focusTraversable="false" layoutX="14.0" layoutY="23.0" onMouseClicked="#clearLabel" prefHeight="593.0">
         <columns>
-          <TableColumn fx:id="colId" editable="false" prefWidth="50.0" style="-fx-alignment: CENTER;" text="ID" />
-            <TableColumn fx:id="colNaam" editable="false" prefWidth="210.0" text="NAAM" />
-          <TableColumn fx:id="colBeschrijving" editable="false" prefWidth="430.0" text="BESCHRIJVING" />
+          <TableColumn fx:id="colId" editable="false" prefWidth="50.0" resizable="false" style="-fx-alignment: CENTER;" text="ID" />
+            <TableColumn fx:id="colNaam" editable="false" prefWidth="210.0" resizable="false" text="NAAM" />
+          <TableColumn fx:id="colBeschrijving" editable="false" prefWidth="430.0" resizable="false" text="BESCHRIJVING" />
         </columns>
       </TableView>
       <Button fx:id="bToevoegen" layoutX="772.0" layoutY="133.0" mnemonicParsing="false" onAction="#handleToevoegen" styleClass="otherbtn" text="Opleiding toevoegen" />
