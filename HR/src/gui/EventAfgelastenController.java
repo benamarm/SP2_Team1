@@ -4,6 +4,7 @@ import org.hibernate.Session;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import logic.Event;
 
 public class EventAfgelastenController {
@@ -11,31 +12,37 @@ public class EventAfgelastenController {
 	public Event e;
 
 	@FXML
-	Button bJa;
+	TextArea tReden;
+	@FXML
+	Button bOK;
 	@FXML
 	Label lCheck;
 
 	@FXML
-	private void handleJa() {
+	private void handleOK() {
+		if(tReden.getText().equals("")) 
+			lCheck.setText("Gelieve een reden te geven.");
+		else {
+			
+			Session session = Main.factory.getCurrentSession();
+			session.beginTransaction();
 
-		Session session = Main.factory.getCurrentSession();
-		session.beginTransaction();
+			try {
+				e.setAfgelast(true);
+				session.update(e);
+				session.getTransaction().commit();
 
-		try {
-			e.setAfgelast(true);
-			session.update(e);
-			session.getTransaction().commit();
+			} catch (Exception e) {
+				bOK.setDisable(true);			
+				lCheck.setText("Er is een technische fout opgelopen.");
+			}
 
-		} catch (Exception e) {
-			bJa.setDisable(true);
-			lCheck.setStyle("-fx-text-fill: red");
-			lCheck.setText("Er is een technische fout opgelopen.");
-		}
-
-		bJa.setDisable(true);
-		lCheck.setText("Event succesvol afgelast");
-
-		// Email sturen
+			bOK.setDisable(true);
+			lCheck.setStyle("-fx-text-fill: black");
+			lCheck.setText("Event succesvol afgelast");
+			//log met reden
+			//Email sturen met reden
+		}	
 
 	}
 
