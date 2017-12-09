@@ -1,7 +1,6 @@
 package gui;
 
 import java.text.SimpleDateFormat;
-
 import database.LogDAO;
 import database.VaardigheidDAO;
 import javafx.beans.property.SimpleIntegerProperty;

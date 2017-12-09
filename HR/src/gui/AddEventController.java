@@ -124,16 +124,20 @@ public class AddEventController {
 					session.save(nieuw);
 
 				session.getTransaction().commit();
+				
+				bToevoegen.setDisable(true);
+				lCheck.setStyle("-fx-text-fill: black");
+				lCheck.setText("Event succesvol " + (edit ? "bewerkt." : "toegevoegd."));
+				
+				// if edit -> stuur email
+				// Logs
 
 			} catch (Exception e) {
+				bToevoegen.setDisable(true);
 				lCheck.setText("Er is een technische fout opgelopen.");
-			}
-
-			bToevoegen.setDisable(true);
-			lCheck.setStyle("-fx-text-fill: black");
-			lCheck.setText("Event succesvol " + (edit ? "bewerkt." : "toegevoegd."));
-			// if edit -> stuur email
-			// Logs
+				return;
+			}			
+			
 		}
 	}
 

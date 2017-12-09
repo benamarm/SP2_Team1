@@ -118,14 +118,15 @@ public class UsersController {
 				try {
 					session.update(u);
 					session.getTransaction().commit();
+					
+					initAppUsers();
+					alSelectie.setStyle("-fx-text-fill: black");
+					alSelectie.setText("User succesvol gepromoveerd!");
+					
 				} catch (Exception e) {
 					alSelectie.setStyle("-fx-text-fill: red");
 					alSelectie.setText("Er is een technische fout opgelopen.");
-				}
-
-				initAppUsers();
-				alSelectie.setStyle("-fx-text-fill: black");
-				alSelectie.setText("User succesvol gepromoveerd!");
+				}			
 
 			}
 		}
