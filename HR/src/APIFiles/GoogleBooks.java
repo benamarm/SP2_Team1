@@ -1,4 +1,4 @@
-package logic;
+package APIFiles;
 //import testing.ClientCredentials;
 
 /*
@@ -23,9 +23,12 @@ import com.google.api.services.books.BooksRequestInitializer;
 import com.google.api.services.books.Books.Volumes.List;
 import com.google.api.services.books.model.Volume;
 import com.google.api.services.books.model.Volume.VolumeInfo.IndustryIdentifiers;
-import com.google.api.services.books.model.Volumes;
+
+import APIFiles.GoogleBooks;
 import logic.Boek;
-import logic.GoogleBooks;
+
+import com.google.api.services.books.model.Volumes;
+
 //import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.ArrayList;

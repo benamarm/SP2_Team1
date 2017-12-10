@@ -1,4 +1,4 @@
-package logic;
+package APIFiles;
 
 import javax.persistence.Transient;
 

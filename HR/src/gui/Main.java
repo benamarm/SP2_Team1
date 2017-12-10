@@ -8,6 +8,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 import logic.*;
 
@@ -16,6 +17,7 @@ public class Main extends Application {
 	public static Stage window;
 	public static SessionFactory factory;
 	public static User sessionUser;
+	public static Opleiding opleidingBoek;
 
 	@Override
 	public void start(Stage primaryStage) throws IOException {
@@ -44,6 +46,22 @@ public class Main extends Application {
 			LogDAO.authenticate(false);
 		}
 		factory.close();
+	}
+	
+	
+	
+	
+	
+	
+	
+
+
+	public static Opleiding getOpleiding() {
+		return opleidingBoek;
+	}
+
+	public static void setOpleiding(Opleiding opleiding) {
+		Main.opleidingBoek = opleiding;
 	}
 
 }
