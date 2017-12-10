@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+
+import database.PersoneelDAO;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -71,6 +73,8 @@ public class EventsController {
 	@FXML
 	private void clearLabel() {
 		lSelectie.setText("");
+		deelnemers.getItems().clear();
+		deelnemers.setPlaceholder(new Label("Selecteer een event."));
 	}
 
 	@FXML
@@ -106,14 +110,8 @@ public class EventsController {
 
 			lSelectie.setText("Geen event geselecteerd.");
 
-		} else {	
-			Session session = Main.factory.getCurrentSession();
-			session.beginTransaction();
-			Query q = session.createQuery("SELECT personeel FROM Vaardigheid WHERE event_id = " + events.getSelectionModel().getSelectedItem().getEventId()
-					+ " AND checked = TRUE");
-			ObservableList<Personeel> list = FXCollections.observableArrayList(q.list());
-			session.getTransaction().commit();
-
+		} else {				
+			ObservableList<Personeel> list = FXCollections.observableArrayList(PersoneelDAO.getDeelnemers(events.getSelectionModel().getSelectedItem().getEventId()));
 			deelnemers.setItems(list);
 			deelnemers.setPlaceholder(new Label("Geen deelnemers."));
 		}
@@ -201,7 +199,9 @@ public class EventsController {
 
 	@FXML
 	private void setEvents() {
-
+		
+		deelnemers.getItems().clear();
+		deelnemers.setPlaceholder(new Label("Selecteer een event."));
 		Session session = Main.factory.getCurrentSession();
 		session.beginTransaction();
 		Query q = session.createQuery("FROM Event WHERE opleiding_id = " + opleidingen.getValue().getOpleidingId()

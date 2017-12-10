@@ -6,7 +6,9 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -16,14 +18,15 @@ public class Personeel implements java.io.Serializable {
 
 	private static final long serialVersionUID = 4691520798882102440L;
 	private int persId;
+	private WebUser account;
+	private Set<Vaardigheid> vaardigheden = new HashSet<Vaardigheid>(0);
+
 	@Transient
 	private String voornaam;
 	@Transient
 	private String achternaam;
 	@Transient
 	private String titel;
-
-	private Set<Vaardigheid> vaardigheden = new HashSet<Vaardigheid>(0);
 
 	public Personeel() {
 	}
@@ -36,6 +39,24 @@ public class Personeel implements java.io.Serializable {
 
 	public void setPersId(int persId) {
 		this.persId = persId;
+	}
+
+	@OneToOne(mappedBy = "personeel", cascade = CascadeType.ALL)
+	public WebUser getAccount() {
+		return this.account;
+	}
+
+	public void setAccount(WebUser account) {
+		this.account = account;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "personeel")
+	public Set<Vaardigheid> getVaardigheden() {
+		return this.vaardigheden;
+	}
+
+	public void setVaardigheden(Set<Vaardigheid> vaardigheden) {
+		this.vaardigheden = vaardigheden;
 	}
 
 	@Transient
@@ -56,8 +77,6 @@ public class Personeel implements java.io.Serializable {
 		this.titel = titel;
 	}
 
-	
-
 	@Transient
 	public String getAchternaam() {
 		return achternaam;
@@ -65,15 +84,6 @@ public class Personeel implements java.io.Serializable {
 
 	public void setAchternaam(String achternaam) {
 		this.achternaam = achternaam;
-	}
-
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "personeel")
-	public Set<Vaardigheid> getVaardigheden() {
-		return this.vaardigheden;
-	}
-
-	public void setVaardigheden(Set<Vaardigheid> vaardigheden) {
-		this.vaardigheden = vaardigheden;
 	}
 
 	@Transient

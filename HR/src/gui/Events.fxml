@@ -32,7 +32,7 @@
       <Button fx:id="bLocatie" layoutX="825.0" layoutY="275.0" mnemonicParsing="false" onAction="#handleLocatie" prefWidth="100.0" styleClass="otherbtn" text="Locatie" />
       <Button fx:id="bBewerken" layoutX="825.0" layoutY="315.0" mnemonicParsing="false" onAction="#handleBewerken" prefWidth="100.0" styleClass="otherbtn" text="Bewerken" />
       <Button fx:id="bAfgelasten" layoutX="825.0" layoutY="355.0" mnemonicParsing="false" onAction="#handleAfgelasten" prefWidth="100.0" styleClass="otherbtn" text="Afgelasten" />
-      <TableView fx:id="deelnemers" layoutX="773.0" layoutY="405.0" onMouseClicked="#clearLabel" prefHeight="200.0" prefWidth="202.0">
+      <TableView fx:id="deelnemers" layoutX="773.0" layoutY="405.0" prefHeight="200.0" prefWidth="202.0">
         <columns>
           <TableColumn fx:id="colDeelnemers" prefWidth="200.0" resizable="false" text="DEELNEMERS" />
         </columns>

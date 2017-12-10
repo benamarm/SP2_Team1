@@ -1,6 +1,5 @@
 package logic;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -29,7 +28,7 @@ public class WebUser implements java.io.Serializable {
 		this.loginemail = loginemail;
 	}
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
 	@JoinColumn(name = "pers_id", nullable = false)
 	public Personeel getPersoneel() {
 		return this.personeel;

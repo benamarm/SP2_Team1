@@ -127,7 +127,7 @@ public class AanvragenController {
 		});
 
 		aanvragen.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-		ObservableList<Vaardigheid> list = FXCollections.observableArrayList(VaardigheidDAO.getUnchecked());
+		ObservableList<Vaardigheid> list = FXCollections.observableArrayList(VaardigheidDAO.getAanvragen());
 		aanvragen.setItems(list);
 
 	}
