@@ -124,6 +124,23 @@ public class odata extends Personeel {
 			ps.SetTitel(subtitel);
 		return ps ;
 	}
+	public static void setInfo(Personeel p) {
+		Client client = ClientBuilder.newClient();
+		 String achternaam =(getSingle(client,p.getPersId()));
+			String Sub = achternaam.substring(10 , achternaam.length()-2);
+			p.setAchternaam(Sub);
+			
+			String voornaam =(getFirstName(client,p.getPersId()));
+			String Subvoornaam =voornaam.substring(10,voornaam.length()-2);
+			p.setVoornaam(Subvoornaam);	
+			
+			
+		 
+			String titel=(getTitle(client,p.getPersId()));
+			String subtitel=titel.substring(10,titel.length()-2);
+			
+			p.SetTitel(subtitel);
+	}
 	
 	
 		
