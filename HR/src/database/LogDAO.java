@@ -149,27 +149,8 @@ public static void aanvragenGekeurd(ObservableList<Vaardigheid> vs) {
 		Session session = Main.factory.getCurrentSession();
 		session.beginTransaction();
 		
-		boolean isAdmin;
-		String positie = u.getPositie();
-		String admin = null;
-		
-		if(positie != null)
-		{
-
-			if(positie == "Admin")
-			{
-				isAdmin = true;
-				admin = "JA";
-			}
-			else
-			{
-				isAdmin = false;
-				admin = "NEE";
-			}
-		}
-		
 		Log log = new Log();
-		log.setBeschrijving("User" + u.getLoginemail() + " toegevoegd (Admin: " + admin + ")");
+		log.setBeschrijving("User " + u.getLoginemail() + " toegevoegd (Admin: " + (u.getPositie().equals("ADMIN") ? "JA" : "NEE") + ")");
 		log.setType("INSERT");
 		log.setUser(Main.sessionUser);
 		session.save(log);
