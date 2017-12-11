@@ -1,18 +1,13 @@
 package logic;
-import java.util.ArrayList;
-import java.util.concurrent.CompletionStage;
 
-import javax.ws.rs.GET;
+import java.util.ArrayList;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Invocation.Builder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
-import com.sun.research.ws.wadl.Request;
 
-public class odata extends Personeel {
+public class odata {
 	public odata() {
 		
 	}
@@ -161,7 +156,6 @@ public class odata extends Personeel {
 		    
 	
 			public  static void main(String[]args) {
-				Client client = ClientBuilder.newClient();
 				
 //				WebTarget target = client.target("http://services.odata.org/V4/Northwind/Northwind.svc/Employees(7)/LastName ; filter=startswith(LastName, 'K')");
 //				String s=target.request(MediaType.APPLICATION_JSON).get(String.class);

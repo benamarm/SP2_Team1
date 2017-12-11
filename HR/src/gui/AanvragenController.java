@@ -1,8 +1,8 @@
 package gui;
 
-import java.text.SimpleDateFormat;
 import database.LogDAO;
 import database.VaardigheidDAO;
+import email.Email;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -73,7 +73,8 @@ public class AanvragenController {
 			}
 
 			if (VaardigheidDAO.updateObservables(aanvragen.getSelectionModel().getSelectedItems())) {
-				//LogDAO.aanvragenGekeurd(aanvragen.getSelectionModel().getSelectedItems());
+				LogDAO.aanvragenGekeurd(aanvragen.getSelectionModel().getSelectedItems());
+				Email.aanvraag(aanvragen.getSelectionModel().getSelectedItems());
 				initialize();
 				lCheck.setStyle("-fx-text-fill: black");
 				lCheck.setText(
@@ -91,7 +92,6 @@ public class AanvragenController {
 	public void initialize() {
 
 		aanvragen.setPlaceholder(new Label("Er zijn momenteel geen aanvragen."));
-
 		colId.setCellValueFactory(new Callback<CellDataFeatures<Vaardigheid, Integer>, ObservableValue<Integer>>() {
 			@Override
 			public ObservableValue<Integer> call(CellDataFeatures<Vaardigheid, Integer> data) {
@@ -114,15 +114,13 @@ public class AanvragenController {
 		colVan.setCellValueFactory(new Callback<CellDataFeatures<Vaardigheid, String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<Vaardigheid, String> data) {
-				SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-				return new SimpleStringProperty(sdf.format(data.getValue().getEvent().getStartdatum()));
+				return new SimpleStringProperty(data.getValue().getEvent().getStringStartdatum());
 			}
 		});
 		colTot.setCellValueFactory(new Callback<CellDataFeatures<Vaardigheid, String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<Vaardigheid, String> data) {
-				SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-				return new SimpleStringProperty(sdf.format(data.getValue().getEvent().getEinddatum()));
+				return new SimpleStringProperty(data.getValue().getEvent().getStringEinddatum());
 			}
 		});
 

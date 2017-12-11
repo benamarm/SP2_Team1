@@ -3,6 +3,7 @@ package gui;
 import java.io.IOException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+import database.LogDAO;
 import email.Email;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -87,14 +88,16 @@ public class UsersController {
 				try {
 					session.update(u);
 					session.getTransaction().commit();
+
+					LogDAO.remAdmin(u.getLoginemail());
+					initAppUsers();
+					alSelectie.setStyle("-fx-text-fill: black");
+					alSelectie.setText("Adminrechten succesvol afgeschaft!");
+
 				} catch (Exception e) {
 					alSelectie.setStyle("-fx-text-fill: red");
 					alSelectie.setText("Er is een technische fout opgelopen.");
 				}
-
-				initAppUsers();
-				alSelectie.setStyle("-fx-text-fill: black");
-				alSelectie.setText("Adminrechten succesvol afgeschaft!");
 
 			}
 		}
@@ -118,15 +121,16 @@ public class UsersController {
 				try {
 					session.update(u);
 					session.getTransaction().commit();
-					
+
+					LogDAO.setAdmin(u.getLoginemail());
 					initAppUsers();
 					alSelectie.setStyle("-fx-text-fill: black");
 					alSelectie.setText("User succesvol gepromoveerd!");
-					
+
 				} catch (Exception e) {
 					alSelectie.setStyle("-fx-text-fill: red");
 					alSelectie.setText("Er is een technische fout opgelopen.");
-				}			
+				}
 
 			}
 		}
@@ -150,14 +154,17 @@ public class UsersController {
 			q.setParameter("p", password).setParameter("l", u.getLoginemail());
 
 			if (q.executeUpdate() == 1) {
+				session.getTransaction().commit();
+				LogDAO.changedPassword(u.getLoginemail(), true);
 				Email.sendPassword(u.getLoginemail(), password);
 				alSelectie.setStyle("-fx-text-fill: black");
 				alSelectie.setText("Nieuw wachtwoord succesvol gegenereerd!");
+
 			} else {
+				session.getTransaction().commit();
 				alSelectie.setStyle("-fx-text-fill: red");
 				alSelectie.setText("Er is een technische fout opgelopen.");
 			}
-			session.getTransaction().commit();
 
 		}
 	}

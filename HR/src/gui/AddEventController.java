@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+import database.LogDAO;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -82,7 +83,7 @@ public class AddEventController {
 		// Einddatum moet na startdatum komen
 		else if (!dEind.getValue().isAfter(dStart.getValue()))
 			lCheck.setText("Ongepaste einddatum");
-		else if(edit && Integer.parseInt(tMax.getText()) < teBewerken.getMaxDeelnames())
+		else if (edit && Integer.parseInt(tMax.getText()) < teBewerken.getMaxDeelnames())
 			lCheck.setText("Maximum aantal deelnemers mag enkel verhoogd worden.");
 		else {
 			try {
@@ -121,20 +122,21 @@ public class AddEventController {
 					session.save(nieuw);
 
 				session.getTransaction().commit();
-				
+
 				bToevoegen.setDisable(true);
+				if (edit) {
+					// stuur email
+					LogDAO.eventBewerkt(nieuw);
+				} else
+					LogDAO.eventToegevoegd(nieuw);
 				lCheck.setStyle("-fx-text-fill: black");
 				lCheck.setText("Event succesvol " + (edit ? "bewerkt." : "toegevoegd."));
-				
-				// if edit -> stuur email
-				// Logs
 
 			} catch (Exception e) {
 				bToevoegen.setDisable(true);
 				lCheck.setText("Er is een technische fout opgelopen.");
-				return;
-			}			
-			
+			}
+
 		}
 	}
 

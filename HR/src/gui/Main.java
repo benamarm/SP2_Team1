@@ -1,12 +1,9 @@
 package gui;
 
 import java.io.IOException;
-import java.util.List;
-
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import database.LogDAO;
-import database.PersoneelDAO;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -38,7 +35,7 @@ public class Main extends Application {
 	}
 
 	public static void main(String[] args) {
-		
+
 		factory = new Configuration().configure().addAnnotatedClass(Adres.class).addAnnotatedClass(Boek.class)
 				.addAnnotatedClass(Event.class).addAnnotatedClass(Log.class).addAnnotatedClass(Opleiding.class)
 				.addAnnotatedClass(Personeel.class).addAnnotatedClass(User.class).addAnnotatedClass(Vaardigheid.class)

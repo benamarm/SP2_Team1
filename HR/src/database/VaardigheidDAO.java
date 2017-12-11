@@ -1,7 +1,6 @@
 package database;
 
 import java.util.List;
-
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import gui.Main;
@@ -28,10 +27,10 @@ public class VaardigheidDAO {
 			e.printStackTrace();
 			return null;
 		}
-		
-		for(Vaardigheid v : aanvragen)
+
+		for (Vaardigheid v : aanvragen)
 			odata.setInfo(v.getPersoneel());
-			
+
 		return aanvragen;
 	}
 
@@ -55,18 +54,18 @@ public class VaardigheidDAO {
 
 		try {
 
-			if (vs.get(0).isChecked()) 
-				for (Vaardigheid v : vs) 
+			if (vs.get(0).isChecked())
+				for (Vaardigheid v : vs)
 					session.update(v);
-			
+
 			else {
-				for (Vaardigheid v : vs) {			
+				for (Vaardigheid v : vs) {
 					Event e = session.get(Event.class, v.getEvent().getEventId());
 					e.setAantalDeelnames(e.getAantalDeelnames() - 1);
 					session.update(e);
 					session.update(v);
 				}
-			}			
+			}
 
 			session.getTransaction().commit();
 		} catch (Exception e) {
