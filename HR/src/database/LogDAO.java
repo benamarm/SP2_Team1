@@ -155,7 +155,64 @@ public static void aanvragenGekeurd(ObservableList<Vaardigheid> vs) {
 		log.setUser(Main.sessionUser);
 		session.save(log);
 		
+		session.getTransaction().commit();
+	}
+	
+	public static void eventToegevoegd(Event e)
+	{
+		Session session = Main.factory.getCurrentSession();
+		session.beginTransaction();
+		
+		Log log = new Log();
+		log.setBeschrijving("Event " + e.getEventId() + " toegevoegd: opleiding " + e.getOpleiding().getOpleidingId() + " - trainer " + e.getNaamTrainer() + " - max. deeln. " + e.getMaxDeelnames() + " - " + e.getStartdatum() + "-" + e.getEinddatum() + " - adres " + e.getAdres().getAdresId());
+		log.setType("INSERT");
+		log.setUser(Main.sessionUser);
 		session.save(log);
+		
+		session.getTransaction().commit();
+		
+	}
+	
+	public static void eventBewerkt(Event e)
+	{
+		Session session = Main.factory.getCurrentSession();
+		session.beginTransaction();
+		
+		Log log = new Log();
+		log.setBeschrijving("Event " + e.getEventId() + " bewerkt: trainer " + e.getNaamTrainer() + " - max. deeln. " + e.getMaxDeelnames() + " - " + e.getStartdatum() + "-" + e.getEinddatum() + " - adres " + e.getAdres().getAdresId());
+		log.setType("UPDATE");
+		log.setUser(Main.sessionUser);
+		session.save(log);
+		
+		session.getTransaction().commit();
+	}
+	
+	public static void eventAfgelast(Event e, String reden)
+	{
+		Session session = Main.factory.getCurrentSession();
+		session.beginTransaction();
+		
+		Log log = new Log();
+		log.setBeschrijving("Event " + e.getEventId() + " afgelast: " + reden);
+		log.setType("UPDATE");
+		log.setUser(Main.sessionUser);
+		session.save(log);
+		
+		session.getTransaction().commit();
+	}
+	
+	public static void eigenWachtwoord()
+	{
+		Session session = Main.factory.getCurrentSession();
+		session.beginTransaction();
+		
+		Log log = new Log();
+		log.setBeschrijving("Eigen wachtwoord gewijzigd");
+		log.setType("UPDATE");
+		log.setUser(Main.sessionUser);
+		session.save(log);
+		
+		session.getTransaction().commit();
 	}
 	
 	}
