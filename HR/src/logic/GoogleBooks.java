@@ -17,6 +17,7 @@ package logic;
 
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.jackson2.JacksonFactory;
 //import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.books.Books;
 import com.google.api.services.books.BooksRequestInitializer;
@@ -26,6 +27,8 @@ import com.google.api.services.books.model.Volume.VolumeInfo.IndustryIdentifiers
 import com.google.api.services.books.model.Volumes;
 import logic.Boek;
 import logic.GoogleBooks;
+
+import java.io.IOException;
 //import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -117,29 +120,29 @@ public class GoogleBooks{
 	  
 	  
 	  
-//	  public static void main(String[] args) {
-//		  JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
-//		  GoogleBooksExecutableQuery query = new GoogleBooksExecutableQuery(GoogleBooksQueryPrefix.TITEL, "Banking");
-//		    try {
-//		      try {
-//		        ArrayList<Boek> boeken = GoogleBooks.executeQuery(jsonFactory, query);
-//		        for(Boek b: boeken) {
-//		        	System.out.println(b.getTitel());
-//		        	System.out.println(b.getIsbn());
-//		        	System.out.println(b.getAuteurs());
-//		        	System.out.println(b.getBeschrijving());
-//		        	System.out.println(b.getPrijs());
-//		        	System.out.println();
-//		        }
-//		        
-//		        return;
-//		      } catch (IOException e) {
-//		        System.err.println(e.getMessage());
-//		      }
-//		    } catch (Throwable t) {
-//		      t.printStackTrace();
-//		    }
-//		    System.exit(0);
-//		  }
+	  public static void main(String[] args) {
+		  JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
+		  GoogleBooksExecutableQuery query = new GoogleBooksExecutableQuery(GoogleBooksQueryPrefix.TITEL, "DATABASE");
+		    try {
+		      try {
+		        ArrayList<Boek> boeken = GoogleBooks.executeQuery(jsonFactory, query);
+		        for(Boek b: boeken) {
+		        	System.out.println(b.getTitel());
+		        	System.out.println(b.getIsbn());
+		        	System.out.println(b.getAuteurs());
+		        	System.out.println(b.getBeschrijving());
+		        	System.out.println(b.getPrijs());
+		        	System.out.println();
+		        }
+		        
+		        return;
+		      } catch (IOException e) {
+		        System.err.println(e.getMessage());
+		      }
+		    } catch (Throwable t) {
+		      t.printStackTrace();
+		    }
+		    System.exit(0);
+		  }
 	
 }

@@ -65,8 +65,7 @@ public class Opleiding implements java.io.Serializable {
 		this.beschrijving = beschrijving;
 	}
 
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "opleiding_boek", catalog = "SP2Team01", joinColumns = @JoinColumn(name = "opleiding_id", nullable = false, updatable = false), inverseJoinColumns = @JoinColumn(name = "boek_id", nullable = false, updatable = false))
+	@Transient
 	public Set<Boek> getBoeken() {
 		return this.boeken;
 	}

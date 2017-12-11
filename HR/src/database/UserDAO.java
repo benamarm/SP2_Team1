@@ -4,6 +4,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import exceptions.UserBestaatReedsException;
+import exceptions.UserOnbestaandException;
 import gui.Main;
 import logic.User;
 
@@ -61,6 +62,24 @@ public class UserDAO {
 
 		return true;
 	}
+	
+	public static boolean updatePassword(String loginemail, String password) throws UserOnbestaandException{
+		Session session = Main.factory.getCurrentSession();
+		session.beginTransaction();
+		
+		if (session.get(User.class, loginemail) == null) {
+			session.getTransaction().commit();
+			throw new UserOnbestaandException();
+		}
+		
+		Query q = session.createNativeQuery("UPDATE applogin set password = :pass where loginemail = :email");
+		q.setParameter("pass", password).setParameter("email", loginemail);
+		boolean updateSucceeded = true;
+		if(q.executeUpdate() == 0) updateSucceeded = false;
+		session.getTransaction().commit();
+
+		return updateSucceeded;
+}
 
 	// Deze methode checkt of er een User bestaat met de ingegeven credentials en
 	// stuurt de User terug (null indien niet gevonden)
