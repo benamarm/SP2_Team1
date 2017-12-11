@@ -5,6 +5,7 @@ import java.util.concurrent.CompletionStage;
 import javax.ws.rs.GET;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Invocation.Builder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -58,6 +59,20 @@ public class odata extends Personeel {
 		//System.out.println(s);
 		return s;
 	}
+	public static int getMaxid(Client client) {
+		client=ClientBuilder.newClient();
+		WebTarget target = client.target("http://services.odata.org/V4/Northwind/Northwind.svc/Employees/$count");
+		String s= target.request(MediaType.TEXT_PLAIN).get(String.class);
+		int x = Integer.valueOf(s);
+		return x+1 ;
+	}
+	
+	public static int countEmployees(Client client) {
+		int aantal = 0;
+		
+		
+		return aantal;
+	}
 //employeid,lastname,firstname,title,
 	//p.setAchternaam(s.substring(114, 118));
 
@@ -69,11 +84,10 @@ public class odata extends Personeel {
 		ArrayList<String> aachternaam = new ArrayList<String>();
 	
 		ArrayList<String> atitel = new ArrayList<String>();
-		
-		for(int id=1; id<8; id++) {	
-		
 		Client client = ClientBuilder.newClient();
-		 Personeel p = new Personeel();
+		Personeel p = null;
+		for(int id=1; id<getMaxid(client); id++) {	
+		p = new Personeel();
 		String achternaam =(getSingle(client,id));
 		String Sub = achternaam.substring(10 , achternaam.length()-2);
 		p.setAchternaam(Sub);
@@ -171,6 +185,7 @@ public class odata extends Personeel {
 				System.out.println("voornaam:  "+pmain.getVoornaam());
 				System.out.println("achternaam:  "+pmain.getAchternaam());
 				System.out.println("titel:  "+pmain.getTitel());
+				
 				
 
 	    
