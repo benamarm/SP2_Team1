@@ -8,27 +8,31 @@ import gui.Main;
 import javafx.collections.ObservableList;
 import logic.Event;
 import logic.Vaardigheid;
+import logic.odata;
 
 public class VaardigheidDAO {
 
 	@SuppressWarnings("unchecked")
-	public static List<Vaardigheid> getUnchecked() {
-		List<Vaardigheid> teVerwervenVaardigheden = null;
+	public static List<Vaardigheid> getAanvragen() {
+		List<Vaardigheid> aanvragen = null;
 
 		Session session = Main.factory.getCurrentSession();
 		session.beginTransaction();
 
 		try {
 			Query q = session.createQuery("FROM Vaardigheid where checked = NULL");
-			teVerwervenVaardigheden = (List<Vaardigheid>) q.list();
+			aanvragen = (List<Vaardigheid>) q.list();
 			session.getTransaction().commit();
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
-
-		return teVerwervenVaardigheden;
+		
+		for(Vaardigheid v : aanvragen)
+			odata.setInfo(v.getPersoneel());
+			
+		return aanvragen;
 	}
 
 	public static boolean updateSingle(Vaardigheid v) {

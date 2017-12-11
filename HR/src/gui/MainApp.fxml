@@ -67,6 +67,6 @@
             <Font size="14.0" />
          </font>
       </Button>
-      <Label fx:id="lWijzigWachtwoord" layoutX="838.0" layoutY="35.0" onMouseReleased="#wijzigWachtwoord" text="Wachtwoord wijzigen" underline="true" />
+      <Label fx:id="lWijzigWachtwoord" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="739.0" layoutY="31.0" onMouseReleased="#wijzigWachtwoord" prefHeight="20.0" prefWidth="232.0" text="Wachtwoord wijzigen" underline="true" />
    </children>
 </AnchorPane>

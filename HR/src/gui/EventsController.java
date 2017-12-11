@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+
+import database.PersoneelDAO;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -30,6 +32,7 @@ import javafx.stage.WindowEvent;
 import javafx.util.Callback;
 import logic.Event;
 import logic.Opleiding;
+import logic.Personeel;
 
 public class EventsController {
 
@@ -52,15 +55,26 @@ public class EventsController {
 	@FXML
 	Button bToevoegen;
 	@FXML
+	Label lSelectie;
+	@FXML
+	Button bDeelnemers;
+	@FXML
+	Button bLocatie;
+	@FXML
 	Button bBewerken;
 	@FXML
 	Button bAfgelasten;
 	@FXML
-	Label lSelectie;
+	TableView<Personeel> deelnemers;
+	@FXML
+	TableColumn<Personeel, String> colDeelnemers;
+	
 
 	@FXML
 	private void clearLabel() {
 		lSelectie.setText("");
+		deelnemers.getItems().clear();
+		deelnemers.setPlaceholder(new Label("Selecteer een event."));
 	}
 
 	@FXML
@@ -86,6 +100,41 @@ public class EventsController {
 			});
 			AddEventController c = (AddEventController) f.getController();
 			c.initiate(opleidingen.getValue(), false, null);
+			popup.show();
+		}
+	}
+	
+	@FXML
+	private void handleDeelnemers() {
+		if (events.getSelectionModel().getSelectedItems().size() == 0) {
+
+			lSelectie.setText("Geen event geselecteerd.");
+
+		} else {				
+			ObservableList<Personeel> list = FXCollections.observableArrayList(PersoneelDAO.getDeelnemers(events.getSelectionModel().getSelectedItem().getEventId()));
+			deelnemers.setItems(list);
+			deelnemers.setPlaceholder(new Label("Geen deelnemers."));
+		}
+	}
+	
+	@FXML
+	private void handleLocatie() throws IOException {
+		if (events.getSelectionModel().getSelectedItems().size() == 0) {
+
+			lSelectie.setText("Geen event geselecteerd.");
+
+		} else {	
+			Stage popup = new Stage();
+			FXMLLoader f = new FXMLLoader(getClass().getResource("EventLocatie.fxml"));
+			Parent root = (Parent) f.load();
+			Scene scene = new Scene(root);
+			popup.setTitle("Locatie");
+			popup.initModality(Modality.APPLICATION_MODAL);
+			popup.setResizable(false);
+			popup.centerOnScreen();
+			popup.setScene(scene);
+			EventLocatieController c = (EventLocatieController) f.getController();
+			c.setAdres(events.getSelectionModel().getSelectedItem().getAdres());
 			popup.show();
 		}
 	}
@@ -150,7 +199,9 @@ public class EventsController {
 
 	@FXML
 	private void setEvents() {
-
+		
+		deelnemers.getItems().clear();
+		deelnemers.setPlaceholder(new Label("Selecteer een event."));
 		Session session = Main.factory.getCurrentSession();
 		session.beginTransaction();
 		Query q = session.createQuery("FROM Event WHERE opleiding_id = " + opleidingen.getValue().getOpleidingId()
@@ -257,6 +308,14 @@ public class EventsController {
 		};
 		opleidingen.setCellFactory(call);
 		opleidingen.setButtonCell(call.call(null));
+		
+		deelnemers.setPlaceholder(new Label("Selecteer een event."));
+		colDeelnemers.setCellValueFactory(new Callback<CellDataFeatures<Personeel, String>, ObservableValue<String>>() {
+			@Override
+			public ObservableValue<String> call(CellDataFeatures<Personeel, String> data) {
+				return new SimpleStringProperty(data.getValue().getVolleNaam());
+			}
+		});
 	}
 
 }

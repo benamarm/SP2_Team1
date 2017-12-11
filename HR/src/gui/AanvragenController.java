@@ -1,6 +1,7 @@
 package gui;
 
 import java.text.SimpleDateFormat;
+import database.LogDAO;
 import database.VaardigheidDAO;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -24,7 +25,7 @@ public class AanvragenController {
 	@FXML
 	TableView<Vaardigheid> aanvragen;
 	@FXML
-	TableColumn<Vaardigheid, String> colId;
+	TableColumn<Vaardigheid, Integer> colId;
 	@FXML
 	TableColumn<Vaardigheid, String> colNaam;
 	@FXML
@@ -72,6 +73,7 @@ public class AanvragenController {
 			}
 
 			if (VaardigheidDAO.updateObservables(aanvragen.getSelectionModel().getSelectedItems())) {
+				//LogDAO.aanvragenGekeurd(aanvragen.getSelectionModel().getSelectedItems());
 				initialize();
 				lCheck.setStyle("-fx-text-fill: black");
 				lCheck.setText(
@@ -125,7 +127,7 @@ public class AanvragenController {
 		});
 
 		aanvragen.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-		ObservableList<Vaardigheid> list = FXCollections.observableArrayList(VaardigheidDAO.getUnchecked());
+		ObservableList<Vaardigheid> list = FXCollections.observableArrayList(VaardigheidDAO.getAanvragen());
 		aanvragen.setItems(list);
 
 	}

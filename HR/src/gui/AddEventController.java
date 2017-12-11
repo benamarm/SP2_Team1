@@ -82,6 +82,8 @@ public class AddEventController {
 		// Einddatum moet na startdatum komen
 		else if (!dEind.getValue().isAfter(dStart.getValue()))
 			lCheck.setText("Ongepaste einddatum");
+		else if(edit && Integer.parseInt(tMax.getText()) < teBewerken.getMaxDeelnames())
+			lCheck.setText("Maximum aantal deelnemers mag enkel verhoogd worden.");
 		else {
 			try {
 				Session session = Main.factory.getCurrentSession();
@@ -114,26 +116,25 @@ public class AddEventController {
 						lCheck.setText("U heeft niets aangepast.");
 						return;
 					}
-					if (nieuw.getMaxDeelnames() < teBewerken.getMaxDeelnames()) {
-						session.getTransaction().rollback();
-						lCheck.setText("Maximum aantal deelnemers mag enkel verhoogd worden.");
-						return;
-					}
 					session.update(nieuw);
 				} else
 					session.save(nieuw);
 
 				session.getTransaction().commit();
+				
+				bToevoegen.setDisable(true);
+				lCheck.setStyle("-fx-text-fill: black");
+				lCheck.setText("Event succesvol " + (edit ? "bewerkt." : "toegevoegd."));
+				
+				// if edit -> stuur email
+				// Logs
 
 			} catch (Exception e) {
+				bToevoegen.setDisable(true);
 				lCheck.setText("Er is een technische fout opgelopen.");
-			}
-
-			bToevoegen.setDisable(true);
-			lCheck.setStyle("-fx-text-fill: black");
-			lCheck.setText("Event succesvol " + (edit ? "bewerkt." : "toegevoegd."));
-			// if edit -> stuur email
-			// Logs
+				return;
+			}			
+			
 		}
 	}
 
