@@ -97,6 +97,16 @@ public class MainAppController {
 			e.printStackTrace();
 		}
 	}
+	
+	@FXML
+	private void handleButtonBoeken() {
+		try {
+			mainPane.getChildren().clear();
+			mainPane.getChildren().add(FXMLLoader.load(getClass().getResource("BoekenOpleidingSelection.fxml")));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	@FXML
 	private void handleButtonEvents() {
@@ -107,7 +117,7 @@ public class MainAppController {
 			e.printStackTrace();
 		}
 	}
-
+	
 	@FXML
 	public void initialize() {
 		tName.setText(Main.sessionUser.getVolleNaam());
@@ -115,5 +125,7 @@ public class MainAppController {
 			bUsers.setVisible(true);
 		handleButtonAanvragen();
 	}
+	
+	
 
 }

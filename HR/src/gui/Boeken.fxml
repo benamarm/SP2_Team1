@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="630.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.BoekenController">
+   <children>
+      <TableView fx:id="boekenlijst" layoutX="14.0" layoutY="82.0" prefHeight="534.0" prefWidth="970.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="82.0">
+        <columns>
+            <TableColumn fx:id="colTitel" prefWidth="267.0" text="Titel" />
+            <TableColumn fx:id="colBeschrijvingBoek" prefWidth="618.0" text="Beschrijving" />
+            <TableColumn fx:id="colPrijs" prefWidth="84.0" text="Prijs (EURO)" />
+        </columns>
+      </TableView>
+      <Button fx:id="bToevoegen" layoutX="893.0" layoutY="25.0" mnemonicParsing="false" onAction="#handleToevoegen" prefHeight="36.0" prefWidth="84.0" text="Toevoegen" AnchorPane.bottomAnchor="569.0" AnchorPane.rightAnchor="23.0" AnchorPane.topAnchor="25.0" />
+      <Button fx:id="bSelecteerAlles" layoutX="783.0" layoutY="25.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="84.0" text="Alles" AnchorPane.rightAnchor="133.0" AnchorPane.topAnchor="25.0" />
+      <Label fx:id="lText" layoutX="14.0" layoutY="10.0" prefHeight="65.0" prefWidth="769.0" textAlignment="CENTER" textFill="#1805c9" wrapText="true">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
