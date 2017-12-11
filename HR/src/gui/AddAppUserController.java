@@ -1,6 +1,8 @@
 package gui;
 
+import database.LogDAO;
 import database.UserDAO;
+import email.Email;
 import exceptions.UserBestaatReedsException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -35,8 +37,11 @@ public class AddAppUserController {
 			u.setAchternaam(tAchternaam.getText());
 			u.setPositie(cbAdmin.isSelected() ? "ADMIN" : "HR");
 			try {
-				if (UserDAO.save(u)) {
+				String password = User.generatePassword();
+				if (UserDAO.save(u, password)) {
 					bToevoegen.setDisable(true);
+					LogDAO.userToegevoegd(u);
+					Email.createdUser(u.getLoginemail(), password);
 					lToevoegen.setStyle("-fx-text-fill: black");
 					lToevoegen.setText("User succesvol toegevoegd!");
 				} else

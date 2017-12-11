@@ -1,6 +1,7 @@
 package logic;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -126,6 +127,20 @@ public class Event implements java.io.Serializable {
 
 	public void setVaardigheden(Set<Vaardigheid> vaardigheden) {
 		this.vaardigheden = vaardigheden;
+	}
+	
+	@Transient
+	public String getStringStartdatum() {
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+		return sdf.format(startdatum);
+	}
+	
+	@Transient
+	public String getStringEinddatum() {
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+		return sdf.format(einddatum);
 	}
 
 	@Transient

@@ -1,10 +1,8 @@
 package gui;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
-
 import database.PersoneelDAO;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -68,7 +66,6 @@ public class EventsController {
 	TableView<Personeel> deelnemers;
 	@FXML
 	TableColumn<Personeel, String> colDeelnemers;
-	
 
 	@FXML
 	private void clearLabel() {
@@ -103,27 +100,28 @@ public class EventsController {
 			popup.show();
 		}
 	}
-	
+
 	@FXML
 	private void handleDeelnemers() {
 		if (events.getSelectionModel().getSelectedItems().size() == 0) {
 
 			lSelectie.setText("Geen event geselecteerd.");
 
-		} else {				
-			ObservableList<Personeel> list = FXCollections.observableArrayList(PersoneelDAO.getDeelnemers(events.getSelectionModel().getSelectedItem().getEventId()));
+		} else {
+			ObservableList<Personeel> list = FXCollections.observableArrayList(
+					PersoneelDAO.getDeelnemers(events.getSelectionModel().getSelectedItem().getEventId()));
 			deelnemers.setItems(list);
 			deelnemers.setPlaceholder(new Label("Geen deelnemers."));
 		}
 	}
-	
+
 	@FXML
 	private void handleLocatie() throws IOException {
 		if (events.getSelectionModel().getSelectedItems().size() == 0) {
 
 			lSelectie.setText("Geen event geselecteerd.");
 
-		} else {	
+		} else {
 			Stage popup = new Stage();
 			FXMLLoader f = new FXMLLoader(getClass().getResource("EventLocatie.fxml"));
 			Parent root = (Parent) f.load();
@@ -199,7 +197,7 @@ public class EventsController {
 
 	@FXML
 	private void setEvents() {
-		
+
 		deelnemers.getItems().clear();
 		deelnemers.setPlaceholder(new Label("Selecteer een event."));
 		Session session = Main.factory.getCurrentSession();
@@ -263,15 +261,13 @@ public class EventsController {
 		colVan.setCellValueFactory(new Callback<CellDataFeatures<Event, String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<Event, String> data) {
-				SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-				return new SimpleStringProperty(sdf.format(data.getValue().getStartdatum()));
+				return new SimpleStringProperty(data.getValue().getStringStartdatum());
 			}
 		});
 		colTot.setCellValueFactory(new Callback<CellDataFeatures<Event, String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<Event, String> data) {
-				SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-				return new SimpleStringProperty(sdf.format(data.getValue().getEinddatum()));
+				return new SimpleStringProperty(data.getValue().getStringEinddatum());
 			}
 		});
 		colAant.setCellValueFactory(new Callback<CellDataFeatures<Event, Integer>, ObservableValue<Integer>>() {
@@ -308,7 +304,7 @@ public class EventsController {
 		};
 		opleidingen.setCellFactory(call);
 		opleidingen.setButtonCell(call.call(null));
-		
+
 		deelnemers.setPlaceholder(new Label("Selecteer een event."));
 		colDeelnemers.setCellValueFactory(new Callback<CellDataFeatures<Personeel, String>, ObservableValue<String>>() {
 			@Override

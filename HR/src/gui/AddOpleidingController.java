@@ -1,6 +1,7 @@
 package gui;
 
 import org.hibernate.Session;
+import database.LogDAO;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -47,6 +48,7 @@ public class AddOpleidingController {
 				}
 
 				bToevoegen.setDisable(true);
+				LogDAO.opleidingBewerkt(teBewerken);
 				lOpl.setStyle("-fx-text-fill: black");
 				lOpl.setText("Opleiding succesvol bewerkt!");
 
@@ -70,6 +72,7 @@ public class AddOpleidingController {
 			}
 
 			bToevoegen.setDisable(true);
+			LogDAO.opleidingToegevoegd(o);
 			lOpl.setStyle("-fx-text-fill: black");
 			lOpl.setText("Opleiding succesvol toegevoegd!");
 

@@ -18,9 +18,9 @@
                      <children>
                         <TableView fx:id="aUsers" focusTraversable="false" layoutX="16.0" layoutY="29.0" onMouseClicked="#clearLabel" prefHeight="550.0">
                           <columns>
-                            <TableColumn fx:id="acEmail" editable="false" prefWidth="250.0" text="E-MAILADRES" />
-                            <TableColumn fx:id="acNaam" editable="false" prefWidth="200.0" text="NAAM" />
-                              <TableColumn fx:id="acAdmin" editable="false" prefWidth="70.0" sortable="false" style="-fx-alignment: CENTER;" text="ADMIN" />
+                            <TableColumn fx:id="acEmail" editable="false" prefWidth="250.0" resizable="false" text="E-MAILADRES" />
+                            <TableColumn fx:id="acNaam" editable="false" prefWidth="200.0" resizable="false" text="NAAM" />
+                              <TableColumn fx:id="acAdmin" editable="false" prefWidth="70.0" resizable="false" sortable="false" style="-fx-alignment: CENTER;" text="ADMIN" />
                           </columns>
                         </TableView>
                         <Button fx:id="bAddUser" layoutX="704.0" layoutY="147.0" mnemonicParsing="false" onAction="#handleAppUser" styleClass="otherbtn" text="User toevoegen" />

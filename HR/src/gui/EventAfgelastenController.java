@@ -1,6 +1,7 @@
 package gui;
 
 import org.hibernate.Session;
+import database.LogDAO;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -20,10 +21,10 @@ public class EventAfgelastenController {
 
 	@FXML
 	private void handleOK() {
-		if(tReden.getText().equals("")) 
+		if (tReden.getText().equals(""))
 			lCheck.setText("Gelieve een reden te geven.");
 		else {
-			
+
 			Session session = Main.factory.getCurrentSession();
 			session.beginTransaction();
 
@@ -33,16 +34,17 @@ public class EventAfgelastenController {
 				session.getTransaction().commit();
 
 			} catch (Exception e) {
-				bOK.setDisable(true);			
+				bOK.setDisable(true);
 				lCheck.setText("Er is een technische fout opgelopen.");
+				return;
 			}
 
 			bOK.setDisable(true);
 			lCheck.setStyle("-fx-text-fill: black");
 			lCheck.setText("Event succesvol afgelast");
-			//log met reden
-			//Email sturen met reden
-		}	
+			LogDAO.eventAfgelast(e, tReden.getText());
+			// Email sturen met reden
+		}
 
 	}
 

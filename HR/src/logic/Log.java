@@ -52,7 +52,7 @@ public class Log implements java.io.Serializable {
 		this.type = type;
 	}
 
-	@Column(name = "beschrijving", nullable = false, length = 100)
+	@Column(name = "beschrijving", nullable = false, length = 1000)
 	public String getBeschrijving() {
 		return this.beschrijving;
 	}
