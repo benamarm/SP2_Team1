@@ -11,7 +11,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-@Entity
+
 @Table(name = "boeken", catalog = "SP2Team01")
 public class Boek implements java.io.Serializable {
 
@@ -85,7 +85,7 @@ public class Boek implements java.io.Serializable {
 
 
 	public void setPrijs(String prijs) {
-		if(prijs != null) this.prijs = prijs;
+		if(prijs != null) this.prijs = "EUR" + prijs.substring(3);
 	}
 
 	@Transient
@@ -120,7 +120,7 @@ public class Boek implements java.io.Serializable {
 		if(isbn != null) this.isbn = isbn;
 	}
 
-	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "boeken")
+	@Transient
 	public Set<Opleiding> getOpleidingen() {
 		return this.opleidingen;
 	}
