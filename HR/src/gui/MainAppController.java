@@ -85,22 +85,22 @@ public class MainAppController {
 		}
 
 	}
-
+	
 	@FXML
-	private void handleButtonOpleidingen() {
+	private void handleButtonBoeken() {
 		try {
 			mainPane.getChildren().clear();
-			mainPane.getChildren().add(FXMLLoader.load(getClass().getResource("Opleidingen.fxml")));
+			mainPane.getChildren().add(FXMLLoader.load(getClass().getResource("Boeken.fxml")));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
 	@FXML
-	private void handleButtonBoeken() {
+	private void handleButtonOpleidingen() {
 		try {
 			mainPane.getChildren().clear();
-			mainPane.getChildren().add(FXMLLoader.load(getClass().getResource("Boeken.fxml")));
+			mainPane.getChildren().add(FXMLLoader.load(getClass().getResource("Opleidingen.fxml")));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

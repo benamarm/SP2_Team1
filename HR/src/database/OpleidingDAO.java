@@ -4,14 +4,11 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.query.Query;
-
-import exceptions.UserBestaatReedsException;
 import gui.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import logic.Boek;
 import logic.Opleiding;
-import logic.User;
 
 public class OpleidingDAO {
 	
@@ -22,7 +19,7 @@ public class OpleidingDAO {
 
 		try {
 			Query q = session.createQuery("FROM Opleiding");
-			opleidingen = (List<Opleiding>) q.list();
+			opleidingen = (List<Opleiding>) q.getResultList();
 			session.getTransaction().commit();
 		} catch (Exception e) {
 			e.printStackTrace();

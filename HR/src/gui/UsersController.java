@@ -1,10 +1,10 @@
 package gui;
 
 import java.io.IOException;
-import org.hibernate.Session;
-import org.hibernate.query.Query;
 import database.LogDAO;
+import database.UserDAO;
 import email.Email;
+import exceptions.UserOnbestaandException;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -83,18 +83,12 @@ public class UsersController {
 				User u = aUsers.getSelectionModel().getSelectedItem();
 				u.setPositie("HR");
 
-				Session session = Main.factory.getCurrentSession();
-				session.beginTransaction();
-				try {
-					session.update(u);
-					session.getTransaction().commit();
-
+				if (UserDAO.update(u)) {
 					LogDAO.remAdmin(u.getLoginemail());
 					initAppUsers();
 					alSelectie.setStyle("-fx-text-fill: black");
 					alSelectie.setText("Adminrechten succesvol afgeschaft!");
-
-				} catch (Exception e) {
+				} else {
 					alSelectie.setStyle("-fx-text-fill: red");
 					alSelectie.setText("Er is een technische fout opgelopen.");
 				}
@@ -116,18 +110,12 @@ public class UsersController {
 				User u = aUsers.getSelectionModel().getSelectedItem();
 				u.setPositie("ADMIN");
 
-				Session session = Main.factory.getCurrentSession();
-				session.beginTransaction();
-				try {
-					session.update(u);
-					session.getTransaction().commit();
-
+				if (UserDAO.update(u)) {
 					LogDAO.setAdmin(u.getLoginemail());
 					initAppUsers();
 					alSelectie.setStyle("-fx-text-fill: black");
 					alSelectie.setText("User succesvol gepromoveerd!");
-
-				} catch (Exception e) {
+				} else {
 					alSelectie.setStyle("-fx-text-fill: red");
 					alSelectie.setText("Er is een technische fout opgelopen.");
 				}
@@ -144,27 +132,19 @@ public class UsersController {
 		} else {
 
 			User u = aUsers.getSelectionModel().getSelectedItem();
-
-			Session session = Main.factory.getCurrentSession();
-			session.beginTransaction();
-
 			String password = User.generatePassword();
 
-			Query q = session.createNativeQuery("UPDATE applogin SET password = :p WHERE loginemail = :l");
-			q.setParameter("p", password).setParameter("l", u.getLoginemail());
-
-			if (q.executeUpdate() == 1) {
-				session.getTransaction().commit();
-				LogDAO.changedPassword(u.getLoginemail(), true);
-				Email.sendPassword(u.getLoginemail(), password);
-				alSelectie.setStyle("-fx-text-fill: black");
-				alSelectie.setText("Nieuw wachtwoord succesvol gegenereerd!");
-
-			} else {
-				session.getTransaction().commit();
-				alSelectie.setStyle("-fx-text-fill: red");
-				alSelectie.setText("Er is een technische fout opgelopen.");
-			}
+			try {
+				if (UserDAO.updatePassword(u.getLoginemail(), password)) {
+					LogDAO.changedPassword(u.getLoginemail(), true);
+					Email.sendPassword(u.getLoginemail(), password);
+					alSelectie.setStyle("-fx-text-fill: black");
+					alSelectie.setText("Nieuw wachtwoord succesvol gegenereerd!");
+				} else {
+					alSelectie.setStyle("-fx-text-fill: red");
+					alSelectie.setText("Er is een technische fout opgelopen.");
+				}
+			} catch (UserOnbestaandException e) {}
 
 		}
 	}
@@ -193,16 +173,7 @@ public class UsersController {
 			}
 		});
 
-		Session session = Main.factory.getCurrentSession();
-		session.beginTransaction();
-
-		Query q = session.createQuery("FROM User WHERE loginemail != :l");
-		q.setParameter("l", Main.sessionUser.getLoginemail());
-
-		ObservableList<User> list = FXCollections.observableArrayList(q.getResultList());
-
-		session.getTransaction().commit();
-
+		ObservableList<User> list = FXCollections.observableArrayList(UserDAO.getAllExceptSession());
 		aUsers.setItems(list);
 	}
 
