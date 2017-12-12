@@ -1,7 +1,7 @@
 package gui;
 
-import org.hibernate.Session;
 import database.LogDAO;
+import database.OpleidingDAO;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -36,21 +36,14 @@ public class AddOpleidingController {
 				teBewerken.setNaam(tOplNaam.getText());
 				teBewerken.setBeschrijving(tOplBesch.getText());
 
-				Session session = Main.factory.getCurrentSession();
-				session.beginTransaction();
-
-				try {
-					session.update(teBewerken);
-					session.getTransaction().commit();
-
-				} catch (Exception e) {
-					lOpl.setText("Er is een technische fout opgelopen.");
+				if(OpleidingDAO.update(teBewerken)) {
+					bToevoegen.setDisable(true);
+					LogDAO.opleidingBewerkt(teBewerken);
+					lOpl.setStyle("-fx-text-fill: black");
+					lOpl.setText("Opleiding succesvol bewerkt!");
 				}
-
-				bToevoegen.setDisable(true);
-				LogDAO.opleidingBewerkt(teBewerken);
-				lOpl.setStyle("-fx-text-fill: black");
-				lOpl.setText("Opleiding succesvol bewerkt!");
+				else
+					lOpl.setText("Er is een technische fout opgelopen.");				
 
 			}
 
@@ -60,21 +53,14 @@ public class AddOpleidingController {
 			o.setNaam(tOplNaam.getText());
 			o.setBeschrijving(tOplBesch.getText());
 
-			Session session = Main.factory.getCurrentSession();
-			session.beginTransaction();
-
-			try {
-				session.save(o);
-				session.getTransaction().commit();
-
-			} catch (Exception e) {
-				lOpl.setText("Er is een technische fout opgelopen.");
+			if(OpleidingDAO.save(o)) {
+				bToevoegen.setDisable(true);
+				LogDAO.opleidingToegevoegd(o);
+				lOpl.setStyle("-fx-text-fill: black");
+				lOpl.setText("Opleiding succesvol toegevoegd!");
 			}
-
-			bToevoegen.setDisable(true);
-			LogDAO.opleidingToegevoegd(o);
-			lOpl.setStyle("-fx-text-fill: black");
-			lOpl.setText("Opleiding succesvol toegevoegd!");
+			else
+				lOpl.setText("Er is een technische fout opgelopen.");			
 
 		}
 	}

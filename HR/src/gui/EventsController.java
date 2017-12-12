@@ -3,6 +3,7 @@ package gui;
 import java.io.IOException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+import database.OpleidingDAO;
 import database.PersoneelDAO;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -283,14 +284,7 @@ public class EventsController {
 			}
 		});
 
-		Session session = Main.factory.getCurrentSession();
-		session.beginTransaction();
-
-		Query q = session.createQuery("FROM Opleiding");
-		ObservableList<Opleiding> list = FXCollections.observableArrayList(q.list());
-
-		session.getTransaction().commit();
-
+		ObservableList<Opleiding> list = FXCollections.observableArrayList(OpleidingDAO.getAll());
 		opleidingen.setItems(list);
 
 		Callback<ListView<Opleiding>, ListCell<Opleiding>> call = lv -> new ListCell<Opleiding>() {

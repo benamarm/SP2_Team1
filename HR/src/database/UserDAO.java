@@ -9,6 +9,21 @@ import gui.Main;
 import logic.User;
 
 public class UserDAO {
+	
+	public static List<User> getAllExceptSession() {
+		
+		Session session = Main.factory.getCurrentSession();
+		session.beginTransaction();
+
+		Query q = session.createQuery("FROM User WHERE loginemail != :l");
+		q.setParameter("l", Main.sessionUser.getLoginemail());
+
+		List<User> users = q.getResultList();
+
+		session.getTransaction().commit();
+		
+		return users;
+	}
 
 	public static boolean save(User u, String password) throws UserBestaatReedsException {
 
@@ -62,24 +77,27 @@ public class UserDAO {
 
 		return true;
 	}
-	
-	public static boolean updatePassword(String loginemail, String password) throws UserOnbestaandException{
+
+	public static boolean updatePassword(String loginemail, String password) throws UserOnbestaandException {
 		Session session = Main.factory.getCurrentSession();
 		session.beginTransaction();
-		
+
 		if (session.get(User.class, loginemail) == null) {
 			session.getTransaction().commit();
 			throw new UserOnbestaandException();
 		}
-		
-		Query q = session.createNativeQuery("UPDATE applogin set password = :pass where loginemail = :email");
+
+		Query q = session.createNativeQuery("UPDATE applogin SET password = :pass WHERE loginemail = :email");
 		q.setParameter("pass", password).setParameter("email", loginemail);
-		boolean updateSucceeded = true;
-		if(q.executeUpdate() == 0) updateSucceeded = false;
+		boolean updated = false;
+				
+		if (q.executeUpdate() == 1)
+			updated = true;
+		
 		session.getTransaction().commit();
 
-		return updateSucceeded;
-}
+		return updated;
+	}
 
 	// Deze methode checkt of er een User bestaat met de ingegeven credentials en
 	// stuurt de User terug (null indien niet gevonden)

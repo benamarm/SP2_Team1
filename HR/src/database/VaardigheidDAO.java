@@ -20,7 +20,7 @@ public class VaardigheidDAO {
 
 		try {
 			Query q = session.createQuery("FROM Vaardigheid where checked = NULL");
-			aanvragen = (List<Vaardigheid>) q.list();
+			aanvragen = (List<Vaardigheid>) q.getResultList();
 			session.getTransaction().commit();
 
 		} catch (Exception e) {
