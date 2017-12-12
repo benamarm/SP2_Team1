@@ -21,6 +21,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -89,12 +90,18 @@ public class BoekenController {
 //		}
 //	}
 	
+	@FXML
+	private void setBoeken() {
+		boeken.setItems(OpleidingDAO.getBoeken(opleidingen.getValue()));
+		boeken.setPlaceholder(new Label("Deze opleiding heeft momenteel geen boeken."));
+	}
 	
 
 	@FXML
 	public void initialize() {
 
 		opleidingen.setPlaceholder(new Label("Er zijn geen opleidingen."));
+		boeken.setPlaceholder(new Label("Kies hierboven eerst een opleiding..."));
 
 		colTitel.setCellValueFactory(new Callback<CellDataFeatures<Boek, String>, ObservableValue<String>>() {
 			@Override
@@ -105,11 +112,7 @@ public class BoekenController {
 		colAuteur.setCellValueFactory(new Callback<CellDataFeatures<Boek, String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<Boek, String> data) {
-				return new SimpleStringProperty(data.getValue().getAuteurs().get(0)
-						//Maar er kunnen meerdere auteurs zijn, we zetten ze allemaal in 1 tabbelcel
-			+ data.getValue().getAuteurs().get(1) == null?"":(", "+data.getValue().getAuteurs().get(1))
-			+ data.getValue().getAuteurs().get(2) == null?"":(", "+data.getValue().getAuteurs().get(2))
-			+ data.getValue().getAuteurs().get(3) == null?"":" etc.");
+				return new SimpleStringProperty(data.getValue().getAuteurs().get(0));
 			}
 		});
 
@@ -158,7 +161,8 @@ public class BoekenController {
 		};
 		opleidingen.setCellFactory(call);
 		opleidingen.setButtonCell(call.call(null));
-
+		
+		boeken.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 	}
 	
 }

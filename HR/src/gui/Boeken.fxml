@@ -10,7 +10,7 @@
 
 <AnchorPane prefHeight="630.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.BoekenController">
    <children>
-      <ComboBox fx:id="opleidingen" layoutX="32.0" layoutY="35.0" prefHeight="28.0" prefWidth="565.0" />
+      <ComboBox fx:id="opleidingen" layoutX="32.0" layoutY="35.0" onAction="#setBoeken" prefHeight="28.0" prefWidth="565.0" />
       <TableView fx:id="boeken" layoutX="32.0" layoutY="116.0" prefHeight="489.0" prefWidth="954.0">
         <columns>
           <TableColumn fx:id="colTitel" prefWidth="665.0" text="Titel" />
