@@ -1,7 +1,9 @@
 package gui;
 
 import org.hibernate.Session;
+import database.EventDAO;
 import database.LogDAO;
+import email.Email;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -43,7 +45,8 @@ public class EventAfgelastenController {
 			lCheck.setStyle("-fx-text-fill: black");
 			lCheck.setText("Event succesvol afgelast");
 			LogDAO.eventAfgelast(e, tReden.getText());
-			// Email sturen met reden
+			EventDAO.initialize(e);
+			Email.eventAfgelast(e, tReden.getText());
 		}
 
 	}

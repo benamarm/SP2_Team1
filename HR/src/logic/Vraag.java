@@ -15,9 +15,10 @@ public class Vraag implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1448250560970047486L;
 	private Integer vraagId;
-	private Opleiding opleiding;
+	private Survey survey;
 	private String vraag;
 	private int inx;
+	private Boolean actief;
 
 	public Vraag() {
 	}
@@ -34,16 +35,16 @@ public class Vraag implements java.io.Serializable {
 	}
 
 	@ManyToOne
-	@JoinColumn(name = "opleiding_id", nullable = false)
-	public Opleiding getOpleiding() {
-		return this.opleiding;
+	@JoinColumn(name = "survey_id", nullable = false)
+	public Survey getSurvey() {
+		return this.survey;
 	}
 
-	public void setOpleiding(Opleiding opleiding) {
-		this.opleiding = opleiding;
+	public void setSurvey(Survey survey) {
+		this.survey = survey;
 	}
 
-	@Column(name = "vraag", nullable = false, length = 200)
+	@Column(name = "vraag", nullable = false)
 	public String getVraag() {
 		return this.vraag;
 	}
@@ -59,6 +60,15 @@ public class Vraag implements java.io.Serializable {
 
 	public void setInx(int inx) {
 		this.inx = inx;
+	}
+	
+	@Column(name = "actief", nullable = false)
+	public Boolean isActief() {
+		return this.actief;
+	}
+
+	public void setActief(Boolean actief) {
+		this.actief = actief;
 	}
 
 }
