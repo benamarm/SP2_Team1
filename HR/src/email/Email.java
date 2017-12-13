@@ -33,7 +33,7 @@ public class Email {
 			message.setSubject("Nieuw wachtwoord");
 			message.setText(
 					"Beste\n\nU krijgt deze mail omdat uw wachtwoord is gewijzigd.\n"
-					+ "Uw nieuwe wachtwoord is: " + password 
+					+ "Uw nieuw wachtwoord is: " + password 
 					+ "\n\nGelieve niet te antwoorden op deze mail.");
 
 			// send the message
@@ -71,8 +71,9 @@ public class Email {
 			message.setSubject("Account aangemaakt");
 			message.setText(
 					"Beste\n\nU krijgt deze mail omdat er een account werd aangemaakt met uw gegevens.\n"
-					+ "Uw inlog-gegevens zijn:\n "
-					+ "Username: " + to + "\nWachtwoord: " + password
+					+ "Uw inlog-gegevens zijn:\n"
+					+ "Username: " + to 
+					+ "\nWachtwoord: " + password
 					+ "\n\nGelieve niet te antwoorden op deze mail.");
 
 			// send the message
@@ -113,13 +114,14 @@ public class Email {
 					message.setSubject("Goedkeuring opleiding");
 					message.setText("Beste \n\nUw aanvraag is goedgekeurd voor volgend event:\nOpleiding: "
 							+ v.getEvent().getOpleiding().getNaam() + "\nTrainer: " + v.getEvent().getNaamTrainer()
-							+ "\nAdres: " + v.getEvent().getAdres().toString() + "\nVan "
-							+ v.getEvent().getStringStartdatum() + " tot " + v.getEvent().getStringEinddatum()
+							+ "\nAdres: " + v.getEvent().getAdres().toString()
+							+ "\nVan " + v.getEvent().getStringStartdatum() + " tot " + v.getEvent().getStringEinddatum()
 							+ "\n\nGelieve niet te antwoorden op deze mail.");
 				} else {
 					message.setSubject("Afkeuring opleiding");
-					message.setText("Beste \n\nUw aanvraag is afgekeurd voor volgend event:\nOpleiding: "
-							+ v.getEvent().getOpleiding().getNaam() + "\nTrainer: " + v.getEvent().getNaamTrainer()
+					message.setText("Beste \n\nUw aanvraag is afgekeurd voor volgend event:"
+							+ "\nOpleiding: " + v.getEvent().getOpleiding().getNaam() 
+							+ "\nTrainer: " + v.getEvent().getNaamTrainer()
 							+ "\nAdres: " + v.getEvent().getAdres().toString() + "\nVan "
 							+ v.getEvent().getStringStartdatum() + " tot " + v.getEvent().getStringEinddatum()
 							+ "\n\nGelieve niet te antwoorden op deze mail.");
@@ -161,10 +163,11 @@ public class Email {
 			}
 			
 			message.setSubject("Event afgelast");
-			message.setText("Beste \n\nHet volgende event is afgelast:\nOpleiding: "
-					+ e.getOpleiding().getNaam() + "\nTrainer: " + e.getNaamTrainer()
-					+ "\nAdres: " + e.getAdres().toString() + "\nVan "
-					+ e.getStringStartdatum() + " tot " + e.getStringEinddatum()
+			message.setText("Beste \n\nHet volgende event is afgelast:"
+					+ "\nOpleiding: "+ e.getOpleiding().getNaam() 
+					+ "\nTrainer: " + e.getNaamTrainer()
+					+ "\nAdres: " + e.getAdres().toString() 
+					+ "\nVan " + e.getStringStartdatum() + " tot " + e.getStringEinddatum()
 					+ "Reden: " + reden
 					+ "\n\nGelieve niet te antwoorden op deze mail.");
 			
