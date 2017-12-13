@@ -111,13 +111,17 @@ public class AddEventController {
 				nieuw.setAdres(a);
 				nieuw.setAfgelast(false);
 				if (edit) {
+					
 					nieuw.setEventId(teBewerken.getEventId());
+					
 					if (nieuw.equals(teBewerken)) {
 						session.getTransaction().rollback();
 						lCheck.setText("U heeft niets aangepast.");
 						return;
 					}
+					
 					session.update(nieuw);
+					
 				} else
 					session.save(nieuw);
 

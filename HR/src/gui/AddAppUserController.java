@@ -45,6 +45,7 @@ public class AddAppUserController {
 					lToevoegen.setStyle("-fx-text-fill: black");
 					lToevoegen.setText("User succesvol toegevoegd!");
 				} else
+					bToevoegen.setDisable(true);
 					lToevoegen.setText("Er is een technische fout opgelopen.");
 			} catch (UserBestaatReedsException e) {
 				lToevoegen.setText("E-mailadres reeds in gebruik.");

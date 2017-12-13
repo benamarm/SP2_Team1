@@ -130,7 +130,7 @@ public class LogDAO {
 		session.beginTransaction();
 
 		Log log = new Log();
-		log.setBeschrijving("User " + u.getLoginemail() + " toegevoegd (Admin: "
+		log.setBeschrijving("[Applicatie] User " + u.getLoginemail() + " toegevoegd (Admin: "
 				+ (u.getPositie().equals("ADMIN") ? "JA" : "NEE") + ")");
 		log.setType("INSERT");
 		log.setUser(Main.sessionUser);
