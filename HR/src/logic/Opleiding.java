@@ -8,9 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -24,7 +21,7 @@ public class Opleiding implements java.io.Serializable {
 	private String naam;
 	private String beschrijving;
 	private Set<Boek> boeken = new HashSet<Boek>(0);
-	private Set<Vraag> vragen = new HashSet<Vraag>(0);
+	private Set<Survey> surveys = new HashSet<Survey>(0);
 	private Set<Event> events = new HashSet<Event>(0);
 
 	public Opleiding() {
@@ -75,12 +72,12 @@ public class Opleiding implements java.io.Serializable {
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "opleiding")
-	public Set<Vraag> getVragen() {
-		return this.vragen;
+	public Set<Survey> getSurveys() {
+		return this.surveys;
 	}
 
-	public void setVragen(Set<Vraag> vragen) {
-		this.vragen = vragen;
+	public void setSurveys(Set<Survey> surveys) {
+		this.surveys = surveys;
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "opleiding")

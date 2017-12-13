@@ -168,7 +168,7 @@ public class Email {
 					+ "\nTrainer: " + e.getNaamTrainer()
 					+ "\nAdres: " + e.getAdres().toString() 
 					+ "\nVan " + e.getStringStartdatum() + " tot " + e.getStringEinddatum()
-					+ "Reden: " + reden
+					+ "\nReden: " + reden
 					+ "\n\nGelieve niet te antwoorden op deze mail.");
 			
 			// send the message

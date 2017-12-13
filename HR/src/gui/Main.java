@@ -38,8 +38,9 @@ public class Main extends Application {
 
 		factory = new Configuration().configure().addAnnotatedClass(Adres.class).addAnnotatedClass(Boek.class)
 				.addAnnotatedClass(Event.class).addAnnotatedClass(Log.class).addAnnotatedClass(Opleiding.class)
-				.addAnnotatedClass(Personeel.class).addAnnotatedClass(User.class).addAnnotatedClass(Vaardigheid.class)
-				.addAnnotatedClass(Vraag.class).addAnnotatedClass(WebUser.class).buildSessionFactory();
+				.addAnnotatedClass(Personeel.class).addAnnotatedClass(Publicatie.class).addAnnotatedClass(Survey.class)
+				.addAnnotatedClass(User.class).addAnnotatedClass(Vaardigheid.class).addAnnotatedClass(Vraag.class)
+				.addAnnotatedClass(WebUser.class).buildSessionFactory();
 		launch(args);
 		if (sessionUser != null) {
 			LogDAO.authenticate(false);

@@ -1,7 +1,7 @@
 package database;
 
 import java.util.List;
-
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import gui.Main;
@@ -54,6 +54,17 @@ public class OpleidingDAO {
 			}
 		return true;
 	}
+	
+	public static void initializeSurveys(Opleiding o) {
+		
+		Session session = Main.factory.getCurrentSession();
+		session.beginTransaction();
+		
+		session.update(o);		
+		Hibernate.initialize(o.getSurveys());
+		
+		session.getTransaction().commit();
+	}	
 	
 	public static Opleiding getById(int id) {
 		Opleiding o = new Opleiding();

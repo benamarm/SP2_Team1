@@ -1,10 +1,8 @@
 package gui;
 
 import java.io.IOException;
-
 import org.hibernate.Session;
 import org.hibernate.query.Query;
-
 import database.LogDAO;
 import database.PersoneelDAO;
 import database.UserDAO;
