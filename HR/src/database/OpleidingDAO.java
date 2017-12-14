@@ -2,15 +2,13 @@ package database;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
-
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
-
 import exceptions.BoekNietGevondenException;
 import exceptions.UserBestaatReedsException;
 import gui.Main;
@@ -68,7 +66,7 @@ public class OpleidingDAO {
 
 		try {
 			Query q = session.createQuery("FROM Opleiding");
-			opleidingen = (List<Opleiding>) q.list();
+			opleidingen = (List<Opleiding>) q.getResultList();
 			session.getTransaction().commit();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -103,6 +101,17 @@ public class OpleidingDAO {
 			}
 		return true;
 	}
+	
+	public static void initializeSurveys(Opleiding o) {
+		
+		Session session = Main.factory.getCurrentSession();
+		session.beginTransaction();
+		
+		session.update(o);		
+		Hibernate.initialize(o.getSurveys());
+		
+		session.getTransaction().commit();
+	}	
 	
 	public static Opleiding getById(int id) {
 		Opleiding o = new Opleiding();

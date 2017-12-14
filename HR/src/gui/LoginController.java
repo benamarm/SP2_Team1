@@ -1,10 +1,9 @@
 package gui;
 
-import org.hibernate.Session;
-import org.hibernate.query.Query;
 import database.LogDAO;
 import database.UserDAO;
 import email.Email;
+import exceptions.UserOnbestaandException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -77,35 +76,19 @@ public class LoginController {
 		if (!tForgotEmail.getText().contains("@")) {
 			lForgotPrompt.setText("Gelieve een e-mailadres in te geven.");
 		} else {
-			Session session = Main.factory.getCurrentSession();
-			session.beginTransaction();
 
-			User u = session.get(User.class, tForgotEmail.getText());
-
-			if (u == null) {
-				lForgotPrompt.setText("De gegeven adres heeft geen account.");
-			} else {
-
-				// Genereer nieuw wachtwoord
-				String password = User.generatePassword();
-
-				// Aanpassen in database
-				Query q = session.createNativeQuery("UPDATE applogin SET password = :p WHERE loginemail = :l");
-				q.setParameter("p", password).setParameter("l", u.getLoginemail());
-
-				if (q.executeUpdate() == 1) {
-					// Email sturen
-					Email.sendPassword(u.getLoginemail(), password);
+			String password = User.generatePassword();
+			try {
+				if (UserDAO.updatePassword(tForgotEmail.getText(), password)) {
 					bForgotOK.setDisable(true);
+					Email.sendPassword(tForgotEmail.getText(), password);
 					lForgotPrompt.setStyle("-fx-text-fill: black");
 					lForgotPrompt.setText("U ontvangt binnenkort een e-mail met een nieuw wachtwoord.");
-
 				} else
 					lForgotPrompt.setText("Er is een technische fout opgelopen.");
-
+			} catch (UserOnbestaandException e) {
+				lForgotPrompt.setText("De gegeven adres heeft geen account.");
 			}
-
-			session.getTransaction().commit();
 		}
 
 	}

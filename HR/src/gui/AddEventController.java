@@ -3,7 +3,7 @@ package gui;
 import java.sql.Date;
 import java.time.LocalDate;
 import org.hibernate.Session;
-import org.hibernate.query.Query;
+import database.AdresDAO;
 import database.LogDAO;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -87,9 +87,7 @@ public class AddEventController {
 			lCheck.setText("Maximum aantal deelnemers mag enkel verhoogd worden.");
 		else {
 			try {
-				Session session = Main.factory.getCurrentSession();
-				session.beginTransaction();
-
+				
 				Adres a;
 				if (adresStraat.getText().equals(""))
 					a = adressen.getValue();
@@ -99,8 +97,12 @@ public class AddEventController {
 					a.setNummer(Integer.parseInt(adresNum.getText()));
 					a.setPostcode(Integer.parseInt(adresPostcode.getText()));
 					a.setLand(adresLand.getText());
-					session.save(a);
+					AdresDAO.save(a);
 				}
+				
+				Session session = Main.factory.getCurrentSession();
+				session.beginTransaction();
+
 				Event nieuw = new Event();
 				nieuw.setAantalDeelnames(0);
 				nieuw.setStartdatum(Date.valueOf(dStart.getValue()));
@@ -111,13 +113,17 @@ public class AddEventController {
 				nieuw.setAdres(a);
 				nieuw.setAfgelast(false);
 				if (edit) {
+					
 					nieuw.setEventId(teBewerken.getEventId());
+					
 					if (nieuw.equals(teBewerken)) {
 						session.getTransaction().rollback();
 						lCheck.setText("U heeft niets aangepast.");
 						return;
 					}
+					
 					session.update(nieuw);
+					
 				} else
 					session.save(nieuw);
 
@@ -164,14 +170,7 @@ public class AddEventController {
 	public void initialize() {
 
 		// Adressen in ComboBox zetten
-		Session session = Main.factory.getCurrentSession();
-		session.beginTransaction();
-
-		Query q = session.createQuery("FROM Adres ORDER BY straat");
-		ObservableList<Adres> list = FXCollections.observableArrayList(q.list());
-
-		session.getTransaction().commit();
-
+		ObservableList<Adres> list = FXCollections.observableArrayList(AdresDAO.getAllOrdered());
 		adressen.setItems(list);
 
 		Callback<ListView<Adres>, ListCell<Adres>> call = lv -> new ListCell<Adres>() {

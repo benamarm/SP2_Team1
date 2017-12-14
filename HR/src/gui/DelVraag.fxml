@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="150.0" prefWidth="350.0" style="-fx-background-color: #c6d9eb;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.DelVraagController">
+   <children>
+      <Label layoutX="32.0" layoutY="23.0" text="Bent u zeker dat u deze vraag wil verwijderen?" />
+      <Button fx:id="bOK" layoutX="125.0" layoutY="60.0" mnemonicParsing="false" onAction="#handleOK" styleClass="otherbtn" text="Verwijderen" />
+      <Label fx:id="lCheck" alignment="CENTER" layoutX="26.0" layoutY="104.0" prefHeight="20.0" prefWidth="298.0" textFill="RED" />
+   </children>
+</AnchorPane>

@@ -4,6 +4,7 @@ import java.util.Properties;
 import javax.mail.*;
 import javax.mail.internet.*;
 import javafx.collections.ObservableList;
+import logic.Event;
 import logic.Vaardigheid;
 
 public class Email {
@@ -30,14 +31,16 @@ public class Email {
 			message.setFrom(new InternetAddress("noreply.hr.sp2@gmail.com"));
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 			message.setSubject("Nieuw wachtwoord");
-			message.setText("Beste\n\nU krijgt deze mail omdat uw wachtwoord is gewijzigd.\n"
-					+ "Uw nieuwe wachtwoord is: " + password + "\n\nGelieve niet te antwoorden op deze mail.");
+			message.setText(
+					"Beste\n\nU krijgt deze mail omdat uw wachtwoord is gewijzigd.\n"
+					+ "Uw nieuw wachtwoord is: " + password 
+					+ "\n\nGelieve niet te antwoorden op deze mail.");
 
 			// send the message
 			Transport.send(message);
 
-		} catch (MessagingException e) {
-			e.printStackTrace();
+		} catch (MessagingException me) {
+			me.printStackTrace();
 			return false;
 		}
 		return true;
@@ -67,15 +70,17 @@ public class Email {
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 			message.setSubject("Account aangemaakt");
 			message.setText(
-					"Beste\n\nU krijgt deze mail omdat er een account werd aangemaakt met uw gegevens. \nUw inlog-gegevens zijn:\n"
-							+ "Username: " + to + "\nWachtwoord: " + password
-							+ "\n\nGelieve niet te antwoorden op deze mail.");
+					"Beste\n\nU krijgt deze mail omdat er een account werd aangemaakt met uw gegevens.\n"
+					+ "Uw inlog-gegevens zijn:\n"
+					+ "Username: " + to 
+					+ "\nWachtwoord: " + password
+					+ "\n\nGelieve niet te antwoorden op deze mail.");
 
 			// send the message
 			Transport.send(message);
 
-		} catch (MessagingException e) {
-			e.printStackTrace();
+		} catch (MessagingException me) {
+			me.printStackTrace();
 		}
 	}
 
@@ -109,13 +114,14 @@ public class Email {
 					message.setSubject("Goedkeuring opleiding");
 					message.setText("Beste \n\nUw aanvraag is goedgekeurd voor volgend event:\nOpleiding: "
 							+ v.getEvent().getOpleiding().getNaam() + "\nTrainer: " + v.getEvent().getNaamTrainer()
-							+ "\nAdres: " + v.getEvent().getAdres().toString() + "\nVan "
-							+ v.getEvent().getStringStartdatum() + " tot " + v.getEvent().getStringEinddatum()
+							+ "\nAdres: " + v.getEvent().getAdres().toString()
+							+ "\nVan " + v.getEvent().getStringStartdatum() + " tot " + v.getEvent().getStringEinddatum()
 							+ "\n\nGelieve niet te antwoorden op deze mail.");
 				} else {
 					message.setSubject("Afkeuring opleiding");
-					message.setText("Beste \n\nUw aanvraag is afgekeurd voor volgend event:\nOpleiding: "
-							+ v.getEvent().getOpleiding().getNaam() + "\nTrainer: " + v.getEvent().getNaamTrainer()
+					message.setText("Beste \n\nUw aanvraag is afgekeurd voor volgend event:"
+							+ "\nOpleiding: " + v.getEvent().getOpleiding().getNaam() 
+							+ "\nTrainer: " + v.getEvent().getNaamTrainer()
 							+ "\nAdres: " + v.getEvent().getAdres().toString() + "\nVan "
 							+ v.getEvent().getStringStartdatum() + " tot " + v.getEvent().getStringEinddatum()
 							+ "\n\nGelieve niet te antwoorden op deze mail.");
@@ -124,8 +130,52 @@ public class Email {
 				Transport.send(message);
 			}
 
-		} catch (MessagingException e) {
-			e.printStackTrace();
+		} catch (MessagingException me) {
+			me.printStackTrace();
+		}
+	}
+	
+	public static void eventAfgelast(Event e, String reden) {
+
+		// properties connection
+		Properties props = new Properties();
+		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.socketFactory.port", "465");
+		props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.port", "465");
+
+		// make connection
+		Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication("noreply.hr.sp2@gmail.com", "+SP2Team1+");
+			}
+		});
+
+		try {
+			// create message
+			Message message = new MimeMessage(session);
+			message.setFrom(new InternetAddress("noreply.hr.sp2@gmail.com"));
+			
+			for(Vaardigheid v : e.getVaardigheden()) {
+				message.addRecipient(Message.RecipientType.TO,
+						new InternetAddress(v.getPersoneel().getAccount().getLoginemail()));
+			}
+			
+			message.setSubject("Event afgelast");
+			message.setText("Beste \n\nHet volgende event is afgelast:"
+					+ "\nOpleiding: "+ e.getOpleiding().getNaam() 
+					+ "\nTrainer: " + e.getNaamTrainer()
+					+ "\nAdres: " + e.getAdres().toString() 
+					+ "\nVan " + e.getStringStartdatum() + " tot " + e.getStringEinddatum()
+					+ "\nReden: " + reden
+					+ "\n\nGelieve niet te antwoorden op deze mail.");
+			
+			// send the message
+			Transport.send(message);
+
+		} catch (MessagingException me) {
+			me.printStackTrace();
 		}
 	}
 }

@@ -1,7 +1,6 @@
 package gui;
 
-import org.hibernate.Session;
-import org.hibernate.query.Query;
+import database.OpleidingDAO;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -156,15 +155,7 @@ public class OpleidingenController {
 			};
 		});
 
-		Session session = Main.factory.getCurrentSession();
-		session.beginTransaction();
-
-		Query q = session.createQuery("FROM Opleiding");
-
-		ObservableList<Opleiding> list = FXCollections.observableArrayList(q.list());
-
-		session.getTransaction().commit();
-
+		ObservableList<Opleiding> list = FXCollections.observableArrayList(OpleidingDAO.getAll());
 		opleidingen.setItems(list);
 
 	}

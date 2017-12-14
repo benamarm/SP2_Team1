@@ -1,8 +1,8 @@
 package gui;
 
-import org.hibernate.Session;
-import org.hibernate.query.Query;
 import database.LogDAO;
+import database.UserDAO;
+import exceptions.UserOnbestaandException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -26,27 +26,18 @@ public class WijzigWachtwoordController {
 			lCheck.setText("Wachtwoord verkeerd herhaald.");
 		else {
 
-			Session session = Main.factory.getCurrentSession();
-			session.beginTransaction();
-
 			try {
-				Query q = session.createNativeQuery("UPDATE applogin SET password = :p WHERE loginemail = '"
-						+ Main.sessionUser.getLoginemail() + "'");
-				q.setParameter("p", password1.getText());
-				if (q.executeUpdate() == 1) {
+				if (UserDAO.updatePassword(Main.sessionUser.getLoginemail(), password1.getText())) {
+					bOK.setDisable(true);
+					LogDAO.eigenWachtwoord();
 					lCheck.setStyle("-fx-text-fill: black");
 					lCheck.setText("Wachtwoord succesvol gewijzigd.");
+				} else {
 					bOK.setDisable(true);
+					lCheck.setText("Er is een technische fout opgelopen.");
 				}
 
-				session.getTransaction().commit();
-
-				LogDAO.eigenWachtwoord();
-
-			} catch (Exception e) {
-				bOK.setDisable(true);
-				lCheck.setText("Er is een technische fout opgelopen.");
-			}
+			} catch (UserOnbestaandException e) {}
 		}
 	}
 
