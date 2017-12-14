@@ -31,8 +31,6 @@ public class Boek implements java.io.Serializable {
 	}
 
 
-	//@Column(name = "titel", nullable = false, length = 30)
-	@Transient
 	public String getTitel() {
 		return this.titel;
 	}
@@ -41,7 +39,6 @@ public class Boek implements java.io.Serializable {
 		this.titel = titel;
 	}
 	
-	@Transient
 	public ArrayList<String> getAuteurs() {
 		return auteurs;
 	}
@@ -58,12 +55,10 @@ public class Boek implements java.io.Serializable {
 	}
 
 
-	@Transient
 	public String getPrijs() {
 		return prijs;
 	}
 	
-	@Transient
 	public String getTaal() {
 		return taal;
 	}
@@ -73,7 +68,6 @@ public class Boek implements java.io.Serializable {
 		this.taal = taal;
 	}
 
-	@Transient
 	public String getUitgeverij() {
 		return uitgeverij;
 	}
@@ -85,10 +79,9 @@ public class Boek implements java.io.Serializable {
 
 
 	public void setPrijs(String prijs) {
-		if(prijs != null) this.prijs = "EUR" + prijs.substring(3);
+		if(prijs != null) this.prijs = prijs.substring(3);
 	}
 
-	@Transient
 	public String getRating() {
 		return rating;
 	}
@@ -99,8 +92,6 @@ public class Boek implements java.io.Serializable {
 	}
 
 
-	//@Column(name = "beschrijving", nullable = false, length = 100)
-	@Transient
 	public String getBeschrijving() {
 		return this.beschrijving;
 	}
@@ -109,9 +100,6 @@ public class Boek implements java.io.Serializable {
 		if(beschrijving != null) this.beschrijving = beschrijving;
 	}
 	
-	@Id
-	//@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "ISBN", unique = true, nullable = false)
 	public String getIsbn() {
 		return this.isbn;
 	}
@@ -120,7 +108,6 @@ public class Boek implements java.io.Serializable {
 		if(isbn != null) this.isbn = isbn;
 	}
 
-	@Transient
 	public Set<Opleiding> getOpleidingen() {
 		return this.opleidingen;
 	}
@@ -138,15 +125,5 @@ public class Boek implements java.io.Serializable {
 				+ ", opleidingen=" + opleidingen + "]";
 	}
 
-
-	public static void main(String[] args) {
-		Boek b = new Boek();
-		b.addAuteur("Adolphe");
-		b.setBeschrijving("Leuke Boek");
-		b.setIsbn("ISBN nummer");
-		
-		
-		System.out.println(b.toString());
-	}
 
 }

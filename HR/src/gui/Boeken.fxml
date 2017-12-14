@@ -4,14 +4,15 @@
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane prefHeight="630.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.BoekenController">
    <children>
-      <ComboBox fx:id="opleidingen" layoutX="32.0" layoutY="35.0" prefHeight="28.0" prefWidth="565.0" />
-      <TableView fx:id="boeken" layoutX="32.0" layoutY="116.0" prefHeight="489.0" prefWidth="954.0">
+      <ComboBox fx:id="opleidingen" layoutX="15.0" layoutY="35.0" onAction="#setBoeken" prefHeight="28.0" prefWidth="582.0" promptText="Kies een opleiding..." />
+      <TableView fx:id="boeken" layoutX="15.0" layoutY="116.0" prefHeight="489.0" prefWidth="971.0">
         <columns>
           <TableColumn fx:id="colTitel" prefWidth="665.0" text="Titel" />
           <TableColumn fx:id="colAuteur" prefWidth="288.0" text="Auteur" />
@@ -20,9 +21,10 @@
       <ButtonBar layoutX="629.0" layoutY="29.0" prefHeight="40.0" prefWidth="357.0">
         <buttons>
           <Button fx:id="bVerwijderen" mnemonicParsing="false" prefHeight="32.0" prefWidth="161.0" text="Verwijderen" />
-            <Button fx:id="bToevoegen" mnemonicParsing="false" text="Boek Toevoegen" />
+            <Button fx:id="bToevoegen" mnemonicParsing="false" onAction="#handleToevoegen" text="Boek Toevoegen" />
         </buttons>
       </ButtonBar>
       <CheckBox fx:id="cbSelecteerAlles" layoutX="908.0" layoutY="91.0" minWidth="39.0" mnemonicParsing="false" onAction="#handleSelecteerAlles" prefHeight="25.0" prefWidth="78.0" text="Alles" />
+      <Label fx:id="lWarning" layoutX="17.0" layoutY="71.0" prefHeight="40.0" prefWidth="582.0" />
    </children>
 </AnchorPane>

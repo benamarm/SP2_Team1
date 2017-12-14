@@ -70,14 +70,15 @@ public class GoogleBooks{
 		      Volume.SaleInfo saleInfo = volume.getSaleInfo();
 		      
 		      // de ISBN nummer
-		      for(IndustryIdentifiers isbn: volumeInfo.getIndustryIdentifiers()) {
-		    	  	//System.out.println(isbn.getIdentifier());
-		    	  	if(isbn.getIdentifier() != null) {
-		    	  		boek.setIsbn(isbn.getIdentifier());
-		    	  		break;
-		    	  	}
+		      if(volumeInfo.getIndustryIdentifiers() != null) {
+			      for(IndustryIdentifiers isbn: volumeInfo.getIndustryIdentifiers()) {
+			    	  	//System.out.println(isbn.getIdentifier()); System.out.println("");
+			    	  	if(isbn != null && isbn.getIdentifier() != null) {
+			    	  		boek.setIsbn(isbn.getIdentifier().toString());
+			    	  		break;
+			    	  	}
+			      }
 		      }
-		      
 		      // Taal
 		      boek.setTaal(volumeInfo.getLanguage());
 		      
@@ -122,7 +123,7 @@ public class GoogleBooks{
 	  
 	  public static void main(String[] args) {
 		  JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
-		  GoogleBooksExecutableQuery query = new GoogleBooksExecutableQuery(GoogleBooksQueryPrefix.TITEL, "DATABASE");
+		  GoogleBooksExecutableQuery query = new GoogleBooksExecutableQuery(GoogleBooksQueryPrefix.ISBN, "9780123820211");
 		    try {
 		      try {
 		        ArrayList<Boek> boeken = GoogleBooks.executeQuery(jsonFactory, query);
