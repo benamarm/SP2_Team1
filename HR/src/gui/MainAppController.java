@@ -115,6 +115,36 @@ public class MainAppController {
 			e.printStackTrace();
 		}
 	}
+	
+	@FXML
+	private void handleButtonSurveys() {
+		try {
+			mainPane.getChildren().clear();
+			mainPane.getChildren().add(FXMLLoader.load(getClass().getResource("Surveys.fxml")));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
+	private void handleButtonPersoneel() {
+		/*try {
+			mainPane.getChildren().clear();
+			mainPane.getChildren().add(FXMLLoader.load(getClass().getResource("Personeel.fxml")));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}*/
+	}
+	
+	@FXML
+	private void handleButtonStatistieken() {
+		/*try {
+			mainPane.getChildren().clear();
+			mainPane.getChildren().add(FXMLLoader.load(getClass().getResource("Statistieken.fxml")));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}*/
+	}
 
 	@FXML
 	public void initialize() {

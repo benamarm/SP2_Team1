@@ -54,19 +54,19 @@
          <font>
             <Font size="14.0" />
          </font></Button>
-      <Button fx:id="bSurveys" layoutX="583.75" layoutY="70.0" mnemonicParsing="false" prefWidth="110.0" styleClass="menubtn" text="Surveys">
+      <Button fx:id="bSurveys" layoutX="583.75" layoutY="70.0" mnemonicParsing="false" onAction="#handleButtonSurveys" prefWidth="110.0" styleClass="menubtn" text="Surveys">
          <font>
             <Font size="14.0" />
          </font></Button>
-      <Button fx:id="bPersoneel" layoutX="722.5" layoutY="70.0" mnemonicParsing="false" prefWidth="110.0" styleClass="menubtn" text="Personeel">
+      <Button fx:id="bPersoneel" layoutX="722.5" layoutY="70.0" mnemonicParsing="false" onAction="#handleButtonPersoneel" prefWidth="110.0" styleClass="menubtn" text="Personeel">
          <font>
             <Font size="14.0" />
          </font></Button>
-      <Button fx:id="bStatistieken" layoutX="861.25" layoutY="70.0" mnemonicParsing="false" prefWidth="110.0" styleClass="menubtn" text="Statistieken">
+      <Button fx:id="bStatistieken" layoutX="861.25" layoutY="70.0" mnemonicParsing="false" onAction="#handleButtonStatistieken" prefWidth="110.0" styleClass="menubtn" text="Statistieken">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Label fx:id="lWijzigWachtwoord" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="739.0" layoutY="31.0" onMouseReleased="#wijzigWachtwoord" prefHeight="20.0" prefWidth="232.0" text="Wachtwoord wijzigen" underline="true" />
+      <Label fx:id="lWijzigWachtwoord" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="739.0" layoutY="33.0" onMouseReleased="#wijzigWachtwoord" prefHeight="20.0" prefWidth="232.0" text="Wachtwoord wijzigen" underline="true" />
    </children>
 </AnchorPane>

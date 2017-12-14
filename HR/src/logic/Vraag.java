@@ -18,7 +18,6 @@ public class Vraag implements java.io.Serializable {
 	private Survey survey;
 	private String vraag;
 	private int inx;
-	private Boolean actief;
 
 	public Vraag() {
 	}
@@ -60,15 +59,6 @@ public class Vraag implements java.io.Serializable {
 
 	public void setInx(int inx) {
 		this.inx = inx;
-	}
-	
-	@Column(name = "actief", nullable = false)
-	public Boolean isActief() {
-		return this.actief;
-	}
-
-	public void setActief(Boolean actief) {
-		this.actief = actief;
 	}
 
 }

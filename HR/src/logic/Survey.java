@@ -6,7 +6,6 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -58,7 +57,7 @@ public class Survey implements java.io.Serializable {
 		this.titel = titel;
 	}
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER, mappedBy = "survey")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "survey")
 	public Set<Vraag> getVragen() {
 		return vragen;
 	}
