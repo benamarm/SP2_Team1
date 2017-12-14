@@ -35,7 +35,11 @@ public class OpleidingDAO {
 	public static ObservableList<Boek> getBoeken(Opleiding o){
 		JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
 		ObservableList<Boek>  observables = FXCollections.observableArrayList();
-		Session session = Main.factory.getCurrentSession();
+		SessionFactory factory = new Configuration().configure().addAnnotatedClass(Adres.class).addAnnotatedClass(Boek.class)
+				.addAnnotatedClass(Event.class).addAnnotatedClass(Log.class).addAnnotatedClass(Opleiding.class)
+				.addAnnotatedClass(Personeel.class).addAnnotatedClass(User.class).addAnnotatedClass(Vaardigheid.class)
+				.addAnnotatedClass(Vraag.class).addAnnotatedClass(WebUser.class).buildSessionFactory();
+		Session session = factory.getCurrentSession();
 		session.beginTransaction();
 		ArrayList<Boek> boeken = new ArrayList<Boek>();
 		
@@ -138,20 +142,23 @@ public class OpleidingDAO {
 	}
 	
 	public static boolean addBoekToOpleiding(Boek b, Opleiding o) {
-				Session session = Main.factory.getCurrentSession();
-				session.beginTransaction();
-				
-				if(b != null & o != null) {
-					try {
-						Query q = session.createNativeQuery("INSERT INTO opleiding_boek(opleiding_id, isbn) VALUES(:o, :b)");
-						q.setParameter("o", o.getNaam()).setParameter("b", b.getIsbn());	
-					} catch (Exception e) {
-						e.printStackTrace();
-						return false;
-					}
-				} 
+		SessionFactory factory = new Configuration().configure().addAnnotatedClass(Adres.class).addAnnotatedClass(Boek.class)
+				.addAnnotatedClass(Event.class).addAnnotatedClass(Log.class).addAnnotatedClass(Opleiding.class)
+				.addAnnotatedClass(Personeel.class).addAnnotatedClass(User.class).addAnnotatedClass(Vaardigheid.class)
+				.addAnnotatedClass(Vraag.class).addAnnotatedClass(WebUser.class).buildSessionFactory();
+		
+		Session session = factory.getCurrentSession();
+		session.beginTransaction();
+			try {
+				System.out.println("De functie werd uitgevoerd.");
+				Query q = session.createSQLQuery("INSERT INTO opleiding_boek (opleiding_id, ISBN) VALUES (:opl, :boek)");
+				q.setParameter("opl", o.getOpleidingId()).setParameter("boek", b.getIsbn());
 				session.getTransaction().commit();
-				return true;
+			} catch (Exception e) {
+				e.printStackTrace();
+				return false;
+			}
+		return true;
 				
 	}
 	
@@ -188,12 +195,18 @@ public class OpleidingDAO {
 		}
 		return o;
 	}
+
+public static void main(String[] args) {
+	Opleiding o = new Opleiding();
+	o.setOpleidingId(3);
+	Boek b = new Boek();
+	b.setIsbn("9780123820211");
+	addBoekToOpleiding(b, o);
 	
-	public static void main(String[] args) {
-		Opleiding o = new Opleiding();
-		o.setOpleidingId(3);
-		ObservableList<Boek> boeken = getBoeken(o);
-		
-		for(Boek b: boeken) System.out.println(b.getTitel());
+	ObservableList<Boek> list = getBoeken(o);
+	for(Boek boek: list) {
+		System.out.println(boek.getTitel());
 	}
+}
+
 }

@@ -123,7 +123,7 @@ public class GoogleBooks{
 	  
 	  public static void main(String[] args) {
 		  JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
-		  GoogleBooksExecutableQuery query = new GoogleBooksExecutableQuery(GoogleBooksQueryPrefix.TITEL, "ABAP");
+		  GoogleBooksExecutableQuery query = new GoogleBooksExecutableQuery(GoogleBooksQueryPrefix.ISBN, "9780123820211");
 		    try {
 		      try {
 		        ArrayList<Boek> boeken = GoogleBooks.executeQuery(jsonFactory, query);

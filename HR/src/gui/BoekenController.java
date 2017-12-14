@@ -2,15 +2,9 @@ package gui;
 
 import java.io.IOException;
 
-import org.hibernate.Session;
-import org.hibernate.query.Query;
-
 import database.OpleidingDAO;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,15 +20,14 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Tooltip;
+import javafx.scene.paint.Color;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Callback;
 import logic.Boek;
-import logic.Event;
 import logic.Opleiding;
-import logic.Personeel;
 import javafx.scene.control.Button;
 
 public class BoekenController {
@@ -53,6 +46,8 @@ public class BoekenController {
 	Button bVerwijderen;
 	@FXML
 	Button bToevoegen;
+	@FXML
+	Label lWarning;
 	
 	@FXML
 	private void handleSelecteerAlles() {
@@ -63,39 +58,40 @@ public class BoekenController {
 	}
 	
 	
-//	@FXML
-//	private void handleToevoegen() throws IOException {
-//		if (opleidingen.getValue() == null)
-//			lSelectie.setText("Gelieve eerst een opleiding te selecteren.");
-//		else {
-//			lSelectie.setText("");
-//			Stage popup = new Stage();
-//			FXMLLoader f = new FXMLLoader(getClass().getResource("AddEvent.fxml"));
-//			Parent root = (Parent) f.load();
-//			Scene scene = new Scene(root);
-//			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-//			popup.setTitle("Event toevoegen");
-//			popup.initModality(Modality.APPLICATION_MODAL);
-//			popup.setResizable(false);
-//			popup.centerOnScreen();
-//			popup.setScene(scene);
-//			popup.setOnCloseRequest(new EventHandler<WindowEvent>() {
-//				public void handle(WindowEvent we) {
-//					setBoeken();
-//				}
-//			});
-//			AddEventController c = (AddEventController) f.getController();
-//			c.initiate(opleidingen.getValue(), false, null);
-//			popup.show();
-//		}
-//	}
+	@FXML
+	private void handleToevoegen() throws IOException {
+		if(opleidingen.getValue() != null) {
+			Stage popup = new Stage();
+			FXMLLoader f = new FXMLLoader(getClass().getResource("AddBoeken.fxml"));
+			Parent root = (Parent) f.load();
+			Scene scene = new Scene(root);
+			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			popup.setTitle("Boeken toevoegen");
+			popup.initModality(Modality.APPLICATION_MODAL);
+			popup.setResizable(false);
+			popup.centerOnScreen();
+			popup.setScene(scene);
+			popup.setOnCloseRequest(new EventHandler<WindowEvent>() {
+				public void handle(WindowEvent we) {
+					setBoeken();
+				}
+			});
+			AddBoekenController c = (AddBoekenController) f.getController();
+			c.setSelectedOpleiding(opleidingen.getValue());
+			popup.show();
+		} else {
+			lWarning.setTextFill(Color.web("ff0000"));
+			lWarning.setText("Oops! Je hebt nog geen opleiding gekozen!");
+		}
+			
+	}
 	
 	@FXML
 	private void setBoeken() {
+		lWarning.setText("");
 		boeken.setItems(OpleidingDAO.getBoeken(opleidingen.getValue()));
 		boeken.setPlaceholder(new Label("Deze opleiding heeft momenteel geen boeken."));
 	}
-	
 
 	@FXML
 	public void initialize() {
