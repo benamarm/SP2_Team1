@@ -118,11 +118,9 @@ public class EventsController {
 
 	@FXML
 	private void handleLocatie() throws IOException {
-		if (events.getSelectionModel().getSelectedItems().size() == 0) {
-
+		if (events.getSelectionModel().getSelectedItems().size() == 0)
 			lSelectie.setText("Geen event geselecteerd.");
-
-		} else {
+		else {
 			Stage popup = new Stage();
 			FXMLLoader f = new FXMLLoader(getClass().getResource("EventLocatie.fxml"));
 			Parent root = (Parent) f.load();
@@ -141,11 +139,9 @@ public class EventsController {
 	@FXML
 	private void handleBewerken() throws Exception {
 
-		if (events.getSelectionModel().getSelectedItems().size() == 0) {
-
+		if (events.getSelectionModel().getSelectedItems().size() == 0)
 			lSelectie.setText("Geen event geselecteerd.");
-
-		} else {
+		else {
 			Stage popup = new Stage();
 			FXMLLoader f = new FXMLLoader(getClass().getResource("AddEvent.fxml"));
 			Parent root = (Parent) f.load();
@@ -170,11 +166,9 @@ public class EventsController {
 	@FXML
 	private void handleAfgelasten() throws IOException {
 
-		if (events.getSelectionModel().getSelectedItems().size() == 0) {
-
+		if (events.getSelectionModel().getSelectedItems().size() == 0)
 			lSelectie.setText("Geen event geselecteerd.");
-
-		} else {
+		else {
 			Stage popup = new Stage();
 			FXMLLoader f = new FXMLLoader(getClass().getResource("EventAfgelasten.fxml"));
 			Parent root = (Parent) f.load();

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="167.0" prefWidth="327.0" style="-fx-background-color: #c6d9eb;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.PubliceerSurveyController">
+   <children>
+      <DatePicker fx:id="dTot" layoutX="67.0" layoutY="71.0" prefHeight="30.0" prefWidth="135.0" />
+      <Label layoutX="67.0" layoutY="54.0" text="Publiceren tot:" />
+      <Label fx:id="lSurvey" alignment="CENTER" layoutX="20.0" layoutY="14.0" prefHeight="30.0" prefWidth="290.0" style="-fx-font-weight: bold;" textAlignment="CENTER" wrapText="true" />
+      <Button fx:id="bOK" layoutX="221.0" layoutY="70.0" mnemonicParsing="false" onAction="#handleOK" styleClass="otherbtn" text="OK" />
+      <Label fx:id="lCheck" alignment="CENTER" layoutX="45.0" layoutY="114.0" prefHeight="30.0" prefWidth="239.0" textAlignment="CENTER" textFill="RED" />
+   </children>
+</AnchorPane>
