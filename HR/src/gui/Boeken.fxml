@@ -20,7 +20,7 @@
       </TableView>
       <ButtonBar layoutX="629.0" layoutY="29.0" prefHeight="40.0" prefWidth="357.0">
         <buttons>
-          <Button fx:id="bVerwijderen" mnemonicParsing="false" prefHeight="32.0" prefWidth="161.0" text="Verwijderen" />
+          <Button fx:id="bVerwijderen" mnemonicParsing="false" onAction="#handleVerwijderen" prefHeight="32.0" prefWidth="161.0" text="Verwijderen" />
             <Button fx:id="bToevoegen" mnemonicParsing="false" onAction="#handleToevoegen" text="Boek Toevoegen" />
         </buttons>
       </ButtonBar>

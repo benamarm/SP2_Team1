@@ -33,11 +33,7 @@ public class OpleidingDAO {
 	public static ObservableList<Boek> getBoeken(Opleiding o){
 		JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
 		ObservableList<Boek>  observables = FXCollections.observableArrayList();
-		SessionFactory factory = new Configuration().configure().addAnnotatedClass(Adres.class).addAnnotatedClass(Boek.class)
-				.addAnnotatedClass(Event.class).addAnnotatedClass(Log.class).addAnnotatedClass(Opleiding.class)
-				.addAnnotatedClass(Personeel.class).addAnnotatedClass(User.class).addAnnotatedClass(Vaardigheid.class)
-				.addAnnotatedClass(Vraag.class).addAnnotatedClass(WebUser.class).buildSessionFactory();
-		Session session = factory.getCurrentSession();
+		Session session = Main.factory.getCurrentSession();
 		session.beginTransaction();
 		ArrayList<Boek> boeken = new ArrayList<Boek>();
 		
@@ -150,18 +146,13 @@ public class OpleidingDAO {
 		return observables;
 	}
 	
-	public static boolean addBoekToOpleiding(Boek b, Opleiding o) {
-		SessionFactory factory = new Configuration().configure().addAnnotatedClass(Adres.class).addAnnotatedClass(Boek.class)
-				.addAnnotatedClass(Event.class).addAnnotatedClass(Log.class).addAnnotatedClass(Opleiding.class)
-				.addAnnotatedClass(Personeel.class).addAnnotatedClass(User.class).addAnnotatedClass(Vaardigheid.class)
-				.addAnnotatedClass(Vraag.class).addAnnotatedClass(WebUser.class).buildSessionFactory();
-		
-		Session session = factory.getCurrentSession();
+	public static boolean addBoekToOpleiding(Boek b, Opleiding o) {		
+		Session session = Main.factory.getCurrentSession();
 		session.beginTransaction();
 			try {
 				System.out.println("De functie werd uitgevoerd.");
-				Query q = session.createSQLQuery("INSERT INTO opleiding_boek (opleiding_id, ISBN) VALUES (:opl, :boek)");
-				q.setParameter("opl", o.getOpleidingId()).setParameter("boek", b.getIsbn());
+				Query q = session.createNativeQuery("INSERT INTO opleiding_boek (opleiding_id, ISBN) VALUES (:opl, :boek)");
+				q.setParameter("opl", o.getOpleidingId()).setParameter("boek", b.getIsbn()==null?" ":b.getIsbn()).executeUpdate();
 				session.getTransaction().commit();
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -177,7 +168,7 @@ public class OpleidingDAO {
 		
 		if(b != null & o != null) {
 			try {
-				Query q = session.createNativeQuery("DELETE from opleiding_boek where opleiding_id = :o and isbn = :b)");
+				Query q = session.createNativeQuery("DELETE from opleiding_boek where opleiding_id = :o and isbn = :b");
 				q.setParameter("o", o.getOpleidingId()).setParameter("b", b.getIsbn());
 				q.executeUpdate();
 			} catch (Exception e) {
