@@ -3,8 +3,10 @@ package gui;
 import java.io.IOException;
 
 import database.OpleidingDAO;
+import exceptions.BoekNietGevondenException;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -31,6 +33,7 @@ import logic.Opleiding;
 import javafx.scene.control.Button;
 
 public class BoekenController {
+	
 	
 	@FXML
 	ComboBox<Opleiding> opleidingen;
@@ -71,23 +74,48 @@ public class BoekenController {
 			popup.setResizable(false);
 			popup.centerOnScreen();
 			popup.setScene(scene);
+			AddBoekenController c = (AddBoekenController) f.getController();
+			c.setSelectedOpleiding(opleidingen.getValue());
 			popup.setOnCloseRequest(new EventHandler<WindowEvent>() {
 				public void handle(WindowEvent we) {
 					setBoeken();
 				}
 			});
-			AddBoekenController c = (AddBoekenController) f.getController();
-			c.setSelectedOpleiding(opleidingen.getValue());
 			popup.show();
 		} else {
 			lWarning.setTextFill(Color.web("ff0000"));
 			lWarning.setText("Oops! Je hebt nog geen opleiding gekozen!");
 		}
-			
 	}
 	
 	@FXML
-	private void setBoeken() {
+	private void handleVerwijderen() throws IOException {
+		ObservableList<Boek> selectedBooks = boeken.getSelectionModel().getSelectedItems();
+		if(selectedBooks.size() > 0 & opleidingen.getValue() != null) {
+			for(Boek b: boeken.getSelectionModel().getSelectedItems()) {
+				try {
+					OpleidingDAO.removeBoekFromOpleiding(b, opleidingen.getValue());
+				} catch (BoekNietGevondenException e) {
+					e.printStackTrace();
+				}
+			}
+			lWarning.setTextFill(Color.web("#1bc72f"));
+			if(boeken.getSelectionModel().getSelectedItems().size() > 1) {
+				lWarning.setText(boeken.getSelectionModel().getSelectedItems().size() + " boeken werden verwijderd van -"+opleidingen.getValue().getNaam()+"-");
+				
+			} else {
+				lWarning.setText("\""+boeken.getSelectionModel().getSelectedItem().getIsbn() + "\" werd verwijderd van -"+opleidingen.getValue().getNaam()+"-");
+			}
+			
+		} else {
+			lWarning.setTextFill(Color.web("#ff0000"));
+			lWarning.setText("Selecteer minstens één boek om door te gaan...");
+		}
+		setBoeken();
+	}
+	
+	@FXML
+	public void setBoeken() {
 		lWarning.setText("");
 		boeken.setItems(OpleidingDAO.getBoeken(opleidingen.getValue()));
 		boeken.setPlaceholder(new Label("Deze opleiding heeft momenteel geen boeken."));
@@ -161,4 +189,7 @@ public class BoekenController {
 		boeken.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 	}
 	
+	public void setSelectedOpleiding(Opleiding o) {
+		opleidingen.setValue(o);
+	}
 }
