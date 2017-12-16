@@ -178,4 +178,53 @@ public class Email {
 			me.printStackTrace();
 		}
 	}
+	
+	public static void eventGewijzigd(Event nieuw, Event oud) {
+
+		// properties connection
+		Properties props = new Properties();
+		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.socketFactory.port", "465");
+		props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.port", "465");
+
+		// make connection
+		Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication("noreply.hr.sp2@gmail.com", "+SP2Team1+");
+			}
+		});
+
+		try {
+			// create message
+			Message message = new MimeMessage(session);
+			message.setFrom(new InternetAddress("noreply.hr.sp2@gmail.com"));
+			
+			for(Vaardigheid v : oud.getVaardigheden()) {
+				message.addRecipient(Message.RecipientType.TO,
+						new InternetAddress(v.getPersoneel().getAccount().getLoginemail()));
+			}
+			
+			message.setSubject("Event afgelast");
+			message.setText("Beste \n\nEr zijn wijzigingen aangebracht aan een event."
+					+ "\nNieuw event:\n"
+					+ "\nOpleiding: "+ nieuw.getOpleiding().getNaam() 
+					+ "\nTrainer: " + nieuw.getNaamTrainer()
+					+ "\nAdres: " + nieuw.getAdres().toString() 
+					+ "\nVan " + nieuw.getStringStartdatum() + " tot " + nieuw.getStringEinddatum()
+					+ "\nOud event:\n"
+					+ "\nOpleiding: "+ oud.getOpleiding().getNaam() 
+					+ "\nTrainer: " + oud.getNaamTrainer()
+					+ "\nAdres: " + oud.getAdres().toString() 
+					+ "\nVan " + oud.getStringStartdatum() + " tot " + oud.getStringEinddatum()
+					+ "\n\nGelieve niet te antwoorden op deze mail.");
+			
+			// send the message
+			Transport.send(message);
+
+		} catch (MessagingException me) {
+			me.printStackTrace();
+		}
+	}
 }
