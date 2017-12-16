@@ -1,5 +1,6 @@
 package gui;
 
+import java.text.DecimalFormat;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import database.OpleidingDAO;
@@ -8,14 +9,14 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Tooltip;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.stage.Stage;
@@ -28,6 +29,7 @@ import logic.Opleiding;
 import javafx.scene.control.Button;
 
 public class AddBoekenController {
+	
 	@FXML
 	TextField lSearch;
 	
@@ -58,13 +60,32 @@ public class AddBoekenController {
 	@FXML
 	Label lTotaalPrijs;
 	
-	public Opleiding selectedOpleiding;
+	private Opleiding selectedOpleiding;
 	
 	
 	public Opleiding getSelectedOpleiding() {
 		return selectedOpleiding;
 	}
-
+	
+	@FXML
+	private void handleTotaalPrijs(){
+		Double som = 0.0;
+		lTotaalPrijs.setTextFill(Color.web("#1bc72f"));
+		Boek b;
+			for(int i=0; i< boeken.getSelectionModel().getSelectedItems().size(); i++) {
+				b = boeken.getSelectionModel().getSelectedItems().get(i);
+				if(b.getPrijs() != null && b.getPrijs() != "" && b.getPrijs() != "null") {
+					som += Double.parseDouble(boeken.getSelectionModel().getSelectedItems().get(i).getPrijs());
+				} else {
+					som += 0.00;
+				}
+				
+			}
+			DecimalFormat df = new DecimalFormat("0.00");      
+			lTotaalPrijs.setText("Totaalprijs: " + df.format(som) + " EURO");
+			
+	}
+	
 	
 	@FXML
 	private void handleDoorgaan() {
@@ -80,6 +101,7 @@ public class AddBoekenController {
 			} else {
 				lWarning.setText("\""+boeken.getSelectionModel().getSelectedItem().getIsbn() + "\" werd toegevoegd aan -"+selectedOpleiding.getNaam()+"-");
 			}
+			annuleren.setText("Afsluiten");
 			
 		} else {
 			lWarning.setTextFill(Color.web("#ff0000"));
@@ -90,8 +112,9 @@ public class AddBoekenController {
 	@FXML
 	private void handleAnnuleren() {
 		Stage stage = (Stage) annuleren.getScene().getWindow();
-	    stage.close();
-	    setBoeken();
+	    //stage.close();
+	    
+	    stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
 	}
 
 	public void setSelectedOpleiding(Opleiding selectedOpleiding) {
@@ -102,10 +125,15 @@ public class AddBoekenController {
 	
 	@FXML
 	private void handleSelecteerAlles() {
-		if (select.isSelected())
+		if (select.isSelected()) {
 			boeken.getSelectionModel().selectAll();
-		else
+			select.setText("Selecteer niets");
+			}
+		else {
 			boeken.getSelectionModel().clearSelection();
+			select.setText("Selecteer alles");
+		}
+		handleTotaalPrijs();
 	}
 	
 	@FXML
@@ -124,7 +152,7 @@ public class AddBoekenController {
 		ObservableList<Boek> boekenSearch= FXCollections.observableArrayList();
 		GoogleBooksExecutableQuery query = new GoogleBooksExecutableQuery(GoogleBooksQueryPrefix.TITEL, lSearch.getText());
 		try {
-			boekenSearch = (ObservableList<Boek>) GoogleBooks.executeQuery(jsonFactory, query);
+			boekenSearch = FXCollections.observableArrayList(GoogleBooks.executeQuery(jsonFactory, query));
 			boeken.setItems(boekenSearch);
 			
 		} catch (Exception e) {
@@ -137,15 +165,36 @@ public class AddBoekenController {
 	@FXML
 	private void setBoeken() {
 		JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
+		//de GoogleBooks zoekresultaten
 		ObservableList<Boek> boekenSearch = null;
+		//De boeken die we effectief gaan tonen
+		ObservableList<Boek> boekenTeTonen = FXCollections.observableArrayList();
+		// De Boeken die al in de opleiding zitten mogen niet getoond worden
+		ObservableList<Boek> boekenInOpleiding = FXCollections.observableArrayList(OpleidingDAO.getBoeken(selectedOpleiding));
 		GoogleBooksExecutableQuery query = new GoogleBooksExecutableQuery(GoogleBooksQueryPrefix.TITEL, selectedOpleiding.getNaam());
+		//bool om bij te houden of er match gevonden ward
+		boolean isMatch;
 		try {
 			boekenSearch = FXCollections.observableArrayList(GoogleBooks.executeQuery(jsonFactory, query));
+			for(int i=0; i < boekenSearch.size(); i++) {
+				//bool om bij te houden of er match gevonden ward
+				isMatch = false;
+				//We vergelijken elk boek in opleiding met elk van Google
+				for(int j=0; i< boekenInOpleiding.size(); i++) {
+					//is het een match ???
+					if(boekenSearch.get(i).getIsbn() == boekenInOpleiding.get(j).getIsbn()) {
+						isMatch = true; break;
+					}
+				}
+				if(!isMatch) {
+					boekenTeTonen.add(boekenSearch.get(i));
+				}
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		boeken.setItems(boekenSearch);
+		boeken.setItems(boekenTeTonen);
 		boeken.setPlaceholder(new Label("Deze opleiding heeft momenteel geen boeken."));
 	}
 	

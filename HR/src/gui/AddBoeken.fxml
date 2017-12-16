@@ -10,7 +10,7 @@
 
 <AnchorPane prefHeight="475.0" prefWidth="750.0" style="-fx-background-color: #c6d9eb;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.AddBoekenController">
    <children>
-      <TableView fx:id="boeken" focusTraversable="false" layoutX="14.0" layoutY="41.0" prefHeight="420.0" prefWidth="519.0">
+      <TableView fx:id="boeken" focusTraversable="false" layoutX="14.0" layoutY="41.0" onMouseClicked="#handleTotaalPrijs" prefHeight="420.0" prefWidth="519.0">
         <columns>
           <TableColumn fx:id="colTitel" editable="false" prefWidth="424.0" resizable="false" text="TITEL" />
           <TableColumn fx:id="colPrijs" editable="false" prefWidth="94.0" resizable="false" style="-fx-alignment: CENTER;" text="PRIJS (EUR)" />

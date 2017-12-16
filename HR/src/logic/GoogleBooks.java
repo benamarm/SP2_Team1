@@ -111,7 +111,10 @@ public class GoogleBooks{
 		      }
 		      
 		      // En nu het boek toevoegen aan onze zoekresultaten en indien nodig opnieuw beginnen
-		      zoekresultaten.add(boek);
+
+		      if(boek.getIsbn() != null && boek.getIsbn() != "" && boek.getIsbn() != "null") {
+		    	  	zoekresultaten.add(boek);
+		      }
 		    }
 		    
 		    
@@ -123,17 +126,19 @@ public class GoogleBooks{
 	  
 	  public static void main(String[] args) {
 		  JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
-		  GoogleBooksExecutableQuery query = new GoogleBooksExecutableQuery(GoogleBooksQueryPrefix.ISBN, "9780123820211");
+		  GoogleBooksExecutableQuery query = new GoogleBooksExecutableQuery(GoogleBooksQueryPrefix.TITEL, "ABAP");
 		    try {
 		      try {
 		        ArrayList<Boek> boeken = GoogleBooks.executeQuery(jsonFactory, query);
-		        for(Boek b: boeken) {
-		        	System.out.println(b.getTitel());
-		        	System.out.println(b.getIsbn());
-		        	System.out.println(b.getAuteurs());
-		        	System.out.println(b.getBeschrijving());
-		        	System.out.println(b.getPrijs());
-		        	System.out.println();
+		        if(boeken != null) {
+		        	for(Boek b: boeken) {
+			        	System.out.println(b.getTitel());
+			        	System.out.println(b.getIsbn());
+			        	System.out.println(b.getAuteurs());
+			        	System.out.println(b.getBeschrijving());
+			        	System.out.println(b.getPrijs());
+			        	System.out.println();
+			        }
 		        }
 		        
 		        return;

@@ -20,9 +20,9 @@ import logic.Opleiding;
 public class OpleidingDAO {
 
 	public static ObservableList<Boek> getBoeken(Opleiding o) {
-		JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
-		ObservableList<Boek> observables = FXCollections.observableArrayList();
-		Session session = Main.factory.getCurrentSession();
+	JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
+  ObservableList<Boek> observables = FXCollections.observableArrayList();
+  Session session = Main.factory.getCurrentSession();
 		session.beginTransaction();
 		ArrayList<Boek> boeken = new ArrayList<Boek>();
 
@@ -135,15 +135,14 @@ public class OpleidingDAO {
 		}
 		return observables;
 	}
-
-	public static boolean addBoekToOpleiding(Boek b, Opleiding o) {
+	
+	public static boolean addBoekToOpleiding(Boek b, Opleiding o) {		
 		Session session = Main.factory.getCurrentSession();
 		session.beginTransaction();
-		try {
-			System.out.println("De functie werd uitgevoerd.");
-			Query q = session.createNativeQuery("INSERT INTO opleiding_boek (opleiding_id, ISBN) VALUES (:opl, :boek)");
-			q.setParameter("opl", o.getOpleidingId()).setParameter("boek", b.getIsbn());
-			if (q.executeUpdate() == 1) {
+			try {
+				System.out.println("De functie werd uitgevoerd.");
+				Query q = session.createNativeQuery("INSERT INTO opleiding_boek (opleiding_id, ISBN) VALUES (:opl, :boek)");
+				q.setParameter("opl", o.getOpleidingId()).setParameter("boek", b.getIsbn()==null?" ":b.getIsbn()).executeUpdate();
 				session.getTransaction().commit();
 				return true;
 			}
@@ -160,8 +159,7 @@ public class OpleidingDAO {
 
 		if (b != null & o != null) {
 			try {
-				Query q = session
-						.createNativeQuery("DELETE from opleiding_boek where opleiding_id = :o and isbn = :b)");
+Query q = session.createNativeQuery("DELETE from opleiding_boek where opleiding_id = :o and isbn = :b");
 				q.setParameter("o", o.getOpleidingId()).setParameter("b", b.getIsbn());
 				q.executeUpdate();
 			} catch (Exception e) {
