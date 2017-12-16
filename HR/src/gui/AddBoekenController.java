@@ -1,25 +1,15 @@
 package gui;
 
-import java.io.IOException;
-
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
-
 import database.OpleidingDAO;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -27,15 +17,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.scene.control.TableColumn.CellDataFeatures;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import javafx.util.Callback;
-import logic.Adres;
 import logic.Boek;
-import logic.Event;
 import logic.GoogleBooks;
 import logic.GoogleBooksExecutableQuery;
 import logic.GoogleBooksQueryPrefix;
@@ -98,7 +83,7 @@ public class AddBoekenController {
 			
 		} else {
 			lWarning.setTextFill(Color.web("#ff0000"));
-			lWarning.setText("Selecteer minstens één boek om door te gaan...");
+			lWarning.setText("Selecteer minstens 1 boek om door te gaan.");
 		}
 	}
 	
@@ -149,7 +134,6 @@ public class AddBoekenController {
 	}
 	
 	
-	@SuppressWarnings("unchecked")
 	@FXML
 	private void setBoeken() {
 		JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
@@ -168,13 +152,28 @@ public class AddBoekenController {
 	
 	@FXML
 	public void initialize() {
-		boeken.setPlaceholder(new Label("Kies hierboven eerst een opleiding..."));
+		boeken.setPlaceholder(new Label("Kies hierboven eerst een opleiding."));
 
 		colTitel.setCellValueFactory(new Callback<CellDataFeatures<Boek, String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<Boek, String> data) {
 				return new SimpleStringProperty(data.getValue().getTitel());
 			}
+		});
+		colTitel.setCellFactory(column -> {
+			return new TableCell<Boek, String>() {
+				@Override
+				protected void updateItem(String item, boolean empty) {
+					super.updateItem(item, empty);
+					setText(item);
+					if (item != null && !item.equals("")) {
+						Tooltip t = new Tooltip(item);
+						t.setMaxWidth(300);
+						t.setWrapText(true);
+						setTooltip(t);
+					}
+				}
+			};
 		});
 		colPrijs.setCellValueFactory(new Callback<CellDataFeatures<Boek, String>, ObservableValue<String>>() {
 			@Override

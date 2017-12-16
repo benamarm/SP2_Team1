@@ -19,7 +19,7 @@
       <Label layoutX="192.0" layoutY="116.0" text="Einddatum:" />
       <DatePicker fx:id="dEind" editable="false" layoutX="192.0" layoutY="136.0" prefHeight="30.0" prefWidth="135.0" />
       <Label layoutX="42.0" layoutY="176.0" text="Bestaande adres:" />
-      <ComboBox fx:id="adressen" layoutX="42.0" layoutY="196.0" onAction="#clearNieuweAdres" prefHeight="30.0" prefWidth="285.0" />
+      <ComboBox fx:id="adressen" layoutX="42.0" layoutY="196.0" onAction="#clearNieuweAdres" prefHeight="30.0" prefWidth="285.0" promptText="Kies een bestaande adres." />
       <Label layoutX="42.0" layoutY="233.0" text="Nieuwe adres:" />
       <TextField fx:id="adresStraat" layoutX="42.0" layoutY="253.0" onKeyReleased="#clearBestaandeAdres" prefHeight="30.0" prefWidth="225.0" promptText="Straatnaam" />
       <TextField fx:id="adresNum" layoutX="282.0" layoutY="253.0" onKeyReleased="#clearBestaandeAdres" prefHeight="30.0" prefWidth="45.0" promptText="N°" />

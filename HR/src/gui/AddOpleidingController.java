@@ -61,9 +61,10 @@ public class AddOpleidingController {
 				lOpl.setStyle("-fx-text-fill: black");
 				lOpl.setText("Opleiding succesvol toegevoegd!");
 			}
-			else
-				lOpl.setText("Er is een technische fout opgelopen.");			
-
+			else {
+				bToevoegen.setDisable(true);
+				lOpl.setText("Er is een technische fout opgelopen.");	
+			}	
 		}
 	}
 
