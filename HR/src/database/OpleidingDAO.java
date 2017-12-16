@@ -146,7 +146,7 @@ public class OpleidingDAO {
 				session.getTransaction().commit();
 				return true;
 			}
-		} catch (Exception e) {
+		catch (Exception e) {
 			e.printStackTrace();
 		}
 		return false;
