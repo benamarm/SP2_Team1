@@ -138,8 +138,8 @@ public class SurveysController {
 				p.setActief(false);
 				session.update(p);
 				session.getTransaction().commit();
-				
-				//log
+
+				// log
 				setSurveys();
 				lCheckSurveys.setStyle("-fx-text-fill: black");
 				lCheckSurveys.setText("Survey succesvol gedeactiveerd.");
@@ -257,7 +257,9 @@ public class SurveysController {
 		ObservableList<Survey> inactief = FXCollections.observableArrayList(q.getResultList());
 
 		// Alle surveys die gepubliceerd zijn
-		q = session.createQuery("FROM Publicatie p WHERE p.publicatieId = (SELECT MAX(p2.publicatieId) from Publicatie p2 WHERE p2.survey.surveyId = p.survey.surveyId) AND p.actief = TRUE ORDER BY tot");
+		q = session.createQuery(
+				"FROM Publicatie p WHERE p.publicatieId = (SELECT MAX(p2.publicatieId) from Publicatie p2 WHERE p2.survey.surveyId = p.survey.surveyId AND p2.survey.opleiding.opleidingId = "
+						+ opleidingen.getValue().getOpleidingId() + ") AND p.actief = TRUE ORDER BY tot");
 		ObservableList<Publicatie> actief = FXCollections.observableArrayList(q.getResultList());
 		session.getTransaction().commit();
 

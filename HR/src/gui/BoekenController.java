@@ -1,7 +1,6 @@
 package gui;
 
 import java.io.IOException;
-
 import database.OpleidingDAO;
 import exceptions.BoekNietGevondenException;
 import javafx.beans.property.SimpleStringProperty;
@@ -84,7 +83,7 @@ public class BoekenController {
 			popup.show();
 		} else {
 			lWarning.setTextFill(Color.web("ff0000"));
-			lWarning.setText("Oops! Je hebt nog geen opleiding gekozen!");
+			lWarning.setText("Geen opleiding geselecteerd.");
 		}
 	}
 	
@@ -125,7 +124,7 @@ public class BoekenController {
 	public void initialize() {
 
 		opleidingen.setPlaceholder(new Label("Er zijn geen opleidingen."));
-		boeken.setPlaceholder(new Label("Kies hierboven eerst een opleiding..."));
+		boeken.setPlaceholder(new Label("Kies hierboven eerst een opleiding."));
 
 		colTitel.setCellValueFactory(new Callback<CellDataFeatures<Boek, String>, ObservableValue<String>>() {
 			@Override

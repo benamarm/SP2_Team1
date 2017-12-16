@@ -21,8 +21,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -30,6 +32,7 @@ import javafx.stage.WindowEvent;
 import javafx.util.Callback;
 import logic.Personeel;
 import logic.User;
+import logic.Vraag;
 
 public class UsersController {
 
@@ -318,6 +321,21 @@ public class UsersController {
 			public ObservableValue<String> call(CellDataFeatures<Personeel, String> data) {
 				return new SimpleStringProperty(data.getValue().getAccount().getLoginemail());
 			}
+		});
+		welEmail.setCellFactory(column -> {
+			return new TableCell<Personeel, String>() {
+				@Override
+				protected void updateItem(String item, boolean empty) {
+					super.updateItem(item, empty);
+					setText(item);
+					if (item != null && !item.equals("")) {
+						Tooltip t = new Tooltip(item);
+						t.setMaxWidth(500);
+						t.setWrapText(true);
+						setTooltip(t);
+					}
+				}
+			};
 		});
 		
 		geenId.setCellValueFactory(new Callback<CellDataFeatures<Personeel, Integer>, ObservableValue<Integer>>() {

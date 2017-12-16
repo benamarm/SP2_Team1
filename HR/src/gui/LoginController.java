@@ -85,6 +85,7 @@ public class LoginController {
 					lForgotPrompt.setStyle("-fx-text-fill: black");
 					lForgotPrompt.setText("U ontvangt binnenkort een e-mail met een nieuw wachtwoord.");
 				} else
+					bForgotOK.setDisable(true);
 					lForgotPrompt.setText("Er is een technische fout opgelopen.");
 			} catch (UserOnbestaandException e) {
 				lForgotPrompt.setText("De gegeven adres heeft geen account.");
