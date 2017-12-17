@@ -15,7 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-
+import database.EventDAO;
 @Entity
 @Table(name = "events", catalog = "SP2Team01")
 public class Event implements java.io.Serializable {
@@ -23,16 +23,20 @@ public class Event implements java.io.Serializable {
 	private static final long serialVersionUID = 1921441815968252172L;
 	private Integer eventId;
 	private Adres adres;
-	private Opleiding opleiding;
+	private  Opleiding opleiding;
 	private String naamTrainer;
 	private Date startdatum;
 	private Date einddatum;
-	private int aantalDeelnames;
-	private int maxDeelnames;
+	private static int aantalDeelnames;
+	private	static int maxDeelnames;
 	private Boolean afgelast;
 	private Set<Vaardigheid> vaardigheden = new HashSet<Vaardigheid>(0);
-
-	public Event() {
+	public Event () {
+		
+	}
+	public Event(Event e) {
+		this.aantalDeelnames=e.getAantalDeelnames();
+		this.maxDeelnames=e.getMaxDeelnames();
 	}
 
 	@Id
@@ -58,7 +62,7 @@ public class Event implements java.io.Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "opleiding_id", nullable = false)
-	public Opleiding getOpleiding() {
+	public  Opleiding getOpleiding() {
 		return this.opleiding;
 	}
 
@@ -94,8 +98,8 @@ public class Event implements java.io.Serializable {
 	}
 
 	@Column(name = "aantal_deelnames", nullable = false)
-	public int getAantalDeelnames() {
-		return this.aantalDeelnames;
+	public static  int getAantalDeelnames() {
+		return aantalDeelnames;
 	}
 
 	public void setAantalDeelnames(int aantalDeelnames) {
@@ -103,8 +107,8 @@ public class Event implements java.io.Serializable {
 	}
 
 	@Column(name = "max_deelnames", nullable = false)
-	public int getMaxDeelnames() {
-		return this.maxDeelnames;
+	public static  int getMaxDeelnames() {
+		return maxDeelnames;
 	}
 
 	public void setMaxDeelnames(int maxDeelnames) {
