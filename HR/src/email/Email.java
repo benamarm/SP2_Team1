@@ -31,10 +31,8 @@ public class Email {
 			message.setFrom(new InternetAddress("noreply.hr.sp2@gmail.com"));
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 			message.setSubject("Nieuw wachtwoord");
-			message.setText(
-					"Beste\n\nU krijgt deze mail omdat uw wachtwoord is gewijzigd.\n"
-					+ "Uw nieuw wachtwoord is: " + password 
-					+ "\n\nGelieve niet te antwoorden op deze mail.");
+			message.setText("Beste\n\nU krijgt deze mail omdat uw wachtwoord is gewijzigd.\n"
+					+ "Uw nieuw wachtwoord is: " + password + "\n\nGelieve niet te antwoorden op deze mail.");
 
 			// send the message
 			Transport.send(message);
@@ -69,11 +67,8 @@ public class Email {
 			message.setFrom(new InternetAddress("noreply.hr.sp2@gmail.com"));
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 			message.setSubject("Account aangemaakt");
-			message.setText(
-					"Beste\n\nU krijgt deze mail omdat er een account werd aangemaakt met uw gegevens.\n"
-					+ "Uw inlog-gegevens zijn:\n"
-					+ "Username: " + to 
-					+ "\nWachtwoord: " + password
+			message.setText("Beste\n\nU krijgt deze mail omdat er een account werd aangemaakt met uw gegevens.\n"
+					+ "Uw inlog-gegevens zijn:\n" + "Username: " + to + "\nWachtwoord: " + password
 					+ "\n\nGelieve niet te antwoorden op deze mail.");
 
 			// send the message
@@ -114,14 +109,13 @@ public class Email {
 					message.setSubject("Goedkeuring opleiding");
 					message.setText("Beste \n\nUw aanvraag is goedgekeurd voor volgend event:\nOpleiding: "
 							+ v.getEvent().getOpleiding().getNaam() + "\nTrainer: " + v.getEvent().getNaamTrainer()
-							+ "\nAdres: " + v.getEvent().getAdres().toString()
-							+ "\nVan " + v.getEvent().getStringStartdatum() + " tot " + v.getEvent().getStringEinddatum()
+							+ "\nAdres: " + v.getEvent().getAdres().toString() + "\nVan "
+							+ v.getEvent().getStringStartdatum() + " tot " + v.getEvent().getStringEinddatum()
 							+ "\n\nGelieve niet te antwoorden op deze mail.");
 				} else {
 					message.setSubject("Afkeuring opleiding");
-					message.setText("Beste \n\nUw aanvraag is afgekeurd voor volgend event:"
-							+ "\nOpleiding: " + v.getEvent().getOpleiding().getNaam() 
-							+ "\nTrainer: " + v.getEvent().getNaamTrainer()
+					message.setText("Beste \n\nUw aanvraag is afgekeurd voor volgend event:" + "\nOpleiding: "
+							+ v.getEvent().getOpleiding().getNaam() + "\nTrainer: " + v.getEvent().getNaamTrainer()
 							+ "\nAdres: " + v.getEvent().getAdres().toString() + "\nVan "
 							+ v.getEvent().getStringStartdatum() + " tot " + v.getEvent().getStringEinddatum()
 							+ "\n\nGelieve niet te antwoorden op deze mail.");
@@ -134,8 +128,11 @@ public class Email {
 			me.printStackTrace();
 		}
 	}
-	
+
 	public static void eventAfgelast(Event e, String reden) {
+
+		if (e.getVaardigheden().size() == 0)
+			return;
 
 		// properties connection
 		Properties props = new Properties();
@@ -156,21 +153,20 @@ public class Email {
 			// create message
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress("noreply.hr.sp2@gmail.com"));
-			
-			for(Vaardigheid v : e.getVaardigheden()) {
-				message.addRecipient(Message.RecipientType.TO,
-						new InternetAddress(v.getPersoneel().getAccount().getLoginemail()));
+
+			for (Vaardigheid v : e.getVaardigheden()) {
+				if (v.isChecked() == true) {
+					message.addRecipient(Message.RecipientType.TO,
+							new InternetAddress(v.getPersoneel().getAccount().getLoginemail()));
+				}
 			}
-			
+
 			message.setSubject("Event afgelast");
-			message.setText("Beste \n\nHet volgende event is afgelast:"
-					+ "\nOpleiding: "+ e.getOpleiding().getNaam() 
-					+ "\nTrainer: " + e.getNaamTrainer()
-					+ "\nAdres: " + e.getAdres().toString() 
-					+ "\nVan " + e.getStringStartdatum() + " tot " + e.getStringEinddatum()
-					+ "\nReden: " + reden
+			message.setText("Beste \n\nHet volgende event is afgelast:" + "\nOpleiding: " + e.getOpleiding().getNaam()
+					+ "\nTrainer: " + e.getNaamTrainer() + "\nAdres: " + e.getAdres().toString() + "\nVan "
+					+ e.getStringStartdatum() + " tot " + e.getStringEinddatum() + "\nReden: " + reden
 					+ "\n\nGelieve niet te antwoorden op deze mail.");
-			
+
 			// send the message
 			Transport.send(message);
 
@@ -178,9 +174,14 @@ public class Email {
 			me.printStackTrace();
 		}
 	}
-	
-	public static void eventGewijzigd(Event nieuw, Event oud) {
 
+	public static void eventGewijzigd(Event nieuw, Event oud) {
+		if (nieuw.getVaardigheden().size() == 0 || (nieuw.getNaamTrainer().equals(oud.getNaamTrainer())
+				&& nieuw.getStartdatum().equals(oud.getStartdatum()) && nieuw.getEinddatum().equals(oud.getEinddatum())
+				&& nieuw.getAdres().equals(oud.getAdres()))) {
+			return;
+		}
+			
 		// properties connection
 		Properties props = new Properties();
 		props.put("mail.smtp.host", "smtp.gmail.com");
@@ -200,26 +201,28 @@ public class Email {
 			// create message
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress("noreply.hr.sp2@gmail.com"));
-			
-			for(Vaardigheid v : oud.getVaardigheden()) {
-				message.addRecipient(Message.RecipientType.TO,
-						new InternetAddress(v.getPersoneel().getAccount().getLoginemail()));
+
+			for (Vaardigheid v : nieuw.getVaardigheden()) {
+				if (v.isChecked() == true) {
+					message.addRecipient(Message.RecipientType.TO,
+							new InternetAddress(v.getPersoneel().getAccount().getLoginemail()));
+				}
 			}
-			
-			message.setSubject("Event afgelast");
-			message.setText("Beste \n\nEr zijn wijzigingen aangebracht aan een event."
-					+ "\nNieuw event:\n"
-					+ "\nOpleiding: "+ nieuw.getOpleiding().getNaam() 
-					+ "\nTrainer: " + nieuw.getNaamTrainer()
-					+ "\nAdres: " + nieuw.getAdres().toString() 
-					+ "\nVan " + nieuw.getStringStartdatum() + " tot " + nieuw.getStringEinddatum()
-					+ "\nOud event:\n"
-					+ "\nOpleiding: "+ oud.getOpleiding().getNaam() 
-					+ "\nTrainer: " + oud.getNaamTrainer()
+
+			message.setSubject("Event gewijzigd");
+			message.setText("Beste \n\nEr zijn wijzigingen aangebracht aan een event waaraan u deelneemt."
+					+ "\n\nOude gegevens van het event:" 
+					+ "\nOpleiding: " + oud.getOpleiding().getNaam()
+					+ "\nTrainer: " + oud.getNaamTrainer() 
 					+ "\nAdres: " + oud.getAdres().toString() 
 					+ "\nVan " + oud.getStringStartdatum() + " tot " + oud.getStringEinddatum()
+					+ "\n\nNieuwe gegevens van het event:" 
+					+ "\nOpleiding: " + nieuw.getOpleiding().getNaam()
+					+ "\nTrainer: " + nieuw.getNaamTrainer() 
+					+ "\nAdres: " + nieuw.getAdres().toString()
+					+ "\nVan " + nieuw.getStringStartdatum() + " tot " + nieuw.getStringEinddatum()
 					+ "\n\nGelieve niet te antwoorden op deze mail.");
-			
+
 			// send the message
 			Transport.send(message);
 

@@ -12,7 +12,7 @@ public class EventDAO {
 		Session session = Main.factory.getCurrentSession();
 		session.beginTransaction();
 		
-		session.update(e);		
+		session.refresh(e);		
 		Hibernate.initialize(e.getVaardigheden());
 		
 		session.getTransaction().commit();

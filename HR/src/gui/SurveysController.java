@@ -266,6 +266,7 @@ public class SurveysController {
 		inactieveSurveys.setItems(inactief);
 		gepubliceerdeSurveys.setItems(actief);
 
+		
 		Callback<ListView<Survey>, ListCell<Survey>> callInactief = lv -> new ListCell<Survey>() {
 			@Override
 			protected void updateItem(Survey s, boolean empty) {
@@ -285,6 +286,7 @@ public class SurveysController {
 		inactieveSurveys.setButtonCell(callInactief.call(null));
 		gepubliceerdeSurveys.setCellFactory(callActief);
 		gepubliceerdeSurveys.setButtonCell(callActief.call(null));
+		
 	}
 
 	@FXML
@@ -319,7 +321,8 @@ public class SurveysController {
 	public void initialize() {
 		vragenInactief.setPlaceholder(new Label("Selecteer eerst een opleiding, dan een survey in de lijsten."));
 		vragenActief.setPlaceholder(new Label("Selecteer eerst een opleiding, dan een survey in de lijsten."));
-
+		
+		//TableView inactieve surveys
 		colIndexInactief
 				.setCellValueFactory(new Callback<CellDataFeatures<Vraag, Integer>, ObservableValue<Integer>>() {
 					@Override
@@ -348,7 +351,8 @@ public class SurveysController {
 				}
 			};
 		});
-
+		
+		//TableView gepubliceerde surveys
 		colIndexActief.setCellValueFactory(new Callback<CellDataFeatures<Vraag, Integer>, ObservableValue<Integer>>() {
 			@Override
 			public ObservableValue<Integer> call(CellDataFeatures<Vraag, Integer> data) {
@@ -376,7 +380,8 @@ public class SurveysController {
 				}
 			};
 		});
-
+		
+		//ComboBox opleidingen
 		ObservableList<Opleiding> list = FXCollections.observableArrayList(OpleidingDAO.getAll());
 		opleidingen.setItems(list);
 		Callback<ListView<Opleiding>, ListCell<Opleiding>> call = lv -> new ListCell<Opleiding>() {
@@ -387,7 +392,8 @@ public class SurveysController {
 			}
 		};
 		opleidingen.setCellFactory(call);
-		opleidingen.setButtonCell(call.call(null));
+		opleidingen.setButtonCell(call.call(null));		
+		
 	}
 
 }
