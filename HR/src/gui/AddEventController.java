@@ -4,7 +4,9 @@ import java.sql.Date;
 import java.time.LocalDate;
 import org.hibernate.Session;
 import database.AdresDAO;
+import database.EventDAO;
 import database.LogDAO;
+import email.Email;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -131,7 +133,8 @@ public class AddEventController {
 
 				bToevoegen.setDisable(true);
 				if (edit) {
-					// stuur email
+					EventDAO.initialize(nieuw);
+					Email.eventGewijzigd(nieuw, teBewerken);
 					LogDAO.eventBewerkt(nieuw);
 				} else
 					LogDAO.eventToegevoegd(nieuw);
@@ -139,6 +142,7 @@ public class AddEventController {
 				lCheck.setText("Event succesvol " + (edit ? "bewerkt." : "toegevoegd."));
 
 			} catch (Exception e) {
+				e.printStackTrace();
 				bToevoegen.setDisable(true);
 				lCheck.setText("Er is een technische fout opgelopen.");
 			}

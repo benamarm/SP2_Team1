@@ -88,17 +88,6 @@ public class OpleidingDAO {
 		return true;
 	}
 
-	public static void initializeSurveys(Opleiding o) {
-
-		Session session = Main.factory.getCurrentSession();
-		session.beginTransaction();
-
-		session.update(o);
-		Hibernate.initialize(o.getSurveys());
-
-		session.getTransaction().commit();
-	}
-
 	public static Opleiding getById(int id) {
 		Opleiding o = new Opleiding();
 		Session session = Main.factory.getCurrentSession();

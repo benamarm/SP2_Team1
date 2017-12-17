@@ -35,6 +35,6 @@
          </columns>
       </TableView>
       <Label fx:id="lCheckVragen" alignment="CENTER" layoutX="49.0" layoutY="573.0" prefHeight="30.0" prefWidth="417.0" textFill="RED" />
-      <Label fx:id="lCheckSurveys1" alignment="CENTER" layoutX="560.0" layoutY="521.0" prefHeight="51.0" prefWidth="361.0" text="Een gepubliceerde survey moet eerst gedeactiveerd worden om gewijzigd te kunnen worden." textAlignment="CENTER" wrapText="true" />
+      <Label alignment="CENTER" layoutX="560.0" layoutY="521.0" prefHeight="51.0" prefWidth="361.0" text="Een gepubliceerde survey moet eerst gedeactiveerd worden om gewijzigd te kunnen worden." textAlignment="CENTER" wrapText="true" />
    </children>
 </AnchorPane>
