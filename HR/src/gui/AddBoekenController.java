@@ -151,7 +151,9 @@ public class AddBoekenController {
 		GoogleBooksExecutableQuery query = new GoogleBooksExecutableQuery(GoogleBooksQueryPrefix.TITEL,
 				lSearch.getText());
 		try {
-			boekenSearch = FXCollections.observableArrayList(GoogleBooks.executeQuery(jsonFactory, query));
+			if(GoogleBooks.executeQuery(jsonFactory, query) != null) {
+				boekenSearch = FXCollections.observableArrayList(GoogleBooks.executeQuery(jsonFactory, query));
+			}
 			boeken.setItems(boekenSearch);
 
 		} catch (Exception e) {
@@ -175,21 +177,24 @@ public class AddBoekenController {
 		// bool om bij te houden of er match gevonden ward
 		boolean isMatch;
 		try {
-			boekenSearch = FXCollections.observableArrayList(GoogleBooks.executeQuery(jsonFactory, query));
-			for (int i = 0; i < boekenSearch.size(); i++) {
-				// bool om bij te houden of er match gevonden ward
-				isMatch = false;
-				// We vergelijken elk boek in opleiding met elk van Google
-				for (int j = 0; i < boekenInOpleiding.size(); i++) {
-					// is het een match ???
-					if (boekenSearch.get(i).getIsbn() == boekenInOpleiding.get(j).getIsbn()) {
-						isMatch = true;
-						break;
+			if(GoogleBooks.executeQuery(jsonFactory, query) != null) {
+				boekenSearch = FXCollections.observableArrayList(GoogleBooks.executeQuery(jsonFactory, query));
+				for (int i = 0; i < boekenSearch.size(); i++) {
+					// bool om bij te houden of er match gevonden ward
+					isMatch = false;
+					// We vergelijken elk boek in opleiding met elk van Google
+					for (int j = 0; i < boekenInOpleiding.size(); i++) {
+						// is het een match ???
+						if (boekenSearch.get(i).getIsbn() == boekenInOpleiding.get(j).getIsbn()) {
+							isMatch = true;
+							break;
+						}
+					}
+					if (!isMatch) {
+						boekenTeTonen.add(boekenSearch.get(i));
 					}
 				}
-				if (!isMatch) {
-					boekenTeTonen.add(boekenSearch.get(i));
-				}
+			
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

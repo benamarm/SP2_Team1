@@ -24,7 +24,7 @@ public class OpleidingDAO {
   ObservableList<Boek> observables = FXCollections.observableArrayList();
   Session session = Main.factory.getCurrentSession();
 		session.beginTransaction();
-		ArrayList<Boek> boeken = new ArrayList<Boek>();
+		ArrayList<Boek> boeken = null;
 
 		try {
 			Query q = session.createNativeQuery("Select isbn from opleiding_boek where opleiding_id = :id");
@@ -34,8 +34,10 @@ public class OpleidingDAO {
 				GoogleBooksExecutableQuery query = new GoogleBooksExecutableQuery(GoogleBooksQueryPrefix.ISBN,
 						list.get(i));
 				boeken = GoogleBooks.executeQuery(jsonFactory, query);
-				for (Boek b : boeken)
-					observables.add(b);
+				if(boeken != null) {
+					for (Boek b : boeken)
+						observables.add(b);
+				}
 			}
 			session.getTransaction().commit();
 		} catch (Exception e) {
