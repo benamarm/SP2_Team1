@@ -3,13 +3,7 @@ package logic;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 
 @Table(name = "boeken", catalog = "SP2Team01")
