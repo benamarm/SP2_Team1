@@ -1,7 +1,7 @@
 package gui;
 
-import org.hibernate.Session;
-
+import database.LogDAO;
+import database.VraagDAO;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -26,35 +26,13 @@ public class DelVraagController {
 	@FXML
 	private void handleOK() {
 
-		Session session = Main.factory.getCurrentSession();
-		session.beginTransaction();
-		
-		try {
-			
-			for(Vraag v : vragen) {
-				if(v.getInx() == toDelete.getInx()) {
-					
-					int index = v.getInx();
-					v.setInx(0);
-					session.update(v);
-					
-					for(int i = index; i < vragen.size(); i++) {
-						vragen.get(i).setInx(vragen.get(i).getInx() - 1);
-						session.update(vragen.get(i));
-					}
-					break;
-				}
-			}
-			
-			session.getTransaction().commit();
-			
+		if(VraagDAO.delete(toDelete, vragen)) {
 			bOK.setDisable(true);
-			//log
+			LogDAO.vraagVerwijderd(toDelete);
 			lCheck.setStyle("-fx-text-fill: black");
 			lCheck.setText("Vraag succesvol verwijderd!");
-			
-			
-		}catch(Exception e) {
+		}
+		else {
 			bOK.setDisable(true);
 			lCheck.setText("Er is een technische fout opgelopen.");
 		}

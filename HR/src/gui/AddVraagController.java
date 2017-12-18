@@ -1,6 +1,7 @@
 package gui;
 
-import org.hibernate.Session;
+import database.LogDAO;
+import database.VraagDAO;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -14,7 +15,7 @@ public class AddVraagController {
 	private Boolean edit;
 	private Vraag oud;
 	private Integer nextInx;
-	
+
 	public void initiate(Survey s, boolean edit, Integer nextInx, Vraag v) {
 		this.s = s;
 		lSurvey.setText(s.getOpleiding().getNaam() + "\n" + s.getTitel());
@@ -26,7 +27,7 @@ public class AddVraagController {
 			tVraag.setText(v.getVraag());
 		}
 	}
-	
+
 	@FXML
 	Label lSurvey;
 	@FXML
@@ -37,66 +38,49 @@ public class AddVraagController {
 	Label lCheck;
 	@FXML
 	Button bOK;
-	
+
 	@FXML
 	private void handleOK() {
-		if(tVraag.getText().equals(""))
+		if (tVraag.getText().equals(""))
 			lCheck.setText("Vraag is leeg.");
-		else if(edit) {
-			
-			if(oud.getVraag().equals(tVraag.getText()))
+		else if (edit) {
+
+			if (oud.getVraag().equals(tVraag.getText()))
 				lCheck.setText("U heeft niets aangepast.");
 			else {
-				
-				Session session = Main.factory.getCurrentSession();
-				session.beginTransaction();
-				
+
 				Vraag nieuw = new Vraag();
 				nieuw.setVraag(tVraag.getText());
 				nieuw.setSurvey(s);
-				nieuw.setInx(oud.getInx());				
+				nieuw.setInx(oud.getInx());
 				oud.setInx(0);
-				
-				try {
-					session.save(nieuw);
-					session.update(oud);					
-					session.getTransaction().commit();
-					
+
+				if (VraagDAO.update(nieuw, oud)) {
 					bOK.setDisable(true);
-					//log
+					LogDAO.vraagBewerkt(nieuw, oud);
 					lCheck.setStyle("-fx-text-fill: black");
 					lCheck.setText("Vraag succesvol bewerkt!");
-					
-				}catch(Exception e) {
-					e.printStackTrace();
+				} else {
 					bOK.setDisable(true);
 					lCheck.setText("Er is een technische fout opgelopen.");
-				}				
+				}
 			}
-		}
-		else {
+		} else {
 			Vraag nieuw = new Vraag();
 			nieuw.setVraag(tVraag.getText());
 			nieuw.setSurvey(s);
 			nieuw.setInx(nextInx);
-			
-			Session session = Main.factory.getCurrentSession();
-			session.beginTransaction();
-			
-			try {
-				session.save(nieuw);
-				session.getTransaction().commit();
-				
+
+			if (VraagDAO.save(nieuw)) {
 				bOK.setDisable(true);
-				//log
+				LogDAO.vraagToegevoegd(nieuw);
 				lCheck.setStyle("-fx-text-fill: black");
 				lCheck.setText("Vraag succesvol toegevoegd!");
-				
-			}catch(Exception e) {
-				e.printStackTrace();
+			} else {
 				bOK.setDisable(true);
 				lCheck.setText("Er is een technische fout opgelopen.");
-			}		
+			}
+
 		}
 	}
 }

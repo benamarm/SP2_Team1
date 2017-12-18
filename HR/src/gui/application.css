@@ -66,6 +66,7 @@
 	-fx-background-insets: 0;
 	-fx-focus-color: transparent;
 	-fx-faint-focus-color: transparent;
+	-fx-cursor: hand;
 }
 
 .tab-label {

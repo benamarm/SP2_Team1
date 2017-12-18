@@ -139,36 +139,37 @@ public class VaardigheidDAO {
 			v.setExtensie(path.getName().substring(path.getName().lastIndexOf(".") + 1));
 			session.update(v);
 			session.getTransaction().commit();
-			
-			certificaat.free();		
-			
+
+			certificaat.free();
+
 		} catch (Exception e) {
-			if(session.getTransaction().isActive())
+			if (session.getTransaction().isActive())
 				session.getTransaction().rollback();
 			e.printStackTrace();
 			return false;
 		}
 		return true;
 	}
-	
+
 	public static boolean downloadCertificaat(Vaardigheid v, File path) {
 
 		Session session = Main.factory.getCurrentSession();
 		session.beginTransaction();
-		
+
 		odata.setInfo(v.getPersoneel());
 
 		try {
 			Blob certificaat = v.getCertificaat();
-			byte[] bytes = certificaat.getBytes(1, (int)certificaat.length());
-			FileOutputStream fout = new FileOutputStream(path.getAbsolutePath() + "\\" + v.getPersoneel().getVolleNaam() + "_" + v.getEvent().getEventId() + "." + v.getExtensie());
+			byte[] bytes = certificaat.getBytes(1, (int) certificaat.length());
+			FileOutputStream fout = new FileOutputStream(path.getAbsolutePath() + "\\" + v.getPersoneel().getVolleNaam()
+					+ "_" + v.getEvent().getEventId() + "." + v.getExtensie());
 			fout.write(bytes);
 			fout.close();
-			
+
 			session.getTransaction().commit();
-			
+
 		} catch (Exception e) {
-			if(session.getTransaction().isActive())
+			if (session.getTransaction().isActive())
 				session.getTransaction().rollback();
 			e.printStackTrace();
 			return false;

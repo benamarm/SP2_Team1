@@ -15,7 +15,7 @@ public class PersoneelDAO {
 		Session session = Main.factory.getCurrentSession();
 		session.beginTransaction();
 
-		Query q = session.createQuery("FROM Personeel");
+		Query<Personeel> q = session.createQuery("FROM Personeel", Personeel.class);
 		List<Personeel> account = q.getResultList();
 		session.getTransaction().commit();
 
@@ -41,7 +41,7 @@ public class PersoneelDAO {
 		Session session = Main.factory.getCurrentSession();
 		session.beginTransaction();
 
-		Query q = session.createQuery("FROM Personeel");
+		Query<Personeel> q = session.createQuery("FROM Personeel", Personeel.class);
 		List<Personeel> ps = q.getResultList();
 		session.getTransaction().commit();
 
@@ -56,8 +56,9 @@ public class PersoneelDAO {
 		Session session = Main.factory.getCurrentSession();
 		session.beginTransaction();
 
-		Query q = session
-				.createQuery("SELECT personeel FROM Vaardigheid WHERE event_id = " + eventId + " AND checked = TRUE");
+		Query<Personeel> q = session.createQuery(
+				"SELECT personeel FROM Vaardigheid WHERE event_id = " + eventId + " AND checked = TRUE",
+				Personeel.class);
 		List<Personeel> ps = q.getResultList();
 		session.getTransaction().commit();
 
@@ -65,6 +66,23 @@ public class PersoneelDAO {
 			odata.setInfo(p);
 
 		return ps;
+	}
+	
+	public static boolean save(Personeel p) {
+		
+		Session session = Main.factory.getCurrentSession();
+		session.beginTransaction();
+		
+		try {
+			session.save(p);
+			session.getTransaction().commit();
+			
+		} catch (Exception e) {			
+			e.printStackTrace();
+			return false;
+		}
+
+		return true;
 	}
 
 }

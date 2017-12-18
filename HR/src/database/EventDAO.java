@@ -6,16 +6,16 @@ import gui.Main;
 import logic.Event;
 
 public class EventDAO {
-	
+
 	public static void initialize(Event e) {
-		
+
 		Session session = Main.factory.getCurrentSession();
 		session.beginTransaction();
-		
-		session.refresh(e);		
+
+		session.refresh(e);
 		Hibernate.initialize(e.getVaardigheden());
-		
+
 		session.getTransaction().commit();
 
-	}	
+	}
 }

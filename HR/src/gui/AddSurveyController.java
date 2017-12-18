@@ -1,7 +1,7 @@
 package gui;
 
-import org.hibernate.Session;
-
+import database.LogDAO;
+import database.SurveyDAO;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -45,9 +45,6 @@ public class AddSurveyController {
 				|| tVraag3.getText().equals("") || tVraag4.getText().equals("") || tVraag5.getText().equals(""))
 			lCheck.setText("Gelieve alle velden in te vullen.");
 		else {
-			Session session = Main.factory.getCurrentSession();
-			session.beginTransaction();
-			
 			Survey s = new Survey();
 			s.setOpleiding(o);
 			s.setTitel(tTitel.getText());
@@ -78,19 +75,14 @@ public class AddSurveyController {
 			v3.setSurvey(s);
 			v4.setSurvey(s);
 			v5.setSurvey(s);
-			
-			try {
-				session.save(s);
-				session.getTransaction().commit();
-				
+			if(SurveyDAO.save(s)) {
 				bToevoegen.setDisable(true);
-				//log
+				LogDAO.surveyToegevoegd(s);
 				lCheck.setStyle("-fx-text-fill: black");
 				lCheck.setText("Survey succesvol toegevoegd!");
-			}						
-			catch(Exception e) {
+			}
+			else {
 				bToevoegen.setDisable(true);
-				e.printStackTrace();
 				lCheck.setText("Er is een technische fout opgelopen.");
 			}
 		}
