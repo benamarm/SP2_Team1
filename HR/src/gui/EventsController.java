@@ -1,8 +1,7 @@
 package gui;
 
 import java.io.IOException;
-import org.hibernate.Session;
-import org.hibernate.query.Query;
+import database.EventDAO;
 import database.OpleidingDAO;
 import database.PersoneelDAO;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -195,16 +194,11 @@ public class EventsController {
 
 		deelnemers.getItems().clear();
 		deelnemers.setPlaceholder(new Label("Selecteer een event."));
-		Session session = Main.factory.getCurrentSession();
-		session.beginTransaction();
-		Query q = session.createQuery("FROM Event WHERE opleiding_id = " + opleidingen.getValue().getOpleidingId()
-				+ " AND einddatum >= CURRENT_DATE() AND afgelast = FALSE ORDER BY startdatum");
-		ObservableList<Event> list = FXCollections.observableArrayList(q.list());
-		session.getTransaction().commit();
 
+		ObservableList<Event> list = FXCollections
+				.observableArrayList(EventDAO.getKomendeEvents(opleidingen.getValue()));
 		events.setItems(list);
 		events.setPlaceholder(new Label("Geen komende events voor deze opleiding."));
-
 	}
 
 	@FXML
