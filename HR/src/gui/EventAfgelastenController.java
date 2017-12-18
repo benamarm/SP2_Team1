@@ -45,8 +45,8 @@ public class EventAfgelastenController {
 			lCheck.setStyle("-fx-text-fill: black");
 			lCheck.setText("Event succesvol afgelast");
 			LogDAO.eventAfgelast(e, tReden.getText());
-			EventDAO.initialize(e);
-			Email.eventAfgelast(e, tReden.getText());
+			if (EventDAO.initialize(e) > 0)
+				Email.eventAfgelast(e, tReden.getText());
 		}
 
 	}

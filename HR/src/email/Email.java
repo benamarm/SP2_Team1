@@ -131,9 +131,6 @@ public class Email {
 
 	public static void eventAfgelast(Event e, String reden) {
 
-		if (e.getVaardigheden().size() == 0)
-			return;
-
 		// properties connection
 		Properties props = new Properties();
 		props.put("mail.smtp.host", "smtp.gmail.com");
@@ -176,9 +173,9 @@ public class Email {
 	}
 
 	public static void eventGewijzigd(Event nieuw, Event oud) {
-		if (nieuw.getVaardigheden().size() == 0 || (nieuw.getNaamTrainer().equals(oud.getNaamTrainer())
+		if (nieuw.getNaamTrainer().equals(oud.getNaamTrainer())
 				&& nieuw.getStartdatum().equals(oud.getStartdatum()) && nieuw.getEinddatum().equals(oud.getEinddatum())
-				&& nieuw.getAdres().equals(oud.getAdres()))) {
+				&& nieuw.getAdres().equals(oud.getAdres())) {
 			return;
 		}
 			

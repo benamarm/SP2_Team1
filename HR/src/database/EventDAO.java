@@ -8,19 +8,25 @@ import org.hibernate.Session;
 import gui.Main;
 import logic.Event;
 import logic.Opleiding;
+import logic.Vaardigheid;
 
 public class EventDAO {
 
-	public static void initialize(Event e) {
+	public static int initialize(Event e) {
 
 		Session session = Main.factory.getCurrentSession();
 		session.beginTransaction();
-
 		session.refresh(e);
 		Hibernate.initialize(e.getVaardigheden());
-
+		
+		int aantalChecked = 0;		
+		for(Vaardigheid v : e.getVaardigheden()) {
+			if(v.isChecked() == true)
+				aantalChecked++;			
+		}
 		session.getTransaction().commit();
-
+		
+		return aantalChecked;
 	}
 
 	public static boolean save(Event e) {

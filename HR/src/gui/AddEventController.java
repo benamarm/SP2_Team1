@@ -120,8 +120,8 @@ public class AddEventController {
 
 				if (EventDAO.update(nieuw)) {
 					bToevoegen.setDisable(true);
-					EventDAO.initialize(nieuw);
-					Email.eventGewijzigd(nieuw, teBewerken);
+					if (EventDAO.initialize(nieuw) > 0)
+						Email.eventGewijzigd(nieuw, teBewerken);
 					LogDAO.eventBewerkt(nieuw);
 					lCheck.setStyle("-fx-text-fill: black");
 					lCheck.setText("Event succesvol bewerkt.");
