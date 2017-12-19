@@ -112,6 +112,7 @@ public class AddEventController {
 			if (edit) {
 
 				nieuw.setEventId(teBewerken.getEventId());
+				nieuw.setAantalDeelnames(teBewerken.getAantalDeelnames());
 
 				if (nieuw.equals(teBewerken)) {
 					lCheck.setText("U heeft niets aangepast.");
