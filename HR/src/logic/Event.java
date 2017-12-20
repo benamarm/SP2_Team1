@@ -15,7 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import database.EventDAO;
+
 @Entity
 @Table(name = "events", catalog = "SP2Team01")
 public class Event implements java.io.Serializable {
@@ -31,12 +31,8 @@ public class Event implements java.io.Serializable {
 	private	 int maxDeelnames;
 	private Boolean afgelast;
 	private Set<Vaardigheid> vaardigheden = new HashSet<Vaardigheid>(0);
-	public Event () {
-		
-	}
-	public Event(Event e) {
-		this.aantalDeelnames=e.getAantalDeelnames();
-		this.maxDeelnames=e.getMaxDeelnames();
+	
+	public Event () {		
 	}
 
 	@Id
@@ -208,7 +204,6 @@ public class Event implements java.io.Serializable {
 		} else if (!startdatum.equals(other.startdatum))
 			return false;
 		return true;
-	}
-	
+	}	
 
 }
