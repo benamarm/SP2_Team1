@@ -22,12 +22,11 @@ public class OpleidingDAO {
 		JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
 		ObservableList<Boek> observables = FXCollections.observableArrayList();
 		Session session = Main.factory.getCurrentSession();
-		session.beginTransaction();
+		if(session.getTransaction().isActive() == false) session.beginTransaction();
 		ArrayList<Boek> boeken = null;
 
 		try {
-			Query<String> q = session.createNativeQuery("Select isbn from opleiding_boek where opleiding_id = :id",
-					String.class);
+			Query q = session.createNativeQuery("Select isbn from opleiding_boek where opleiding_id = :id");
 			q.setParameter("id", o.getOpleidingId());
 			List<String> list = q.getResultList();
 			for (int i = 0; i < list.size(); i++) {
@@ -39,12 +38,12 @@ public class OpleidingDAO {
 						observables.add(b);
 				}
 			}
-			session.getTransaction().commit();
 		} catch (Exception e) {
-			session.getTransaction().commit();
 			e.printStackTrace();
 			return null;
 		}
+
+		session.getTransaction().commit();
 		return observables;
 	}
 
@@ -168,7 +167,6 @@ public class OpleidingDAO {
 		session.beginTransaction();
 		Opleiding o = null;
 		try {
-
 			Query<Opleiding> q = session.createQuery("FROM Opleiding where naam = :name", Opleiding.class);
 			q.setParameter("name", name);
 			o = (Opleiding) q.getSingleResult();

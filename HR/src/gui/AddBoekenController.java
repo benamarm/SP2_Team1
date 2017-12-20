@@ -191,7 +191,7 @@ public class AddBoekenController {
 						}
 					}
 					if (!isMatch) {
-						boekenTeTonen.add(boekenSearch.get(i));
+						boekenTeTonen.add(boekenSearch.get(i-1));
 					}
 				}
 			
@@ -201,7 +201,7 @@ public class AddBoekenController {
 		}
 
 		boeken.setItems(boekenTeTonen);
-		boeken.setPlaceholder(new Label("Deze opleiding heeft momenteel geen boeken."));
+		boeken.setPlaceholder(new Label("Google Books heeft niks kunnen vinden."));
 	}
 
 	@FXML

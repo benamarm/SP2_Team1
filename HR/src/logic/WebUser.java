@@ -37,5 +37,5 @@ public class WebUser implements java.io.Serializable {
 	public void setPersoneel(Personeel personeel) {
 		this.personeel = personeel;
 	}
-
+	
 }
