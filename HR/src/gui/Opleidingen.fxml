@@ -18,7 +18,6 @@
       <Button fx:id="bToevoegen" layoutX="772.0" layoutY="133.0" mnemonicParsing="false" onAction="#handleToevoegen" styleClass="otherbtn" text="Opleiding toevoegen" />
       <Button fx:id="bBewerken" layoutX="792.0" layoutY="277.0" mnemonicParsing="false" onAction="#handleBewerken" prefWidth="120.0" styleClass="otherbtn" text="Bewerken" />
       <Label alignment="CENTER" layoutX="762.0" layoutY="211.0" prefHeight="60.0" prefWidth="180.0" text="Of selecteer een opleiding in de tabel en kies een optie." textAlignment="CENTER" wrapText="true" />
-      <Button fx:id="bBoeken" layoutX="792.0" layoutY="321.0" mnemonicParsing="false" prefWidth="120.0" styleClass="otherbtn" text="Toon boeken" />
       <Label fx:id="lSelectie" layoutX="762.0" layoutY="191.0" prefHeight="20.0" textAlignment="CENTER" textFill="RED" />
    </children>
 </AnchorPane>

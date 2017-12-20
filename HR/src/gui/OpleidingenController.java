@@ -40,8 +40,6 @@ public class OpleidingenController {
 	Button bToevoegen;
 	@FXML
 	Button bBewerken;
-	@FXML
-	Button bBoeken;
 
 	@FXML
 	private void clearLabel() {
@@ -157,7 +155,6 @@ public class OpleidingenController {
 
 		ObservableList<Opleiding> list = FXCollections.observableArrayList(OpleidingDAO.getAll());
 		opleidingen.setItems(list);
-
 	}
 
 }

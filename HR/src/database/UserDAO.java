@@ -131,11 +131,12 @@ public class UserDAO {
 		return u;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public static String getSalt(String email) {
 		Session session = Main.factory.getCurrentSession();
 		if(session.getTransaction().isActive() == false) session.beginTransaction();
 		
-		Query q = session.createNativeQuery("Select salt from applogin where loginemail = :email");
+		Query q = session.createNativeQuery("SELECT salt FROM applogin WHERE loginemail = :email");
 		q.setParameter("email", email);
 		String salt = (String) q.getSingleResult();
 		
