@@ -14,6 +14,7 @@ public class WebUser implements java.io.Serializable {
 	private static final long serialVersionUID = -4508378230330051971L;
 	private String loginemail;
 	private Personeel personeel;
+	private String salt;
 
 	public WebUser() {
 	}
@@ -37,5 +38,16 @@ public class WebUser implements java.io.Serializable {
 	public void setPersoneel(Personeel personeel) {
 		this.personeel = personeel;
 	}
+	
+	@Column(name = "salt", nullable = false, length = 30)
+	public String getSalt() {
+		return salt;
+	}
+
+	public void setSalt(String salt) {
+		this.salt = salt;
+	}
+	
+	
 
 }
