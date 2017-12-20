@@ -140,7 +140,7 @@ public class MainAppController {
 	private void handleButtonStatistieken() {
 		try {
 			mainPane.getChildren().clear();
-			mainPane.getChildren().add(FXMLLoader.load(getClass().getResource("Statistieken.fxml")));
+			mainPane.getChildren().add(FXMLLoader.load(getClass().getResource("Statistiek.fxml")));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

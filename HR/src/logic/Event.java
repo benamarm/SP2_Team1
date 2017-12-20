@@ -27,8 +27,8 @@ public class Event implements java.io.Serializable {
 	private String naamTrainer;
 	private Date startdatum;
 	private Date einddatum;
-	private static int aantalDeelnames;
-	private	static int maxDeelnames;
+	private  int aantalDeelnames;
+	private	 int maxDeelnames;
 	private Boolean afgelast;
 	private Set<Vaardigheid> vaardigheden = new HashSet<Vaardigheid>(0);
 	public Event () {
@@ -98,8 +98,8 @@ public class Event implements java.io.Serializable {
 	}
 
 	@Column(name = "aantal_deelnames", nullable = false)
-	public static  int getAantalDeelnames() {
-		return aantalDeelnames;
+	public  int getAantalDeelnames() {
+		return this.aantalDeelnames;
 	}
 
 	public void setAantalDeelnames(int aantalDeelnames) {
@@ -107,8 +107,8 @@ public class Event implements java.io.Serializable {
 	}
 
 	@Column(name = "max_deelnames", nullable = false)
-	public static  int getMaxDeelnames() {
-		return maxDeelnames;
+	public   int getMaxDeelnames() {
+		return this.maxDeelnames;
 	}
 
 	public void setMaxDeelnames(int maxDeelnames) {
