@@ -44,7 +44,6 @@ public class OpleidingDAO {
 		}
 
 		session.getTransaction().commit();
-		session.close();
 		return observables;
 	}
 
@@ -61,7 +60,6 @@ public class OpleidingDAO {
 			e.printStackTrace();
 			return null;
 		}
-		session.close();
 		return opleidingen;
 	}
 
@@ -75,7 +73,6 @@ public class OpleidingDAO {
 			e.printStackTrace();
 			return false;
 		}
-		session.close();
 		return true;
 	}
 
@@ -89,7 +86,6 @@ public class OpleidingDAO {
 			e.printStackTrace();
 			return false;
 		}
-		session.close();
 		return true;
 	}
 
@@ -108,7 +104,6 @@ public class OpleidingDAO {
 			e.printStackTrace();
 			return null;
 		}
-		session.close();
 		return o;
 	}
 
@@ -128,7 +123,6 @@ public class OpleidingDAO {
 			e.printStackTrace();
 			return null;
 		}
-		session.close();
 		return observables;
 	}
 
@@ -147,7 +141,6 @@ public class OpleidingDAO {
 			session.getTransaction().commit();
 			e.printStackTrace();
 		}
-		session.close();
 		return false;
 
 	}
@@ -167,7 +160,6 @@ public class OpleidingDAO {
 			}
 		}
 		session.getTransaction().commit();
-		session.close();
 	}
 
 	public static Opleiding getByName(String name) {
@@ -183,7 +175,6 @@ public class OpleidingDAO {
 			e.printStackTrace();
 			return null;
 		}
-		session.close();
 		return o;
 	}
 
