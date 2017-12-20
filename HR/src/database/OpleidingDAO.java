@@ -18,6 +18,7 @@ import logic.Opleiding;
 
 public class OpleidingDAO {
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static ObservableList<Boek> getBoeken(Opleiding o) {
 		JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
 		ObservableList<Boek> observables = FXCollections.observableArrayList();
@@ -95,7 +96,7 @@ public class OpleidingDAO {
 		session.beginTransaction();
 
 		try {
-			Query<Opleiding> q = session.createQuery("FROM Opleiding where opleidingId = :id", Opleiding.class);
+			Query<Opleiding> q = session.createQuery("FROM Opleiding WHERE opleidingId = :id", Opleiding.class);
 			q.setParameter("id", id);
 			o = q.getSingleResult();
 			session.getTransaction().commit();
@@ -152,7 +153,7 @@ public class OpleidingDAO {
 
 		if (b != null & o != null) {
 			try {
-				Query q = session.createNativeQuery("DELETE from opleiding_boek where opleiding_id = :o and isbn = :b");
+				Query q = session.createNativeQuery("DELETE FROM opleiding_boek WHERE opleiding_id = :o AND isbn = :b");
 				q.setParameter("o", o.getOpleidingId()).setParameter("b", b.getIsbn());
 				q.executeUpdate();
 			} catch (Exception e) {
@@ -167,7 +168,7 @@ public class OpleidingDAO {
 		session.beginTransaction();
 		Opleiding o = null;
 		try {
-			Query<Opleiding> q = session.createQuery("FROM Opleiding where naam = :name", Opleiding.class);
+			Query<Opleiding> q = session.createQuery("FROM Opleiding WHERE naam = :name", Opleiding.class);
 			q.setParameter("name", name);
 			o = (Opleiding) q.getSingleResult();
 			session.getTransaction().commit();

@@ -55,11 +55,12 @@ public class WebUserDAO {
 		return updated;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public static String getSalt(String email) {
 		Session session = Main.factory.getCurrentSession();
 		if(session.getTransaction().isActive() == false) session.beginTransaction();
 		
-		Query q = session.createNativeQuery("Select salt from weblogin where loginemail = :email");
+		Query q = session.createNativeQuery("SELECT salt FROM weblogin WHERE loginemail = :email");
 		q.setParameter("email", email);
 		String salt = (String) q.getSingleResult();
 		

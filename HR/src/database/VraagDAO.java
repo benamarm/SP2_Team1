@@ -62,6 +62,7 @@ public class VraagDAO {
 					break;
 				}
 			}			
+			session.getTransaction().commit();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
