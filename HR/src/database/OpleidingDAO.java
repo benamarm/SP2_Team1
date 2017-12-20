@@ -145,6 +145,7 @@ public class OpleidingDAO {
 		}
 		return observables;
 	}
+	 
 	
 	public static boolean addBoekToOpleiding(Boek b, Opleiding o) {		
 		Session session = Main.factory.getCurrentSession();
