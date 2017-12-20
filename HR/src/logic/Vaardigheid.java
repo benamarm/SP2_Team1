@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
+import java.sql.Blob;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -18,7 +19,8 @@ public class Vaardigheid implements java.io.Serializable {
 	private Event event;
 	private Personeel personeel;
 	private Boolean checked;
-	private byte[] certificaat;
+	private Blob certificaat;
+	private String extensie;
 
 	public Vaardigheid() {
 	}
@@ -64,12 +66,21 @@ public class Vaardigheid implements java.io.Serializable {
 	}
 
 	@Column(name = "certificaat")
-	public byte[] getCertificaat() {
+	public Blob getCertificaat() {
 		return this.certificaat;
 	}
 
-	public void setCertificaat(byte[] certificaat) {
+	public void setCertificaat(Blob certificaat) {
 		this.certificaat = certificaat;
+	}
+	
+	@Column(name = "extensie")
+	public String getExtensie() {
+		return this.extensie;
+	}
+
+	public void setExtensie(String extensie) {
+		this.extensie = extensie;
 	}
 
 }

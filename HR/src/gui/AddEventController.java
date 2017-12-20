@@ -2,9 +2,10 @@ package gui;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import org.hibernate.Session;
 import database.AdresDAO;
+import database.EventDAO;
 import database.LogDAO;
+import email.Email;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -86,61 +87,61 @@ public class AddEventController {
 		else if (edit && Integer.parseInt(tMax.getText()) < teBewerken.getMaxDeelnames())
 			lCheck.setText("Maximum aantal deelnemers mag enkel verhoogd worden.");
 		else {
-			try {
-				
-				Adres a;
-				if (adresStraat.getText().equals(""))
-					a = adressen.getValue();
-				else {
-					a = new Adres();
-					a.setStraat(adresStraat.getText());
-					a.setNummer(Integer.parseInt(adresNum.getText()));
-					a.setPostcode(Integer.parseInt(adresPostcode.getText()));
-					a.setLand(adresLand.getText());
-					AdresDAO.save(a);
+
+			Adres a;
+			if (adresStraat.getText().equals(""))
+				a = adressen.getValue();
+			else {
+				a = new Adres();
+				a.setStraat(adresStraat.getText());
+				a.setNummer(Integer.parseInt(adresNum.getText()));
+				a.setPostcode(Integer.parseInt(adresPostcode.getText()));
+				a.setLand(adresLand.getText());
+				AdresDAO.save(a);
+			}
+
+			Event nieuw = new Event();
+			nieuw.setAantalDeelnames(0);
+			nieuw.setStartdatum(Date.valueOf(dStart.getValue()));
+			nieuw.setEinddatum(Date.valueOf(dEind.getValue()));
+			nieuw.setMaxDeelnames(Integer.parseInt(tMax.getText()));
+			nieuw.setNaamTrainer(tTrainer.getText());
+			nieuw.setOpleiding(opleiding);
+			nieuw.setAdres(a);
+			nieuw.setAfgelast(false);
+			if (edit) {
+
+				nieuw.setEventId(teBewerken.getEventId());
+				nieuw.setAantalDeelnames(teBewerken.getAantalDeelnames());
+
+				if (nieuw.equals(teBewerken)) {
+					lCheck.setText("U heeft niets aangepast.");
+					return;
 				}
-				
-				Session session = Main.factory.getCurrentSession();
-				session.beginTransaction();
 
-				Event nieuw = new Event();
-				nieuw.setAantalDeelnames(0);
-				nieuw.setStartdatum(Date.valueOf(dStart.getValue()));
-				nieuw.setEinddatum(Date.valueOf(dEind.getValue()));
-				nieuw.setMaxDeelnames(Integer.parseInt(tMax.getText()));
-				nieuw.setNaamTrainer(tTrainer.getText());
-				nieuw.setOpleiding(opleiding);
-				nieuw.setAdres(a);
-				nieuw.setAfgelast(false);
-				if (edit) {
-					
-					nieuw.setEventId(teBewerken.getEventId());
-					
-					if (nieuw.equals(teBewerken)) {
-						session.getTransaction().rollback();
-						lCheck.setText("U heeft niets aangepast.");
-						return;
-					}
-					
-					session.update(nieuw);
-					
-				} else
-					session.save(nieuw);
-
-				session.getTransaction().commit();
-
-				bToevoegen.setDisable(true);
-				if (edit) {
-					// stuur email
+				if (EventDAO.update(nieuw)) {
+					bToevoegen.setDisable(true);
+					if (EventDAO.initialize(nieuw) > 0)
+						Email.eventGewijzigd(nieuw, teBewerken);
 					LogDAO.eventBewerkt(nieuw);
-				} else
-					LogDAO.eventToegevoegd(nieuw);
-				lCheck.setStyle("-fx-text-fill: black");
-				lCheck.setText("Event succesvol " + (edit ? "bewerkt." : "toegevoegd."));
+					lCheck.setStyle("-fx-text-fill: black");
+					lCheck.setText("Event succesvol bewerkt.");
+				} else {
+					bToevoegen.setDisable(true);
+					lCheck.setText("Er is een technische fout opgelopen.");
+				}
 
-			} catch (Exception e) {
-				bToevoegen.setDisable(true);
-				lCheck.setText("Er is een technische fout opgelopen.");
+			} else {
+
+				if (EventDAO.save(nieuw)) {
+					bToevoegen.setDisable(true);
+					LogDAO.eventToegevoegd(nieuw);
+					lCheck.setStyle("-fx-text-fill: black");
+					lCheck.setText("Event succesvol toegevoegd.");
+				} else {
+					bToevoegen.setDisable(true);
+					lCheck.setText("Er is een technische fout opgelopen.");
+				}
 			}
 
 		}

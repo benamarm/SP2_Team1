@@ -2,9 +2,8 @@ package gui;
 
 import java.sql.Date;
 import java.time.LocalDate;
-
-import org.hibernate.Session;
-
+import database.LogDAO;
+import database.SurveyDAO;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
@@ -35,31 +34,21 @@ public class PubliceerSurveyController {
 		if (dTot.getValue() == null || !dTot.getValue().isAfter(LocalDate.now()))
 			lCheck.setText("Ongepaste datum.");
 		else {
-			Session session = Main.factory.getCurrentSession();
-			session.beginTransaction();
-			try {
+			Publicatie p = new Publicatie();
+			p.setSurvey(s);
+			p.setTot(Date.valueOf(dTot.getValue()));
+			p.setActief(true);
 
-				Publicatie p = new Publicatie();
-				p.setSurvey(s);
-				p.setTot(Date.valueOf(dTot.getValue()));
-				p.setActief(true);
-
-				session.save(p);
-				session.getTransaction().commit();
-				
+			if (SurveyDAO.save(p)) {
 				bOK.setDisable(true);
-				//log
+				LogDAO.surveyGepubliceerd(p);
 				lCheck.setStyle("-fx-text-fill: black");
-				lCheck.setText("Survey succesvol gepubliceerd!");				
-
-			} catch (Exception e) {
-				e.printStackTrace();
+				lCheck.setText("Survey succesvol gepubliceerd!");
+			} else {
 				bOK.setDisable(true);
 				lCheck.setText("Er is een technische fout opgelopen.");
 			}
-
 		}
-
 	}
-
+	
 }

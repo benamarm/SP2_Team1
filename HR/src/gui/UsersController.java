@@ -1,11 +1,10 @@
 package gui;
 
 import java.io.IOException;
-import org.hibernate.Session;
-import org.hibernate.query.Query;
 import database.LogDAO;
 import database.PersoneelDAO;
 import database.UserDAO;
+import database.WebUserDAO;
 import email.Email;
 import exceptions.UserOnbestaandException;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -21,8 +20,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -149,7 +150,8 @@ public class UsersController {
 					alSelectie.setStyle("-fx-text-fill: red");
 					alSelectie.setText("Er is een technische fout opgelopen.");
 				}
-			} catch (UserOnbestaandException e) {}
+			} catch (UserOnbestaandException e) {
+			}
 
 		}
 	}
@@ -192,7 +194,7 @@ public class UsersController {
 		wlSelectie.setText("");
 		glSelectie.setText("");
 	}
-	
+
 	@FXML
 	public void initialize() {
 		initAppUsers();
@@ -224,7 +226,7 @@ public class UsersController {
 	Label wlSelectie;
 	@FXML
 	Label glSelectie;
-	
+
 	@FXML
 	private void handleWebPassword() {
 		if (welAccount.getSelectionModel().getSelectedItems().size() == 0) {
@@ -235,30 +237,20 @@ public class UsersController {
 			Personeel p = welAccount.getSelectionModel().getSelectedItem();
 			String password = User.generatePassword();
 
-			try {				
-
-				Session session = Main.factory.getCurrentSession();
-				session.beginTransaction();
-				
-				Query q = session.createNativeQuery("UPDATE weblogin SET password = :pass WHERE loginemail = :email");
-				q.setParameter("pass", password).setParameter("email", p.getAccount().getLoginemail());
-				
-				if (q.executeUpdate() == 1) {
-					session.getTransaction().commit();
-					LogDAO.changedPassword(p.getAccount().getLoginemail(), false);
-					Email.sendPassword(p.getAccount().getLoginemail(), password);
-					wlSelectie.setStyle("-fx-text-fill: black");
-					wlSelectie.setText("Nieuw wachtwoord succesvol gegenereerd!");
-					initWebsite();
-				}
-			} catch (Exception e) {
+			if (WebUserDAO.updatePassword(p.getAccount().getLoginemail(), password)) {
+				LogDAO.changedPassword(p.getAccount().getLoginemail(), false);
+				Email.sendPassword(p.getAccount().getLoginemail(), password);
+				wlSelectie.setStyle("-fx-text-fill: black");
+				wlSelectie.setText("Nieuw wachtwoord succesvol gegenereerd!");
+				initWebsite();
+			} else {
 				wlSelectie.setStyle("-fx-text-fill: red");
 				wlSelectie.setText("Er is een technische fout opgelopen.");
 			}
 
-		}	
+		}
 	}
-	
+
 	@FXML
 	private void handleWebUser() {
 		if (geenAccount.getSelectionModel().getSelectedItems().size() == 0) {
@@ -270,37 +262,25 @@ public class UsersController {
 			String password = User.generatePassword();
 			String loginemail = ("emp" + p.getPersId() + "@hotmail.com");
 
-			try {				
-
-				Session session = Main.factory.getCurrentSession();
-				session.beginTransaction();
-				
-				session.save(p);				
-				Query q = session.createNativeQuery("INSERT INTO weblogin(loginemail, pers_id, password) VALUES(:l, :id, :p)");
-				q.setParameter("l", loginemail).setParameter("id", p.getPersId()).setParameter("p", password);
-				
-				if (q.executeUpdate() == 1) {
-					session.getTransaction().commit();
-					//Log (regarde log de appuser)
-					Email.createdUser(loginemail, password);
-					glSelectie.setStyle("-fx-text-fill: black");
-					glSelectie.setText("Account succesvol aangemaakt!");
-					initWebsite();
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
+			if (PersoneelDAO.save(p) && WebUserDAO.save(loginemail, p, password)) {
+				LogDAO.userToegevoegd(loginemail);
+				Email.createdUser(loginemail, password);
+				glSelectie.setStyle("-fx-text-fill: black");
+				glSelectie.setText("Account succesvol aangemaakt!");
+				initWebsite();
+			} else {
 				glSelectie.setStyle("-fx-text-fill: red");
 				glSelectie.setText("Er is een technische fout opgelopen.");
 			}
 
-		}	
+		}
 	}
 
 	@FXML
 	private void initWebsite() {
 		welAccount.setPlaceholder(new Label("Er zijn geen personeelsleden met account."));
 		geenAccount.setPlaceholder(new Label("Er zijn geen personeelsleden."));
-		
+
 		welId.setCellValueFactory(new Callback<CellDataFeatures<Personeel, Integer>, ObservableValue<Integer>>() {
 			@Override
 			public ObservableValue<Integer> call(CellDataFeatures<Personeel, Integer> data) {
@@ -319,7 +299,22 @@ public class UsersController {
 				return new SimpleStringProperty(data.getValue().getAccount().getLoginemail());
 			}
 		});
-		
+		welEmail.setCellFactory(column -> {
+			return new TableCell<Personeel, String>() {
+				@Override
+				protected void updateItem(String item, boolean empty) {
+					super.updateItem(item, empty);
+					setText(item);
+					if (item != null && !item.equals("")) {
+						Tooltip t = new Tooltip(item);
+						t.setMaxWidth(500);
+						t.setWrapText(true);
+						setTooltip(t);
+					}
+				}
+			};
+		});
+
 		geenId.setCellValueFactory(new Callback<CellDataFeatures<Personeel, Integer>, ObservableValue<Integer>>() {
 			@Override
 			public ObservableValue<Integer> call(CellDataFeatures<Personeel, Integer> data) {
@@ -332,7 +327,7 @@ public class UsersController {
 				return new SimpleStringProperty(data.getValue().getVolleNaam());
 			}
 		});
-		
+
 		ObservableList<Personeel> list1 = FXCollections.observableArrayList(PersoneelDAO.getAllAccount());
 		welAccount.setItems(list1);
 		ObservableList<Personeel> list2 = FXCollections.observableArrayList(PersoneelDAO.getAllNoAccount());

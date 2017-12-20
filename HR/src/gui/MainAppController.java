@@ -128,12 +128,12 @@ public class MainAppController {
 	
 	@FXML
 	private void handleButtonPersoneel() {
-		/*try {
+		try {
 			mainPane.getChildren().clear();
 			mainPane.getChildren().add(FXMLLoader.load(getClass().getResource("Personeel.fxml")));
 		} catch (IOException e) {
 			e.printStackTrace();
-		}*/
+		}
 	}
 	
 	@FXML

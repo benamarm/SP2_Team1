@@ -1,9 +1,9 @@
 package gui;
 
 import java.io.IOException;
-import org.hibernate.Session;
-import org.hibernate.query.Query;
 import database.OpleidingDAO;
+import database.SurveyDAO;
+import database.VraagDAO;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -129,24 +129,16 @@ public class SurveysController {
 			lCheckSurveys.setText("Geen survey geselecteerd.");
 		else {
 			clearLabels();
-			Session session = Main.factory.getCurrentSession();
-			session.beginTransaction();
+			Publicatie p = gepubliceerdeSurveys.getValue();
+			p.setActief(false);
 
-			try {
-
-				Publicatie p = gepubliceerdeSurveys.getValue();
-				p.setActief(false);
-				session.update(p);
-				session.getTransaction().commit();
-				
-				//log
+			if (SurveyDAO.update(p)) {
+				// log
 				setSurveys();
 				lCheckSurveys.setStyle("-fx-text-fill: black");
 				lCheckSurveys.setText("Survey succesvol gedeactiveerd.");
-
-			} catch (Exception e) {
+			} else
 				lCheckSurveys.setText("Er is een technische fout opgelopen.");
-			}
 		}
 	}
 
@@ -246,20 +238,13 @@ public class SurveysController {
 		vragenInactief.getItems().clear();
 		vragenActief.getItems().clear();
 
-		Session session = Main.factory.getCurrentSession();
-		session.beginTransaction();
-
 		// Alle surveys die niet gepubliceerd zijn
-		Query q = session.createNativeQuery("SELECT * FROM surveys s WHERE opleiding_id = "
-				+ opleidingen.getValue().getOpleidingId()
-				+ " AND NOT EXISTS (SELECT 1 FROM surveyPublicaties p WHERE p.survey_id = s.survey_id AND tot > SYSDATE() AND actief = 1)",
-				Survey.class);
-		ObservableList<Survey> inactief = FXCollections.observableArrayList(q.getResultList());
+		ObservableList<Survey> inactief = FXCollections
+				.observableArrayList(SurveyDAO.getInactief(opleidingen.getValue()));
 
 		// Alle surveys die gepubliceerd zijn
-		q = session.createQuery("FROM Publicatie p WHERE p.publicatieId = (SELECT MAX(p2.publicatieId) from Publicatie p2 WHERE p2.survey.surveyId = p.survey.surveyId) AND p.actief = TRUE ORDER BY tot");
-		ObservableList<Publicatie> actief = FXCollections.observableArrayList(q.getResultList());
-		session.getTransaction().commit();
+		ObservableList<Publicatie> actief = FXCollections
+				.observableArrayList(SurveyDAO.getActief(opleidingen.getValue()));
 
 		inactieveSurveys.setItems(inactief);
 		gepubliceerdeSurveys.setItems(actief);
@@ -283,18 +268,15 @@ public class SurveysController {
 		inactieveSurveys.setButtonCell(callInactief.call(null));
 		gepubliceerdeSurveys.setCellFactory(callActief);
 		gepubliceerdeSurveys.setButtonCell(callActief.call(null));
+
 	}
 
 	@FXML
 	private void setVragenInactief() {
 		clearLabels();
 		if (inactieveSurveys.getValue() != null) {
-			Session session = Main.factory.getCurrentSession();
-			session.beginTransaction();
-			Query q = session.createQuery("FROM Vraag WHERE survey_id = " + inactieveSurveys.getValue().getSurveyId()
-					+ " AND inx > 0 ORDER BY inx");
-			ObservableList<Vraag> list = FXCollections.observableArrayList(q.list());
-			session.getTransaction().commit();
+			ObservableList<Vraag> list = FXCollections
+					.observableArrayList(VraagDAO.getInactief(inactieveSurveys.getValue()));
 			vragenInactief.setItems(list);
 		}
 	}
@@ -303,12 +285,8 @@ public class SurveysController {
 	private void setVragenActief() {
 		clearLabels();
 		if (gepubliceerdeSurveys.getValue() != null) {
-			Session session = Main.factory.getCurrentSession();
-			session.beginTransaction();
-			Query q = session.createQuery("FROM Vraag WHERE survey_id = "
-					+ gepubliceerdeSurveys.getValue().getSurvey().getSurveyId() + " AND inx > 0 ORDER BY inx");
-			ObservableList<Vraag> list = FXCollections.observableArrayList(q.list());
-			session.getTransaction().commit();
+			ObservableList<Vraag> list = FXCollections
+					.observableArrayList(VraagDAO.getActief(gepubliceerdeSurveys.getValue().getSurvey()));
 			vragenActief.setItems(list);
 		}
 	}
@@ -318,6 +296,7 @@ public class SurveysController {
 		vragenInactief.setPlaceholder(new Label("Selecteer eerst een opleiding, dan een survey in de lijsten."));
 		vragenActief.setPlaceholder(new Label("Selecteer eerst een opleiding, dan een survey in de lijsten."));
 
+		// TableView inactieve surveys
 		colIndexInactief
 				.setCellValueFactory(new Callback<CellDataFeatures<Vraag, Integer>, ObservableValue<Integer>>() {
 					@Override
@@ -347,6 +326,7 @@ public class SurveysController {
 			};
 		});
 
+		// TableView gepubliceerde surveys
 		colIndexActief.setCellValueFactory(new Callback<CellDataFeatures<Vraag, Integer>, ObservableValue<Integer>>() {
 			@Override
 			public ObservableValue<Integer> call(CellDataFeatures<Vraag, Integer> data) {
@@ -375,6 +355,7 @@ public class SurveysController {
 			};
 		});
 
+		// ComboBox opleidingen
 		ObservableList<Opleiding> list = FXCollections.observableArrayList(OpleidingDAO.getAll());
 		opleidingen.setItems(list);
 		Callback<ListView<Opleiding>, ListCell<Opleiding>> call = lv -> new ListCell<Opleiding>() {
@@ -386,6 +367,7 @@ public class SurveysController {
 		};
 		opleidingen.setCellFactory(call);
 		opleidingen.setButtonCell(call.call(null));
+
 	}
 
 }

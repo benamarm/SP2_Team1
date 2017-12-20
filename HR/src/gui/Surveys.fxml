@@ -10,14 +10,14 @@
 <AnchorPane prefHeight="630.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.SurveysController">
    <children>
       <Label layoutX="49.0" layoutY="24.0" style="-fx-font-weight: bold;" text="Opleidingen:" />
-      <ComboBox fx:id="opleidingen" focusTraversable="false" layoutX="49.0" layoutY="44.0" onAction="#setSurveys" prefHeight="30.0" prefWidth="258.0" />
+      <ComboBox fx:id="opleidingen" focusTraversable="false" layoutX="49.0" layoutY="44.0" onAction="#setSurveys" prefHeight="30.0" prefWidth="258.0" promptText="Kies een opleiding." />
       <Button fx:id="bAddSurvey" layoutX="326.0" layoutY="44.0" mnemonicParsing="false" onAction="#handleAddSurvey" prefWidth="140.0" styleClass="otherbtn" text="Survey toevoegen" />
       <Label layoutX="49.0" layoutY="84.0" style="-fx-font-weight: bold;" text="Inactieve surveys:" />
-      <ComboBox fx:id="inactieveSurveys" focusTraversable="false" layoutX="49.0" layoutY="104.0" onAction="#setVragenInactief" prefHeight="30.0" prefWidth="258.0" />
+      <ComboBox fx:id="inactieveSurveys" focusTraversable="false" layoutX="49.0" layoutY="104.0" onAction="#setVragenInactief" prefHeight="30.0" prefWidth="258.0" promptText="Kies een inactieve survey." />
       <Button fx:id="bPubliceer" layoutX="326.0" layoutY="104.0" mnemonicParsing="false" onAction="#handlePubliceer" prefWidth="140.0" styleClass="otherbtn" text="Survey publiceren" />
       <Label fx:id="lCheckSurveys" alignment="CENTER" layoutX="532.0" layoutY="29.0" prefHeight="51.0" prefWidth="417.0" textFill="RED" />
       <Label layoutX="532.0" layoutY="84.0" style="-fx-font-weight: bold;" text="Gepubliceerde surveys:" />
-      <ComboBox fx:id="gepubliceerdeSurveys" focusTraversable="false" layoutX="532.0" layoutY="104.0" onAction="#setVragenActief" prefHeight="30.0" prefWidth="258.0" />
+      <ComboBox fx:id="gepubliceerdeSurveys" focusTraversable="false" layoutX="532.0" layoutY="104.0" onAction="#setVragenActief" prefHeight="30.0" prefWidth="258.0" promptText="Kies een gepubliceerde survey." />
       <Button fx:id="bDeactiveer" layoutX="799.0" layoutY="104.0" mnemonicParsing="false" onAction="#handleDeactiveer" prefWidth="150.0" styleClass="otherbtn" text="Survey deactiveren" />
       <TableView fx:id="vragenInactief" focusTraversable="false" layoutX="49.0" layoutY="148.0" onMouseClicked="#clearLabels" prefHeight="367.0" prefWidth="417.0">
         <columns>
@@ -35,6 +35,6 @@
          </columns>
       </TableView>
       <Label fx:id="lCheckVragen" alignment="CENTER" layoutX="49.0" layoutY="573.0" prefHeight="30.0" prefWidth="417.0" textFill="RED" />
-      <Label fx:id="lCheckSurveys1" alignment="CENTER" layoutX="560.0" layoutY="521.0" prefHeight="51.0" prefWidth="361.0" text="Een gepubliceerde survey moet eerst gedeactiveerd worden om gewijzigd te kunnen worden." textAlignment="CENTER" wrapText="true" />
+      <Label alignment="CENTER" layoutX="560.0" layoutY="521.0" prefHeight="51.0" prefWidth="361.0" text="Een gepubliceerde survey moet eerst gedeactiveerd worden om gewijzigd te kunnen worden." textAlignment="CENTER" wrapText="true" />
    </children>
 </AnchorPane>

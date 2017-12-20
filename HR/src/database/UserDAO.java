@@ -9,22 +9,23 @@ import gui.Main;
 import logic.User;
 
 public class UserDAO {
-	
+
 	public static List<User> getAllExceptSession() {
-		
+
 		Session session = Main.factory.getCurrentSession();
 		session.beginTransaction();
 
-		Query q = session.createQuery("FROM User WHERE loginemail != :l");
+		Query<User> q = session.createQuery("FROM User WHERE loginemail != :l", User.class);
 		q.setParameter("l", Main.sessionUser.getLoginemail());
 
 		List<User> users = q.getResultList();
 
 		session.getTransaction().commit();
-		
+
 		return users;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public static boolean save(User u, String password) throws UserBestaatReedsException {
 
 		boolean added = false;
@@ -78,6 +79,7 @@ public class UserDAO {
 		return true;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public static boolean updatePassword(String loginemail, String password) throws UserOnbestaandException {
 		Session session = Main.factory.getCurrentSession();
 		session.beginTransaction();
@@ -90,10 +92,10 @@ public class UserDAO {
 		Query q = session.createNativeQuery("UPDATE applogin SET password = :pass WHERE loginemail = :email");
 		q.setParameter("pass", password).setParameter("email", loginemail);
 		boolean updated = false;
-				
+
 		if (q.executeUpdate() == 1)
 			updated = true;
-		
+
 		session.getTransaction().commit();
 
 		return updated;
@@ -112,7 +114,7 @@ public class UserDAO {
 		// speciale INSERT als session.save() niet voldoet
 		// createQuery: HQL, zoek maar op internet ik heb hier niet genoeg plaats xD (je
 		// kan met HQL geen INSERT doen)
-		Query q = session.createQuery("FROM User WHERE loginemail = :l AND password = :p");
+		Query<User> q = session.createQuery("FROM User WHERE loginemail = :l AND password = :p", User.class);
 		q.setParameter("l", login).setParameter("p", password);
 		List<User> users = q.getResultList();
 		if (users.size() > 0)

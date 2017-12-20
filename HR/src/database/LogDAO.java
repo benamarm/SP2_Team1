@@ -6,8 +6,11 @@ import javafx.collections.ObservableList;
 import logic.Event;
 import logic.Log;
 import logic.Opleiding;
+import logic.Publicatie;
+import logic.Survey;
 import logic.User;
 import logic.Vaardigheid;
+import logic.Vraag;
 
 public class LogDAO {
 
@@ -138,6 +141,19 @@ public class LogDAO {
 
 		session.getTransaction().commit();
 	}
+	
+	public static void userToegevoegd(String loginemail) {
+		Session session = Main.factory.getCurrentSession();
+		session.beginTransaction();
+
+		Log log = new Log();
+		log.setBeschrijving("[Website] User " + loginemail + " toegevoegd.");
+		log.setType("INSERT");
+		log.setUser(Main.sessionUser);
+		session.save(log);
+
+		session.getTransaction().commit();
+	}
 
 	public static void eventToegevoegd(Event e) {
 		Session session = Main.factory.getCurrentSession();
@@ -195,6 +211,91 @@ public class LogDAO {
 
 		session.getTransaction().commit();
 	}
+	
+	public static void surveyToegevoegd(Survey s) {
+		Session session = Main.factory.getCurrentSession();
+		session.beginTransaction();
+
+		Log log = new Log();
+		log.setBeschrijving("Survey " + s.getSurveyId() + " toegevoegd voor opleiding " + s.getOpleiding().getOpleidingId());
+		log.setType("INSERT");
+		log.setUser(Main.sessionUser);
+		session.save(log);
+
+		session.getTransaction().commit();
+
+	}
+	
+	public static void surveyGepubliceerd(Publicatie p) {
+		Session session = Main.factory.getCurrentSession();
+		session.beginTransaction();
+
+		Log log = new Log();
+		log.setBeschrijving("Survey " + p.getSurvey().getSurveyId() + " gepubliceerd tot " + p.getStringTot());
+		log.setType("INSERT");
+		log.setUser(Main.sessionUser);
+		session.save(log);
+
+		session.getTransaction().commit();
+
+	}
+	
+	public static void surveyGedeactiveerd(Publicatie p) {
+		Session session = Main.factory.getCurrentSession();
+		session.beginTransaction();
+
+		Log log = new Log();
+		log.setBeschrijving("Publicatie " + p.getPublicatieId() + " gedeactiveerd.");
+		log.setType("UPDATE");
+		log.setUser(Main.sessionUser);
+		session.save(log);
+
+		session.getTransaction().commit();
+
+	}
+	
+	public static void vraagToegevoegd(Vraag v) {
+		Session session = Main.factory.getCurrentSession();
+		session.beginTransaction();
+
+		Log log = new Log();
+		log.setBeschrijving("Vraag " + v.getVraagId() + " toegevoegd aan survey " + v.getSurvey().getSurveyId());
+		log.setType("INSERT");
+		log.setUser(Main.sessionUser);
+		session.save(log);
+
+		session.getTransaction().commit();
+
+	}
+	
+	public static void vraagBewerkt(Vraag nieuw, Vraag oud) {
+		Session session = Main.factory.getCurrentSession();
+		session.beginTransaction();
+
+		Log log = new Log();
+		log.setBeschrijving("Vraag " + oud.getVraagId() + " bewerkt: nu vraag " + nieuw.getVraagId());
+		log.setType("INSERT");
+		log.setUser(Main.sessionUser);
+		session.save(log);
+
+		session.getTransaction().commit();
+
+	}
+	
+	public static void vraagVerwijderd(Vraag v) {
+		Session session = Main.factory.getCurrentSession();
+		session.beginTransaction();
+
+		Log log = new Log();
+		log.setBeschrijving("Vraag " + v.getVraagId() + " verwijderd.");
+		log.setType("UPDATE");
+		log.setUser(Main.sessionUser);
+		session.save(log);
+
+		session.getTransaction().commit();
+
+	}
+
 
 }
 
