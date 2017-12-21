@@ -33,7 +33,8 @@ public class UserDAO {
 
 		// Onderstaande twee statements zal je nodig hebben voor elke DAO-methode!
 		Session session = Main.factory.getCurrentSession();
-		if(session.getTransaction().isActive() == false) session.beginTransaction();
+		if (session.getTransaction().isActive() == false)
+			session.beginTransaction();
 
 		// Check of user reeds bestaat en throw exception
 		if (session.get(User.class, u.getLoginemail()) != null) {
@@ -46,7 +47,8 @@ public class UserDAO {
 		Query q = session.createNativeQuery(
 				"INSERT INTO applogin(loginemail, naam, achternaam, positie, password, salt) VALUES(:l, :n, :a, :po, :pa, :s)");
 		q.setParameter("l", u.getLoginemail()).setParameter("n", u.getNaam()).setParameter("a", u.getAchternaam())
-				.setParameter("po", u.getPositie()).setParameter("pa", SHA512.encrypt(password, salt)).setParameter("s", salt);
+				.setParameter("po", u.getPositie()).setParameter("pa", SHA512.encrypt(password, salt))
+				.setParameter("s", salt);
 		if (q.executeUpdate() == 1) {
 			added = true;
 		}
@@ -61,7 +63,8 @@ public class UserDAO {
 	public static boolean update(User u) {
 
 		Session session = Main.factory.getCurrentSession();
-		if(session.getTransaction().isActive() == false) session.beginTransaction();
+		if (session.getTransaction().isActive() == false)
+			session.beginTransaction();
 
 		try {
 
@@ -82,14 +85,16 @@ public class UserDAO {
 
 	@SuppressWarnings("rawtypes")
 	public static boolean updatePassword(String loginemail, String password) throws UserOnbestaandException {
-		String salt = getSalt(loginemail);
 		Session session = Main.factory.getCurrentSession();
-		if(session.getTransaction().isActive() == false) session.beginTransaction();
+		if (session.getTransaction().isActive() == false)
+			session.beginTransaction();
 
 		if (session.get(User.class, loginemail) == null) {
 			session.getTransaction().commit();
 			throw new UserOnbestaandException();
 		}
+
+		String salt = getSalt(loginemail);
 
 		Query q = session.createNativeQuery("UPDATE applogin SET password = :pass WHERE loginemail = :email");
 		q.setParameter("pass", SHA512.encrypt(password, salt)).setParameter("email", loginemail);
@@ -108,10 +113,18 @@ public class UserDAO {
 	public static User connect(String login, String password) {
 
 		User u = null;
-		String salt = getSalt(login);
+		String salt;
+
+		try {
+			salt = getSalt(login);
+			
+		} catch (Exception e) {
+			return null;
+		}
 
 		Session session = Main.factory.getCurrentSession();
-		if(session.getTransaction().isActive() == false) session.beginTransaction();
+		if (session.getTransaction().isActive() == false)
+			session.beginTransaction();
 
 		// createNativeQuery: standaard SQL-taal van je database, gebruiken voor
 		// speciale INSERT als session.save() niet voldoet
@@ -130,31 +143,33 @@ public class UserDAO {
 
 		return u;
 	}
-	
+
 	@SuppressWarnings("rawtypes")
 	public static String getSalt(String email) {
 		Session session = Main.factory.getCurrentSession();
-		if(session.getTransaction().isActive() == false) session.beginTransaction();
-		
+		if (session.getTransaction().isActive() == false)
+			session.beginTransaction();
+
 		Query q = session.createNativeQuery("SELECT salt FROM applogin WHERE loginemail = :email");
 		q.setParameter("email", email);
 		String salt = (String) q.getSingleResult();
-		
+
 		return salt;
 	}
-	
-//	//deze methode was om de inital users een salt te geven
-//	public static void setSalt(String email) {
-//		Session session = Main.factory.getCurrentSession();
-//		if(session.getTransaction().isActive() == false) session.beginTransaction();
-//		Query q = session.createNativeQuery("UPDATE applogin SET salt = :salt WHERE loginemail = :email");
-//		q.setParameter("salt", SHA512.generateSalt()).setParameter("email", email);
-//		boolean updated = false;
-//
-//		if (q.executeUpdate() == 1)
-//			updated = true;
-//
-//		session.getTransaction().commit();
-//	}
+
+	// //deze methode was om de inital users een salt te geven
+	// public static void setSalt(String email) {
+	// Session session = Main.factory.getCurrentSession();
+	// if(session.getTransaction().isActive() == false) session.beginTransaction();
+	// Query q = session.createNativeQuery("UPDATE applogin SET salt = :salt WHERE
+	// loginemail = :email");
+	// q.setParameter("salt", SHA512.generateSalt()).setParameter("email", email);
+	// boolean updated = false;
+	//
+	// if (q.executeUpdate() == 1)
+	// updated = true;
+	//
+	// session.getTransaction().commit();
+	// }
 
 }

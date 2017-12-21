@@ -11,6 +11,7 @@ import logic.User;
 
 public class UserTest {
 	
+	@SuppressWarnings("rawtypes")
 	public static void main(String[] args) {
 		
 		SessionFactory factory = new Configuration().configure().addAnnotatedClass(User.class).buildSessionFactory();
