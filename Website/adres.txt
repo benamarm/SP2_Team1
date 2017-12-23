@@ -1,0 +1,5 @@
+1,"Generaal Lemanstraat",15,1600,België
+10,Longtinstraat,60,1090,Belgie
+11,Gentsesteenweg,120,1730,België
+13,Ninoofsesteenweg,111,1700,België
+17,Nijverheidskaai,170,1070,België
