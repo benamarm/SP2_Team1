@@ -1,0 +1,425 @@
+.body
+{
+
+background: url('../afbeeldingen/Sans%20titre%201.jpg')  no-repeat;
+	
+	width: 100%; height: 100vh;
+	color:black;
+
+}
+
+.home
+{
+	
+background: url('../afbeeldingen/contact_us_background.jpg');
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	width: 100%; height: 100vh;
+	color:black;
+}
+
+
+.titelLogin
+{
+	margin-top:-5px;
+	color:white;
+	font-family: "Arial black", Gadget, sans-serif;
+	text-align: center;
+	
+}
+
+.vormLogin
+{
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 400px;
+	max-height: 400px;
+	background:linear-gradient(135deg, rgba(44,44,44,1) 0%, rgba(102,102,102,1) 25%, rgba(71,71,71,1) 39%, rgba(43,43,43,1) 76%, rgba(28,28,28,1) 91%, rgba(89,89,89,1) 99%, rgba(19,19,19,1) 100%);
+	border-radius: 20px;
+	border:0px solid; 
+	padding: 50px 60px; margin-top: 20vh;
+	-webkit-box-shadow: 21px 18px 52px 2px rgba(0,0,0,0.75);
+-moz-box-shadow: 21px 18px 52px 2px rgba(0,0,0,0.75);
+box-shadow: 21px 18px 52px 2px rgba(0,0,0,0.75);
+
+}
+.pasword
+{
+margin-left: 450px;
+	margin-bottom:-40px;
+	margin-top: -80px;
+}
+.psw
+{
+	margin-left: 80px;
+}
+
+.vormLogin img
+{
+	width: 120px;
+	margin-top: -120px;
+	margin-left: 80px;
+}
+
+
+
+.opHeader
+{
+	background-color:burlywood;
+	margin-top: 20px;
+	max-width: 600px;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 20px;
+
+
+-webkit-box-shadow: 17px 28px 28px 9px rgba(9,10,28,1);
+-moz-box-shadow: 17px 28px 28px 9px rgba(9,10,28,1);
+box-shadow: 7px 8px 78px 3px rgba(9,10,28,1);
+	
+}
+
+.merci
+{
+	text-align: center;
+}
+
+.opHeader2
+{
+	background-color:burlywood;
+	margin-top: 20px;
+	max-width: 600px;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 20px;
+	
+
+
+-webkit-box-shadow: 17px 28px 28px 9px rgba(9,10,28,1);
+-moz-box-shadow: 17px 28px 28px 9px rgba(9,10,28,1);
+box-shadow: 7px 8px 78px 3px rgba(9,10,28,1);
+	
+}
+
+.opHeader3
+{
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 250px;
+	max-height: 150px;
+background-color: burlywood;
+	border-radius: 20px;
+	border:0px solid; 
+	padding: 30px 40px;
+	-webkit-box-shadow: 21px 18px 52px 2px rgba(0,0,0,0.75);
+-moz-box-shadow: 21px 18px 52px 2px rgba(0,0,0,0.75);
+box-shadow: 21px 18px 52px 2px rgba(0,0,0,0.75);
+	text-align: center;
+	
+}
+
+
+.opHeader4
+{
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 200px;
+	max-height: 100px;
+background-color:red;
+	color: white;
+	border-radius: 20px;
+	border:0px solid; 
+	padding: 10px 20px;
+	-webkit-box-shadow: 21px 18px 52px 2px rgba(0,0,0,0.75);
+-moz-box-shadow: 21px 18px 52px 2px rgba(0,0,0,0.75);
+box-shadow: 21px 18px 52px 2px rgba(0,0,0,0.75);
+	text-align: center;
+	
+}
+
+
+.navbar-inverse
+{
+	margin-top: 10px;
+	max-width:750px;
+	margin-left: auto;
+	margin-right: auto;
+	border-radius: 15px;
+	-webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+-moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+}
+
+.nav
+{
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.btn-danger
+{
+	margin-top: 8px;
+	margin-left: 10px;
+	text-decoration: none;
+	
+	
+}
+.logologo
+{
+	margin-top: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 600px;
+}
+
+.faq
+{
+	max-width: 600px;
+	margin-left: auto;
+	margin-right:auto;
+	font-size: 12px;
+
+	
+}
+
+.vragen
+{
+	font-family: monospace;
+	color: black;
+	text-decoration: underline;
+}
+
+.antwoord
+{
+	font-family: monospace;
+	font-size: 12px;
+}
+
+.contH
+{
+	font-size: 15px;
+	text-align: center;
+	font-family: monospace
+}
+
+.footer
+{
+	font-size: 13px;
+	margin-left: auto;
+	margin-left: auto;
+
+}
+
+.faq
+{
+	border-radius: 15px;
+	padding: 25px;
+	background-color: burlywood;
+	-webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+-moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+}
+
+.cu
+{
+	padding: 15px;
+	background-color:burlywood;
+	border-radius: 15px;
+	-webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+-moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+	max-width: 600px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.homeContact
+{
+	background: url('../afbeeldingen/contact_us_background.jpg');
+	
+	
+}
+table {
+			margin: auto;
+			font-family: "Lucida Sans Unicode", "Lucida Grande", "Segoe Ui";
+			font-size: 10px;
+		}
+
+
+		table td {
+			transition: all .5s;
+
+		}
+		
+		/* Table */
+		.data-table {
+			font-size: 13px;
+			max-width: 600px;
+		
+		}
+
+		.data-table th, 
+		.data-table td {
+			border: 1px solid #e1edff;
+			padding: 7px 17px;
+		}
+		.data-table caption {
+			margin: 7px;
+		}
+
+		/* Table Header */
+		.data-table thead th {
+			background-color:brown;
+			color: #FFFFFF;
+			text-transform: uppercase;
+		}
+
+		/* Table Body */
+		.data-table tbody td {
+			color: #353535;
+			
+			background-color:beige;
+	
+		}
+		
+		.data-table tbody td:last-child 
+		{
+			background-color:beige;
+		}
+		
+		.data-table tbody td:first-child
+		{
+		text-transform: uppercase;
+			font-weight: bold;
+			
+		}
+
+		.data-table tbody tr:nth-child(odd) td {
+			background-color: beige;
+		}
+		.data-table tbody tr:hover td {
+			background-color: #ffffa2;
+			border-color: #ffff0f;
+		}
+
+		.data-table tbody td:empty
+		{
+			background-color: #ffcccc;
+		}
+
+table {
+			margin: auto;
+			font-family: "Lucida Sans Unicode", "Lucida Grande", "Segoe Ui";
+			font-size: 10px;
+		}
+
+
+		table td {
+			transition: all .5s;
+
+		}
+		
+		/* Table */
+		.data-table {
+			font-size: 13px;
+			max-width: 600px;
+		
+		}
+
+		.data-table th, 
+		.data-table td {
+			border: 1px solid #e1edff;
+			padding: 7px 17px;
+		}
+		.data-table caption {
+			margin: 7px;
+		}
+
+		/* Table Header */
+		.data-table thead th {
+			background-color:brown;
+			color: #FFFFFF;
+			text-transform: uppercase;
+		}
+
+		/* Table Body */
+		.data-table tbody td {
+			color: #353535;
+			
+			background-color:beige;
+	
+		}
+		
+		.data-table tbody td:last-child 
+		{
+			background-color:beige;
+		}
+		
+		.data-table tbody td:first-child
+		{
+		text-transform: uppercase;
+			font-weight: bold;
+			
+		}
+
+		.data-table tbody tr:nth-child(odd) td {
+			background-color: beige;
+		}
+		.data-table tbody tr:hover td {
+			background-color: #ffffa2;
+			border-color: #ffff0f;
+		}
+
+		.data-table tbody td:empty
+		{
+			background-color: #ffcccc;
+		}
+
+.frame
+{
+	margin-bottom: auto;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: auto;
+}
+
+.wwVergetenTekst
+{
+    margin-top:0px;
+	color:white;
+	font-family: "Arial", Gadget, sans-serif;
+}
+
+.eve
+{
+	background: url('../afbeeldingen/light-background-1.jpg');
+}
+
+.ev1
+{
+	margin-top: 20px;
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 700px;
+	max-height: 400px;
+}
+
+.hrf
+{
+	text-align: center;
+}
+
+
+		  		.knopTerug
+		{
+			max-width: 120px;
+			max-height: 50px;
+			padding-top: 10px;
+			padding-left: 10px;
+			padding-bottom: 10px;
+			margin: auto;
+			margin-top: 40px;
+		
+			
+			
+		}
